@@ -18,6 +18,7 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 /**
@@ -44,6 +45,9 @@ public class InfoEntity implements Serializable {
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "infoentity")
     private Collection<enitity.Phone> phoneCollection;
+    
+    @ManyToOne(optional = false)
+    private Address adress;
 
     public Integer getId() {
         return id;

@@ -7,15 +7,8 @@ package enitity;
 
 import enitity.*;
 import java.io.Serializable;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
+import java.util.Collection;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -47,6 +40,9 @@ public class Address implements Serializable {
     @JoinColumn(name = "CityInfo_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Cityinfo cityinfo;
+    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "adress")
+    private Collection<enitity.InfoEntity> infoEntities;
 
     public Address() {
     }

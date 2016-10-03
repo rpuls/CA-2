@@ -6,7 +6,7 @@
 package facade;
 
 import enitity.Address;
-import enitity.CityInfo;
+import enitity.CityInfoNew;
 import enitity.Company;
 import enitity.Hobby;
 import enitity.InfoEntity;
@@ -60,8 +60,8 @@ public class Facade {
         return 0;
     }
     
-    public List<CityInfo> getZipCodes(){
-        return new ArrayList<CityInfo>();
+    public List<CityInfoNew> getZipCodes(){
+        return new ArrayList<CityInfoNew>();
     }
     
     public List<Company> getCompaniesByEmpAmount(int number){

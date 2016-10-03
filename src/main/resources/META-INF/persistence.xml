@@ -40,4 +40,24 @@
       <property name="eclipselink.canonicalmodel.subpackage" value="deve"/>
     </properties>
     </persistence-unit>
+    
+    <persistence-unit name="remotetest" transaction-type="RESOURCE_LOCAL">
+        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+        <class>enitity.Person</class>
+        <class>enitity.Phone</class>
+        <class>enitity.Company</class>
+        <class>enitity.Cityinfo</class>
+        <class>enitity.Hobby</class>
+        <class>enitity.Address</class>
+        <class>enitity.InfoEntity</class>
+        <exclude-unlisted-classes>false</exclude-unlisted-classes>
+        <properties>
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://46.101.132.151:3306/test?zeroDateTimeBehavior=convertToNull"/>
+            <property name="javax.persistence.jdbc.user" value="ca"/>
+            <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+            <property name="javax.persistence.jdbc.password" value="g7T4eDAsuH$c"/>
+            <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
+            <property name="eclipselink.canonicalmodel.subpackage" value="remotetest"/>
+        </properties>
+    </persistence-unit>
 </persistence>

@@ -42,6 +42,8 @@ dependency-reduced-pom.xml
 buildNumber.properties
 .mvn/timing.properties
 
+persistence.xml
+
 
 ### Java ###
 *.class

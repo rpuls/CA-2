@@ -39,7 +39,7 @@ public class Address implements Serializable {
     private String additionalInfo;
     @JoinColumn(name = "CityInfo_id", referencedColumnName = "ZIP")
     @ManyToOne(optional = false)
-    private Cityinfo cityinfo;
+    private CityInfo cityinfo;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "adress")
     private Collection<enitity.InfoEntity> infoEntities;
@@ -75,11 +75,11 @@ public class Address implements Serializable {
         this.additionalInfo = additionalInfo;
     }
 
-    public Cityinfo getCityinfo() {
+    public CityInfo getCityinfo() {
         return cityinfo;
     }
 
-    public void setCityinfo(Cityinfo cityinfo) {
+    public void setCityinfo(CityInfo cityinfo) {
         this.cityinfo = cityinfo;
     }
 

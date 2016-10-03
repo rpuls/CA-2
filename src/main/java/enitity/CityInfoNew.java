@@ -30,7 +30,7 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Cityinfo.findAll", query = "SELECT c FROM Cityinfo c"),
     @NamedQuery(name = "Cityinfo.findByZipCode", query = "SELECT c FROM Cityinfo c WHERE c.zipCode = :zipCode"),
     @NamedQuery(name = "Cityinfo.findByCity", query = "SELECT c FROM Cityinfo c WHERE c.city = :city")})
-public class CityInfo implements Serializable {
+public class CityInfoNew implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -44,7 +44,7 @@ public class CityInfo implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "cityinfo")
     private Collection<Address> addressCollection;
 
-    public CityInfo() {
+    public CityInfoNew() {
     }
 
 

@@ -44,7 +44,7 @@ public class Address implements Serializable {
     @Size(max = 45)
     @Column(name = "AdditionalInfo")
     private String additionalInfo;
-    @JoinColumn(name = "CityInfo_id", referencedColumnName = "id")
+    @JoinColumn(name = "CityInfo_id", referencedColumnName = "ZIP")
     @ManyToOne(optional = false)
     private Cityinfo cityinfo;
 

@@ -16,8 +16,8 @@
       <property name="javax.persistence.jdbc.user" value="cagroup"/>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
       <property name="javax.persistence.jdbc.password" value="C3GsG38VDkxsv"/>
-      <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
-      <property name="javax.persistence.sql-load-script-source" value="scripts/populateZip.sql"/>
+      <property name="javax.persistence.schema-generation.database.action" value="create"/>
+      <!--<property name="javax.persistence.sql-load-script-source" value="scripts/populateZip.sql"/>-->
       <property name="eclipselink.canonicalmodel.subpackage" value="deve"/>
     </properties>
     </persistence-unit>

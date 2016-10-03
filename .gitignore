@@ -43,6 +43,7 @@ buildNumber.properties
 .mvn/timing.properties
 
 
+
 ### Java ###
 *.class
 

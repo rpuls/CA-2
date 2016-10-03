@@ -13,6 +13,8 @@ import enitity.InfoEntity;
 import enitity.Person;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 
 /**
  *
@@ -20,7 +22,19 @@ import java.util.List;
  */
 public class Facade {
     
-    public Person getPerson(int id){
+    EntityManagerFactory emf ;
+
+    public Facade(EntityManagerFactory emf) {
+        this.emf = emf;
+    }
+    
+    private EntityManager getEntityManager(){
+        return emf.createEntityManager();
+    }
+    
+
+    //Given phone number
+    public Person getPerson(int phone){
         return new Person();
     }
     
@@ -76,11 +90,11 @@ public class Facade {
         
     }
     
-    public void addAdresse(Address adr){
+    public void addAddress(Address adr){
         
     }
     
-    public void addCitryInfo(){
+    public void addCityInfo(){
         
     }
     

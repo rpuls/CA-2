@@ -21,8 +21,6 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
-/src/main/resources/META-INF/
-
 ### NetBeans ###
 nbproject/private/
 build/

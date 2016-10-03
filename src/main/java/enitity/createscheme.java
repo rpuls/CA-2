@@ -14,7 +14,7 @@ import javax.persistence.Persistence;
 public class createscheme {
     public static void main(String[] args) {
         
-        Persistence.generateSchema("pu", null);
+        Persistence.generateSchema("remote", null);
     }
     
 }

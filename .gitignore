@@ -21,6 +21,7 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+/src/main/resources/META-INF/
 
 ### NetBeans ###
 nbproject/private/
@@ -42,7 +43,6 @@ dependency-reduced-pom.xml
 buildNumber.properties
 .mvn/timing.properties
 
-persistence.xml
 
 
 ### Java ###

@@ -25,10 +25,9 @@ import javax.validation.constraints.Size;
  * @author rasmus
  */
 @Entity
-@Table(name = "cityinfo")
+@Table(name = "CITYINFO")
 @NamedQueries({
     @NamedQuery(name = "Cityinfo.findAll", query = "SELECT c FROM Cityinfo c"),
-    @NamedQuery(name = "Cityinfo.findById", query = "SELECT c FROM Cityinfo c WHERE c.id = :id"),
     @NamedQuery(name = "Cityinfo.findByZipCode", query = "SELECT c FROM Cityinfo c WHERE c.zipCode = :zipCode"),
     @NamedQuery(name = "Cityinfo.findByCity", query = "SELECT c FROM Cityinfo c WHERE c.city = :city")})
 public class Cityinfo implements Serializable {
@@ -36,14 +35,11 @@ public class Cityinfo implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @NotNull
-    @Column(name = "id")
-    private Integer id;
     @Size(max = 45)
-    @Column(name = "zipCode")
+    @Column(name = "ZIP")
     private String zipCode;
     @Size(max = 45)
-    @Column(name = "City")
+    @Column(name = "CITY")
     private String city;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "cityinfo")
     private Collection<Address> addressCollection;
@@ -51,17 +47,6 @@ public class Cityinfo implements Serializable {
     public Cityinfo() {
     }
 
-    public Cityinfo(Integer id) {
-        this.id = id;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public String getZipCode() {
         return zipCode;

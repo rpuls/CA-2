@@ -48,7 +48,13 @@ public class Facade {
     }
 
     public Person getPersonById(int id) {
-        return new Person();
+        EntityManager em = emf.createEntityManager();
+
+        try {
+            return em.find(Person.class, id);
+        } finally {
+            em.close();
+        }
     }
 
     public List<Phone> getPhonesByPerson(Person p) {

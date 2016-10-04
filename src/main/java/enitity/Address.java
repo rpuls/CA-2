@@ -38,11 +38,13 @@ public class Address implements Serializable {
     @Column(name = "AdditionalInfo")
     private String additionalInfo;
     @JoinColumn(name = "CityInfo_id", referencedColumnName = "ZIP")
-    @ManyToOne(optional = false)
-    private CityInfoNew cityInfo;
+//    @ManyToOne(optional = false)
+//    private CityInfoNew cityInfo;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "adress")
     private Collection<enitity.InfoEntity> infoEntities;
+    @ManyToOne
+    private CityInfoNew cityInfoNew;
 
     public Address() {
     }
@@ -76,11 +78,11 @@ public class Address implements Serializable {
     }
 
     public CityInfoNew getCityinfo() {
-        return cityInfo;
+        return cityInfoNew;
     }
 
     public void setCityinfo(CityInfoNew cityinfo) {
-        this.cityInfo = cityinfo;
+        this.cityInfoNew = cityinfo;
     }
 
 }

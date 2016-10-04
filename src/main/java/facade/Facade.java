@@ -155,8 +155,23 @@ public class Facade {
 
     //ADD we might consider if we want to give a ie. person object, or if we will
     //just give the required parameters to create a new person object
+    // ^^ Comment: I think that JPA takes care of that!
     public Person addPerson(Person p) {
-        throw new UnsupportedOperationException("Not supported yet.");
+         EntityManager em = emf.createEntityManager();
+        
+        
+        try{
+        em.getTransaction().begin();
+        em.persist(p);
+        em.getTransaction().commit();
+        }
+        catch(Exception e){
+            System.out.println("Error" + e);
+        }
+        finally{
+            em.close();
+        }
+        return p;
     }
 
     public Company addCompany(Company c) {

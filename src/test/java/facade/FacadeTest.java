@@ -5,6 +5,7 @@
  */
 package facade;
 
+import enitity.Company;
 import enitity.Hobby;
 import enitity.Person;
 import enitity.Phone;
@@ -77,6 +78,13 @@ public class FacadeTest {
     public void testAddPerson() {
         Person p = new Person("Daniel", "Hollmann", "danielhollmann@hotmail.com", null);
         Person found = facade.addPerson(p);
+        assertTrue(found.getId() > 0);
+    }
+    
+    @Test
+    public void testAddCompany() {
+        Company c = new Company("Novo", "4040", "novo@gmail.com", "high", 520);
+        Company found = facade.addCompany(c);
         assertTrue(found.getId() > 0);
     }
 

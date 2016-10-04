@@ -6,6 +6,7 @@
 package enitity;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -92,6 +93,28 @@ public class Company extends InfoEntity implements Serializable {
     public void setNumEmployees(int NumEmployees) {
         this.NumEmployees = NumEmployees;
     }
+
+    @Override
+    public void setAdress(Address adress) {
+        super.setAdress(adress); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Address getAdress() {
+        return super.getAdress(); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void setPhoneCollection(Collection<Phone> phoneCollection) {
+        super.setPhoneCollection(phoneCollection); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Collection<Phone> getPhoneCollection() {
+        return super.getPhoneCollection(); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    
     
     
     

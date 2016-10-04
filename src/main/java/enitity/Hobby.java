@@ -55,9 +55,12 @@ public class Hobby implements Serializable {
     public Hobby() {
     }
 
-    public Hobby(Integer id) {
-        this.id = id;
+    public Hobby(String name, String description) {
+        this.name = name;
+        this.description = description;
     }
+
+    
 
     public Integer getId() {
         return id;

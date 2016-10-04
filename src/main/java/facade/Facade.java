@@ -157,10 +157,26 @@ public class Facade {
     }
 
     public void addCompany(Company c) {
+        
+        
 
     }
 
     public void addHobby(Hobby h) {
+        
+        EntityManager em = emf.createEntityManager();
+       
+        try
+        {
+            em.getTransaction().begin();
+            em.persist(h);
+            em.getTransaction().commit();
+            //return h;
+        }
+        finally
+        {
+            em.close();
+        }
 
     }
 
@@ -173,6 +189,19 @@ public class Facade {
     }
 
     public void addAddress(Address adr) {
+        
+        EntityManager em = emf.createEntityManager();
+       
+        try
+        {
+            em.getTransaction().begin();
+            em.persist(adr);
+            em.getTransaction().commit();
+        }
+        finally
+        {
+            em.close();
+        }
 
     }
 

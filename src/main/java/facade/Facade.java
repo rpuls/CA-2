@@ -11,10 +11,12 @@ import enitity.Company;
 import enitity.Hobby;
 import enitity.InfoEntity;
 import enitity.Person;
+import enitity.Phone;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Query;
 
 /**
  *
@@ -35,25 +37,71 @@ public class Facade {
 
     //Given phone number
     public Person getPerson(int phone){
-        return new Person();
+        EntityManager em=getEntityManager();
+        Person p = new Person();
+        
+        try{
+            em.getTransaction().begin();
+            p = em.find(Person.class, phone); //it should have an access in the phone through the Person
+            em.getTransaction().commit();
+        }finally{
+            em.close();
+        }
+        
+        return p;
     }
     
     public Company getCompany(String phoeOrCvr){
         //in this method we should search for the given parameter in first the
         //phone field, if nothing foud we should search in the cvr field and
         //return null if no company with either matching phone or cvr
-        return new Company();
+        EntityManager em=getEntityManager();
+        Company c = new Company();
+        
+        try{
+            em.getTransaction().begin();
+            c = em.find(Company.class, phoeOrCvr); //it should have an access in the phone through the Company
+            em.getTransaction().commit();
+        }finally{
+            em.close();
+        }
+        
+        return c;
     }
     
     public List<Person> getPersonsByHobby(Hobby hob){
-        return new ArrayList<Person>();
+        
+        EntityManager em= getEntityManager();
+        try{
+            Query query = em.createQuery("SELECT p,h from Person p, Hobby h WHERE h.name= :hobby");
+            query.setParameter("hobby", hob.getName());
+            List<Person> persons = query.getResultList();
+            return persons;
+        }finally{
+            em.close();
+        }
+        
     }
     
     public List<Person> getPersonsByCity(String zipOrCity){
         //the same as before, we should use one string and search in two fiels,
         //MAYBE do a check wether the string looks like a city name og a zip code,
         //and the only search in the relevent field?
-        return new ArrayList<Person>();
+        EntityManager em= getEntityManager();
+        try{
+            Query query;
+            if (Character.isDigit(zipOrCity.charAt(0))) {
+                query = em.createQuery("SELECT p,c from Person p, CityInfo c  WHERE c.ZIP= :zip");
+                query.setParameter("zip", zipOrCity);
+            }else{
+                query = em.createQuery("SELECT p,c from Person p, CityInfo c  WHERE c.CITY= :city");
+                query.setParameter("city", zipOrCity);
+            }
+            List<Person> persons = query.getResultList();
+            return persons;
+        }finally{
+            em.close();
+        }
     }
     
     public int getCountOfPeopleByHobby(Hobby hob){

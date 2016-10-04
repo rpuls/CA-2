@@ -27,9 +27,9 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "CITYINFO")
 @NamedQueries({
-    @NamedQuery(name = "Cityinfo.findAll", query = "SELECT c FROM Cityinfo c"),
-    @NamedQuery(name = "Cityinfo.findByZipCode", query = "SELECT c FROM Cityinfo c WHERE c.zipCode = :zipCode"),
-    @NamedQuery(name = "Cityinfo.findByCity", query = "SELECT c FROM Cityinfo c WHERE c.city = :city")})
+    @NamedQuery(name = "Cityinfo.findAll", query = "SELECT c FROM CityInfoNew c"),
+    @NamedQuery(name = "Cityinfo.findByZipCode", query = "SELECT c FROM CityInfoNew c WHERE c.zipCode = :zipCode"),
+    @NamedQuery(name = "Cityinfo.findByCity", query = "SELECT c FROM CityInfoNew c WHERE c.city = :city")})
 public class CityInfoNew implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -41,7 +41,8 @@ public class CityInfoNew implements Serializable {
     @Size(max = 45)
     @Column(name = "CITY")
     private String city;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cityinfo")
+//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cityinfo")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cityInfoNew")
     private Collection<Address> addressCollection;
 
     public CityInfoNew() {

@@ -38,13 +38,13 @@ public class Address implements Serializable {
     @Column(name = "AdditionalInfo")
     private String additionalInfo;
     @JoinColumn(name = "CityInfo_id", referencedColumnName = "ZIP")
+    @ManyToOne(optional = false)
+    private CityInfoNew cityInfoNew;
 //    @ManyToOne(optional = false)
 //    private CityInfoNew cityInfo;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "adress")
     private Collection<enitity.InfoEntity> infoEntities;
-    @ManyToOne
-    private CityInfoNew cityInfoNew;
 
     public Address() {
     }

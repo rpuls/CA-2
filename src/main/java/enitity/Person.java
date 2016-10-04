@@ -36,6 +36,26 @@ public class Person extends InfoEntity implements Serializable {
         this.hobbyCollection = hobbyCollection;
         super.setEmail(email);
     }
+
+    @Override
+    public void setAdress(Address adress) {
+        super.setAdress(adress); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Address getAdress() {
+        return super.getAdress(); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void setPhoneCollection(Collection<Phone> phoneCollection) {
+        super.setPhoneCollection(phoneCollection); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Collection<Phone> getPhoneCollection() {
+        return super.getPhoneCollection(); //To change body of generated methods, choose Tools | Templates.
+    }
     
     
 

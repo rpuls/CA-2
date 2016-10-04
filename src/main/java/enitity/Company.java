@@ -33,8 +33,6 @@ public class Company extends InfoEntity implements Serializable {
         this.NumEmployees = NumEmployees;
     }
     
-    
-
     @Override
     public void setEmail(String email) {
         super.setEmail(email); //To change body of generated methods, choose Tools | Templates.
@@ -54,8 +52,6 @@ public class Company extends InfoEntity implements Serializable {
     public Integer getId() {
         return super.getId(); //To change body of generated methods, choose Tools | Templates.
     }
-    
-    
 
     public String getName() {
         return name;

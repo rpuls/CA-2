@@ -64,6 +64,24 @@ public class InfoEntity implements Serializable {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public Collection<Phone> getPhoneCollection() {
+        return phoneCollection;
+    }
+
+    public void setPhoneCollection(Collection<Phone> phoneCollection) {
+        this.phoneCollection = phoneCollection;
+    }
+
+    public Address getAdress() {
+        return adress;
+    }
+
+    public void setAdress(Address adress) {
+        this.adress = adress;
+    }
+    
+    
     
     
     

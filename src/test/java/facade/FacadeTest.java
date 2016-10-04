@@ -5,7 +5,12 @@
  */
 package facade;
 
+import enitity.Hobby;
 import enitity.Person;
+import enitity.Phone;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import org.junit.After;
@@ -14,6 +19,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Ignore;
 
 /**
  *
@@ -46,62 +52,34 @@ public class FacadeTest {
     }
 
     @Test
+    @Ignore
     public void testGetPerson() {
-        
+        String phonenumber = "2242"; // 
+        Person p = facade.getPerson(phonenumber);
+        Collection<Phone> l = p.getPhoneCollection();
+        String foundPhonenumber="";
+        for (Phone num : l) {
+           foundPhonenumber = num.getNumer();
+        }
+        assertTrue(phonenumber.equalsIgnoreCase(foundPhonenumber));
     }
 
     @Test
-    public void testGetCompany() {
-    }
-
-    @Test
+    @Ignore
     public void testGetPersonsByHobby() {
+        int expectedCount = 0; // Should change when I know whats in the database
+        Hobby hobby = new Hobby("Basket", "Fun"); // this should change when I know whats in the database!!!
+        Collection<Person> persons = facade.getPersonsByHobby(hobby);
+        assertTrue(expectedCount == persons.size());
     }
 
     @Test
-    public void testGetPersonsByCity() {
-    }
-
-    @Test
-    public void testGetCountOfPeopleByHobby() {
-    }
-
-    @Test
-    public void testGetZipCodes() {
-    }
-
-    @Test
-    public void testGetCompaniesByEmpAmount() {
-    }
-
-    @Test
+    @Ignore
     public void testAddPerson() {
-        Person p = new Person();
-        facade.addPerson(p);
+        Person p = new Person("Daniel", "Hollmann", "danielhollmann@hotmail.com", null);
+        Person found = facade.addPerson(p);
+        assertTrue(found.getId() > 0);
     }
 
-    @Test
-    public void testAddCompany() {
-    }
-
-    @Test
-    public void testAddHobby() {
-    }
-
-    @Test
-    public void testAddInfoEntity() {
-    }
-
-    @Test
-    public void testAddPhone() {
-    }
-
-    @Test
-    public void testAddAddress() {
-    }
-
-    @Test
-    public void testAddCityInfo() {
-    }
     
 }

@@ -36,7 +36,7 @@ public class Facade {
     
 
     //Given phone number
-    public Person getPerson(int phone){
+    public Person getPerson(String phone){
         EntityManager em=getEntityManager();
         Person p = new Person();
         
@@ -118,8 +118,8 @@ public class Facade {
     
     //ADD we might consider if we want to give a ie. person object, or if we will
     //just give the required parameters to create a new person object
-    public void addPerson(Person p){
-        
+    public Person addPerson(Person p){
+       throw new UnsupportedOperationException("Not supported yet.");
     }
     
     public void addCompany(Company c){
@@ -145,5 +145,5 @@ public class Facade {
     public void addCityInfo(){
         
     }
-    
+
 }

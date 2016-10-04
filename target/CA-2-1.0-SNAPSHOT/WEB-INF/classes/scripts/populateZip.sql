@@ -1365,10 +1365,10 @@ INSERT INTO COMPANY (ID,NAME,DESCRIPTION,CVR,NUMEMPLOYEES,MARKETVALUE) VALUES (1
 INSERT INTO COMPANY (ID,NAME,DESCRIPTION,CVR,NUMEMPLOYEES,MARKETVALUE) VALUES (2,'Company B','a firm','4567','2','456');
 INSERT INTO hobby (id,description,name) VALUES (1,'board games','playing chess');
 INSERT INTO hobby (id,description,name) VALUES (2,'computer games','race');
-INSERT INTO phone (id,numer,description) VALUES (1,'123456789','home');
-INSERT INTO phone (id,numer,description) VALUES (2,'987654321','office');
-INSERT INTO phone (id,numer,description) VALUES (3,'012345678','home');
-INSERT INTO phone (id,numer,description) VALUES (4,'234567890','home');
+INSERT INTO phone (id,numer,description,infoentity_ID) VALUES (1,'123456789','home',1);
+INSERT INTO phone (id,numer,description,infoentity_ID) VALUES (2,'987654321','office',2);
+INSERT INTO phone (id,numer,description,infoentity_ID) VALUES (3,'012345678','home',3);
+INSERT INTO phone (id,numer,description,infoentity_ID) VALUES (4,'234567890','home',4);
 INSERT INTO address (id,Street,CityInfo_id,AdditionalInfo) VALUES (1,'Sofievej','2950','abc');
 INSERT INTO address (id,Street,CityInfo_id,AdditionalInfo) VALUES (2,'Poulsvej','1006','def');
 INSERT INTO address (id,Street,CityInfo_id,AdditionalInfo) VALUES (3,'Norgaardsvej','1021','ghi');

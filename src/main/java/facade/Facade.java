@@ -41,9 +41,11 @@ public class Facade {
         Person p = new Person();
         
         try{
-            em.getTransaction().begin();
-            p = em.find(Person.class, phone); //it should have an access in the phone through the Person
-            em.getTransaction().commit();
+            Query query1 = em.createQuery("SELECT p from Phone p WHERE p.numer =:contact");
+            query1.setParameter("contact", phone);
+            Phone num = (Phone) query1.getSingleResult();
+            InfoEntity en = num.getInfoentity();
+            p = em.find(Person.class, en.getId());
         }finally{
             em.close();
         }

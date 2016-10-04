@@ -5,6 +5,7 @@
  */
 package enitity;
 
+import facade.Facade;
 import javax.persistence.Persistence;
 
 /**
@@ -14,7 +15,11 @@ import javax.persistence.Persistence;
 public class createscheme {
     public static void main(String[] args) {
         
-        Persistence.generateSchema("remote", null);
+//        Persistence.generateSchema("remote", null);
+        
+        Facade f = new Facade(Persistence.createEntityManagerFactory("remote"));
+        Person p = f.getPerson("123456789");
+        System.out.println("PERSON:" + p.getFirstName());
     }
     
 }

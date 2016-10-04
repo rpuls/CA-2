@@ -52,9 +52,8 @@ public class FacadeTest {
     }
 
     @Test
-    @Ignore
     public void testGetPerson() {
-        String phonenumber = "2242"; // 
+        String phonenumber = "123456789"; // 
         Person p = facade.getPerson(phonenumber);
         Collection<Phone> l = p.getPhoneCollection();
         String foundPhonenumber="";

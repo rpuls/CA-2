@@ -5,6 +5,7 @@
  */
 package facade;
 
+import enitity.Address;
 import enitity.Company;
 import enitity.Hobby;
 import enitity.Person;
@@ -12,6 +13,7 @@ import enitity.Phone;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import org.junit.After;
@@ -82,10 +84,14 @@ public class FacadeTest {
     }
     
     @Test
-    public void testAddCompany() {
+    public void testCompanyAndAdresseAdd() {
+        EntityManager em = emf.createEntityManager();
+        Address d = em.find(Address.class, 1);
         Company c = new Company("Novo", "4040", "novo@gmail.com", "high", 520);
+        c.setAdress(d);
         Company found = facade.addCompany(c);
         assertTrue(found.getId() > 0);
+        assertTrue("Failed Found:  " + found.getAdress().getStreet(), d == found.getAdress());
     }
 
     

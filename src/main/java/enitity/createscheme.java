@@ -22,10 +22,9 @@ public class createscheme {
         
         Facade f = new Facade(Persistence.createEntityManagerFactory("remote"));
 
-        Collection<Person> pList = f.getPersonsByCity("København K");
-        for (Person person : pList) {
-            System.out.println("Person: " + person.getFirstName());
-        }
+        Company co = f.getCompanyById(1);
+        CityInfoNew ci = f.getCityInfoByCompany(co);
+        System.out.println("City:" + ci.getCity() + ci.getZipCode());
     }
     
 }

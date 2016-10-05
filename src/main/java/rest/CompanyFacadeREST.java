@@ -29,7 +29,7 @@ import javax.ws.rs.core.MediaType;
  */
 @Stateless
 @Path("company")
-public class CompanyFacadeREST extends AbstractFacade<Company> {
+public class CompanyFacadeREST  {
     
     static Facade facade = new Facade(Persistence.createEntityManagerFactory("remote"));
     static Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -38,7 +38,7 @@ public class CompanyFacadeREST extends AbstractFacade<Company> {
     private EntityManager em;
 
     public CompanyFacadeREST() {
-        super(Company.class);
+
     }
     
     @GET
@@ -128,60 +128,6 @@ public class CompanyFacadeREST extends AbstractFacade<Company> {
         Company c = gson.fromJson(content, Company.class);
         Company newCompany = facade.addCompany(c);
         return gson.toJson(newCompany);
-    }
-    
-
-    @POST
-    @Override
-    @Consumes({MediaType.APPLICATION_JSON})
-    public void create(Company entity) {
-        super.create(entity);
-    }
-
-    @PUT
-    @Path("{id}")
-    @Consumes({MediaType.APPLICATION_JSON})
-    public void edit(@PathParam("id") Integer id, Company entity) {
-        super.edit(entity);
-    }
-
-    @DELETE
-    @Path("{id}")
-    public void remove(@PathParam("id") Integer id) {
-        super.remove(super.find(id));
-    }
-
-    @GET
-    @Path("{id}")
-    @Produces({MediaType.APPLICATION_JSON})
-    public Company find(@PathParam("id") Integer id) {
-        return super.find(id);
-    }
-
-    @GET
-    @Override
-    @Produces({MediaType.APPLICATION_JSON})
-    public List<Company> findAll() {
-        return super.findAll();
-    }
-
-    @GET
-    @Path("{from}/{to}")
-    @Produces({MediaType.APPLICATION_JSON})
-    public List<Company> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
-        return super.findRange(new int[]{from, to});
-    }
-
-    @GET
-    @Path("count")
-    @Produces(MediaType.TEXT_PLAIN)
-    public String countREST() {
-        return String.valueOf(super.count());
-    }
-
-    @Override
-    protected EntityManager getEntityManager() {
-        return em;
     }
     
 }

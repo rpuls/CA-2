@@ -49,6 +49,7 @@ public class PersonFacadeRESTTest {
     }
 
       @Test
+      @Ignore
     public void serverIsRunningV2() {
         given().when().get("http://localhost:8080/Test1/").then().statusCode(200);
     }

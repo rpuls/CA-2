@@ -117,6 +117,15 @@ public class FacadeTest {
         assertTrue(found.getId() > 0);
         assertTrue("Failed Found:  " + found.getAdress().getStreet(), d == found.getAdress());
     }
+    
+    @Test
+    public void testGetPhonesByCompany(){
+        EntityManager em = emf.createEntityManager();
+        Company c = em.find(Company.class, 5); // Gets the first Company We know that has the id of 5!
+        int numberOfPhoneEntitys = c.getPhoneCollection().size(); // returns the number of Phones for that company
+        String[] result = facade.getPhonesByCompany(c);
+        assertTrue(numberOfPhoneEntitys == result.length);
+    }
 
     
 }

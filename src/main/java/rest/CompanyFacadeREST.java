@@ -48,13 +48,13 @@ public class CompanyFacadeREST extends AbstractFacade<Company> {
         List<Company> companies = facade.getCompanies();
         List<JsonObject> jList = new ArrayList();
         for (Company c : companies) {
-            Address adr = facade.getAdressByCompanies(c);
-            CityInfoNew cti = facade.getCityInfoByCompanies(c);
+            Address adr = facade.getAdressByCompany(c);
+            CityInfoNew cti = facade.getCityInfoByCompany(c);
             JsonObject job = new JsonObject();
             job.addProperty("cvr", c.getCvr());
             job.addProperty("name", c.getName());
             job.addProperty("email", c.getEmail());
-            job.addProperty("phones", gson.toJson(facade.getPhonesByCompanies(c))); 
+            job.addProperty("phones", gson.toJson(facade.getPhonesByCompany(c))); 
             job.addProperty("street", adr.getStreet());
             job.addProperty("additionalInfo", adr.getAdditionalInfo());
             job.addProperty("zipCode", cti.getCity());
@@ -68,14 +68,14 @@ public class CompanyFacadeREST extends AbstractFacade<Company> {
     @Path("complete/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public String getJSONCompanies(@PathParam("id") Integer id) {
-        Company c = facade.getCompaniesById(id);
-            Address adr = facade.getAdressByCompanies(c);
-            CityInfoNew cti = facade.getCityInfoByCompanies(c);
+        Company c = facade.getCompanyById(id);
+            Address adr = facade.getAdressByCompany(c);
+            CityInfoNew cti = facade.getCityInfoByCompany(c);
             JsonObject job = new JsonObject();
             job.addProperty("cvr", c.getCvr());
             job.addProperty("name", c.getName());
             job.addProperty("email", c.getEmail());
-            job.addProperty("phones", gson.toJson(facade.getPhonesByCompanies(c))); 
+            job.addProperty("phones", gson.toJson(facade.getPhonesByCompany(c))); 
             job.addProperty("street", adr.getStreet());
             job.addProperty("additionalInfo", adr.getAdditionalInfo());
             job.addProperty("zipCode", cti.getCity());
@@ -95,7 +95,7 @@ public class CompanyFacadeREST extends AbstractFacade<Company> {
             job.addProperty("id", c.getId());
             job.addProperty("name", c.getName());
             job.addProperty("email", c.getEmail());
-            job.addProperty("phones", gson.toJson(facade.getPhonesByCompanies(c))); //MISSING - beware, that we might run in to s stackoverflow here
+            job.addProperty("phones", gson.toJson(facade.getPhonesByCompany(c))); //MISSING - beware, that we might run in to s stackoverflow here
             jList.add(job);
         }
         return gson.toJson(jList);
@@ -105,12 +105,12 @@ public class CompanyFacadeREST extends AbstractFacade<Company> {
     @Path("contactinfo/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public String getJSONCompaniesContactByCompanies(@PathParam("id") Integer id){
-        Company c = facade.getCompaniesById(id); 
+        Company c = facade.getCompanyById(id); 
             JsonObject job = new JsonObject();
             job.addProperty("id", c.getId());
             job.addProperty("name", c.getName());
             job.addProperty("email", c.getEmail());
-            job.addProperty("phones", gson.toJson(facade.getPhonesByCompanies(c))); //MISSING - beware, that we might run in to s stackoverflow here
+            job.addProperty("phones", gson.toJson(facade.getPhonesByCompany(c))); //MISSING - beware, that we might run in to s stackoverflow here
         return gson.toJson(job);
     }
 

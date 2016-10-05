@@ -223,9 +223,17 @@ public class Facade {
      */
     public Collection<Company> getCompaniesByEmpAmount(int number) {
         EntityManager em = getEntityManager();
-        Query q = em.createQuery("Select c from Company c where c.NumEmployees  = :emp", Company.class);
-        Collection<Company> collection = q.getResultList();
-        return collection;
+        try {
+            Query q = em.createQuery("Select c from Company c where c.NumEmployees  = :emp", Company.class);
+            Collection<Company> collection = q.getResultList();
+            return collection;
+        } catch (Exception e) {
+            System.out.println("Error" + e);
+        }
+        finally{
+            em.close();
+        }
+        return null;
     }
 
     /**
@@ -378,19 +386,19 @@ public class Facade {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public Address getAdressByCompanies(Company c) {
+    public Address getAdressByCompany(Company c) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public CityInfoNew getCityInfoByCompanies(Company c) {
+    public CityInfoNew getCityInfoByCompany(Company c) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public Object getPhonesByCompanies(Company c) {
+    public Object getPhonesByCompany(Company c) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public Company getCompaniesById(Integer id) {
+    public Company getCompanyById(Integer id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

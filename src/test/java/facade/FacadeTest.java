@@ -82,6 +82,14 @@ public class FacadeTest {
 }
     
     @Test
+    public void testgetCompanies(){
+        List<Company> cList = (List<Company>) facade.getCompanies();
+        
+        assertEquals(3,cList.size());
+        
+}
+    
+    @Test
     public void testGetCityInfoByCompany(){
         Company c = facade.getCompanyById(5);
         CityInfoNew ci = facade.getCityInfoByCompany(c);

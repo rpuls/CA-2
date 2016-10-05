@@ -397,8 +397,23 @@ public class Facade {
         return cityInfo;
     }
 
+    /**
+     * Gets the list of Companies
+     * @return listOfCompanies
+     */
     public List<Company> getCompanies() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        EntityManager em = getEntityManager();
+        try {
+            Query q = em.createQuery("Select c from Company c");
+            List<Company> collection = q.getResultList();
+            return collection;
+        } catch (Exception e) {
+            System.out.println("Error" + e);
+        }
+        finally{
+            em.close();
+        }
+        return null;
     }
 
     public Address getAdressByCompany(Company c) {

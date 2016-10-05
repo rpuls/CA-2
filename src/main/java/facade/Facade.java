@@ -383,19 +383,19 @@ public class Facade {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public Address getAdressByCompanies(Company c) {
+    public Address getAdressByCompany(Company c) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public CityInfoNew getCityInfoByCompanies(Company c) {
+    public CityInfoNew getCityInfoByCompany(Company c) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public Object getPhonesByCompanies(Company c) {
+    public Object getPhonesByCompany(Company c) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public Company getCompaniesById(Integer id) {
+    public Company getCompanyById(Integer id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

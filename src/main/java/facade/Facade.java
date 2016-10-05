@@ -185,20 +185,23 @@ public class Facade {
 
     /**
      * Returns a Collection of persons that lives in city
-     * @param City A string with a City name, NOT A OBJECT OF CITY INFO!
+     * @param city A string with a City name, NOT A OBJECT OF CITY INFO!
      * @return The Collections for persons that lives in that city
      */
     public Collection<Person> getPersonsByCity(String city) {
         EntityManager em = getEntityManager();
         
         try{
-            Query query1 = em.createQuery("SELECT p from Person p WHERE p.adress.cityInfoNew.city =:city");
+            Query query1 = em.createQuery("SELECT p FROM Person p WHERE p.adress.cityInfoNew.city =:city");
             query1.setParameter("city", city);
-            List<Person> pList = (List<Person>) query1.getResultList();
+            Collection<Person> pList = (List<Person>) query1.getResultList();
             return pList;
+        }catch(Exception e){
+            System.out.println(e.getMessage());
         }finally{
             em.close();
         }
+        return null;
     }
 
     /**

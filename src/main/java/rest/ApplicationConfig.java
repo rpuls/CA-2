@@ -30,6 +30,9 @@ public class ApplicationConfig extends Application {
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
         resources.add(errorhandling.GeneralExceptionMapper.class);
+        resources.add(rest.AddressFacadeREST.class);
+        resources.add(rest.CityInfoNewFacadeREST.class);
+        resources.add(rest.CompanyFacadeREST.class);
         resources.add(rest.PersonFacadeREST.class);
     }
     

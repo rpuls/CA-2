@@ -11,7 +11,6 @@ import com.google.gson.JsonObject;
 import enitity.Address;
 import enitity.CityInfoNew;
 import enitity.Person;
-import enitity.Phone;
 import facade.Facade;
 import java.util.ArrayList;
 import java.util.List;
@@ -134,7 +133,6 @@ public class PersonFacadeREST extends AbstractFacade<Person> {
         return gson.toJson(job);
     }
     
-    //NOT TESTED YET
     @GET
     @Path("phone/{number}")
     @Produces(MediaType.APPLICATION_JSON)

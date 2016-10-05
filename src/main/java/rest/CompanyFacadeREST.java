@@ -120,6 +120,16 @@ public class CompanyFacadeREST extends AbstractFacade<Company> {
             job.addProperty("phones", gson.toJson(facade.getPhonesByCompany(c))); //MISSING - beware, that we might run in to s stackoverflow here
         return gson.toJson(job);
     }
+    
+    @POST
+    @Consumes({MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_JSON})
+    public String addCompany(String content){
+        Company c = gson.fromJson(content, Company.class);
+        Company newCompany = facade.addCompany(c);
+        return gson.toJson(newCompany);
+    }
+    
 
     @POST
     @Override

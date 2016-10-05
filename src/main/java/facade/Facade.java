@@ -42,11 +42,9 @@ public class Facade {
      */
     public List<Person> getPersons() {
         EntityManager em = emf.createEntityManager();
-        List<Person> persons = null;
+       
         try {
-            em.getTransaction().begin();
-            persons = em.createQuery("Select p from Person p").getResultList();
-            em.getTransaction().commit();
+            List<Person> persons = em.createQuery("Select p from Person p").getResultList();
             return persons;
         } finally {
             em.close();
@@ -176,20 +174,15 @@ public class Facade {
      * @param City A string with a City name, NOT A OBJECT OF CITY INFO!
      * @return The Collections for persons that lives in that city
      */
-    public Collection<Person> getPersonsByCity(String City) {
+    public Collection<Person> getPersonsByCity(String city) {
         EntityManager em = getEntityManager();
-        try {
-            Query query;
-            if (Character.isDigit(City.charAt(0))) {
-                query = em.createQuery("SELECT p,c from Person p, CityInfo c  WHERE c.ZIP= :zip");
-                query.setParameter("zip", City);
-            } else {
-                query = em.createQuery("SELECT p,c from Person p, CityInfo c  WHERE c.CITY= :city");
-                query.setParameter("city", City);
-            }
-            List<Person> persons = query.getResultList();
-            return persons;
-        } finally {
+        
+        try{
+            Query query1 = em.createQuery("SELECT p from Person p WHERE p.adress.cityInfoNew.city =:city");
+            query1.setParameter("city", city);
+            List<Person> pList = (List<Person>) query1.getResultList();
+            return pList;
+        }finally{
             em.close();
         }
     }

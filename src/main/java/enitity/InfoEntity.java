@@ -80,6 +80,12 @@ public class InfoEntity implements Serializable {
     public void setAdress(Address adress) {
         this.adress = adress;
     }
+
+    public List<Person> getPersons() {
+        return persons;
+    }
+    
+    
     
     
     

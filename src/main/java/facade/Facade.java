@@ -18,6 +18,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -35,19 +36,26 @@ public class Facade {
         return emf.createEntityManager();
     }
 
+    /**
+     * Returns the list of all the Persons
+     * @return Returns the list of all the Persons
+     */
     public List<Person> getPersons() {
         EntityManager em = emf.createEntityManager();
-        List<Person> persons = null;
+       
         try {
-            em.getTransaction().begin();
-            persons = em.createQuery("Select p from Person p").getResultList();
-            em.getTransaction().commit();
+            List<Person> persons = em.createQuery("Select p from Person p").getResultList();
             return persons;
         } finally {
             em.close();
         }
     }
 
+    /**
+     * Returns one person 
+     * @param id Id of the person
+     * @return A Java object of Person
+     */
     public Person getPersonById(int id) {
         EntityManager em = emf.createEntityManager();
 
@@ -58,19 +66,40 @@ public class Facade {
         }
     }
 
-    public List<Phone> getPhonesByPerson(Person p) {
-        return new ArrayList<Phone>();
+    /**
+     * Returns the phonecollection for one person.
+     * Be sure that the person is already fully found in the database
+     * @param p - Given that the person is already a persisted one
+     * @return The phonecollection for that person
+     */
+    public Collection<Phone> getPhonesByPerson(Person p) {
+        return p.getPhoneCollection();
     }
 
+    /**
+     * Returns the Adresse for a person
+     * @param p Given that the person is already a persisted one
+     * @return The Adresse for that person
+     */
     public Address getAdressByPerson(Person p) {
         return new Address();
     }
 
+    /**
+     * Returns the CityInfo for a person. The Person must already be found in the
+     * database before calling this method
+     * @param p Given that the person is already a persisted one
+     * @return The CityInfo Object for that person
+     */
     public CityInfoNew getCityInfoByPerson(Person p) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return p.getAdress().getCityinfo();
     }
 
-    //Given phone number
+    /**
+     * Get a specfic person based on the phone number
+     * @param phone The given phone number
+     * @return The person if there is a match.
+     */
     public Person getPerson(String phone) {
         EntityManager em = getEntityManager();
         Person p = new Person();
@@ -88,7 +117,12 @@ public class Facade {
         return p;
     }
 
-    public Company getCompany(String phoeOrCvr) {
+    /**
+     * Returns the Company that mathces the phone number.
+     * @param phone The phonenumber to search for.
+     * @return The company, that is found.
+     */
+    public Company getCompanyByPhone(String phone) {
         //in this method we should search for the given parameter in first the
         //phone field, if nothing foud we should search in the cvr field and
         //return null if no company with either matching phone or cvr
@@ -97,7 +131,7 @@ public class Facade {
 
         try {
             em.getTransaction().begin();
-            c = em.find(Company.class, phoeOrCvr); //it should have an access in the phone through the Company
+            c = em.find(Company.class, phone); //it should have an access in the phone through the Company
             em.getTransaction().commit();
         } finally {
             em.close();
@@ -105,8 +139,37 @@ public class Facade {
 
         return c;
     }
+    
+    /**
+     * Returns the Company based on the given cvr
+     * @param cvr The cvr to search for
+     * @return The found company
+     */
+    public Company getCompanyByCvr(String cvr) {
+        EntityManager em = getEntityManager();
+        
+        try{
+            Query q = em.createQuery("SELECT c from Company c where c.cvr = :cvrnum", Company.class);
+            q.setParameter("cvrnum", cvr);
+            Company company = (Company) q.getSingleResult();
+            return company;
+        }
+        catch(Exception e){
+            System.out.println("Error: " +e );
+        }
+        finally{
+            em.close();
+        }
+        return null;
+    }
 
-    public List<Person> getPersonsByHobby(Hobby hob) {
+    /**
+     * Returns a collection of Persons given by a 
+     * Specific Hobby. The Hobby has to be in the database
+     * @param hob An Already persisted hobby
+     * @return A Collections for Persons.
+     */
+    public Collection<Person> getPersonsByHobby(Hobby hob) {
 
         EntityManager em = getEntityManager();
         try {
@@ -120,42 +183,79 @@ public class Facade {
 
     }
 
-    public List<Person> getPersonsByCity(String zipOrCity) {
-        //the same as before, we should use one string and search in two fiels,
-        //MAYBE do a check wether the string looks like a city name og a zip code,
-        //and the only search in the relevent field?
+    /**
+     * Returns a Collection of persons that lives in city
+     * @param city A string with a City name, NOT A OBJECT OF CITY INFO!
+     * @return The Collections for persons that lives in that city
+     */
+    public Collection<Person> getPersonsByCity(String city) {
         EntityManager em = getEntityManager();
-        try {
-            Query query;
-            if (Character.isDigit(zipOrCity.charAt(0))) {
-                query = em.createQuery("SELECT p,c from Person p, CityInfo c  WHERE c.ZIP= :zip");
-                query.setParameter("zip", zipOrCity);
-            } else {
-                query = em.createQuery("SELECT p,c from Person p, CityInfo c  WHERE c.CITY= :city");
-                query.setParameter("city", zipOrCity);
-            }
-            List<Person> persons = query.getResultList();
-            return persons;
-        } finally {
+        
+        try{
+            Query query1 = em.createQuery("SELECT p FROM Person p WHERE p.adress.cityInfoNew.city =:city");
+            query1.setParameter("city", city);
+            Collection<Person> pList = (List<Person>) query1.getResultList();
+            return pList;
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }finally{
             em.close();
         }
+        return null;
     }
 
+    /**
+     * Returns the amount of persons with that hoobie
+     * Given that the hobby is already in the database
+     * @param hob Hobby that is already a persisted one!
+     * @return The count of persons with that hobby
+     */
     public int getCountOfPeopleByHobby(Hobby hob) {
-        return 0;
+       Collection<Person> personCollection = hob.getPersonCollection();
+       int count = personCollection.size();
+       return count;
     }
 
     public List<CityInfoNew> getZipCodes() {
-        return new ArrayList<CityInfoNew>();
+        List<CityInfoNew> zipCodes = new ArrayList();
+        EntityManager em = getEntityManager();
+        
+        try{
+            TypedQuery<CityInfoNew> query = em.createNamedQuery("Cityinfo.findAll",CityInfoNew.class);
+            zipCodes = query.getResultList();
+        }finally{
+            em.close();
+        }
+        return zipCodes;
     }
 
-    public List<Company> getCompaniesByEmpAmount(int number) {
-        return new ArrayList<Company>();
+    /**
+     * Returns a Collection of Companies with a given number of
+     * employees
+     * @param number The number of employees
+     * @return A Collection of companies
+     */
+    public Collection<Company> getCompaniesByEmpAmount(int number) {
+        EntityManager em = getEntityManager();
+        try {
+            Query q = em.createQuery("Select c from Company c where c.NumEmployees  = :emp", Company.class);
+            q.setParameter("emp", number);
+            Collection<Company> collection = q.getResultList();
+            return collection;
+        } catch (Exception e) {
+            System.out.println("Error" + e);
+        }
+        finally{
+            em.close();
+        }
+        return null;
     }
 
-    //ADD we might consider if we want to give a ie. person object, or if we will
-    //just give the required parameters to create a new person object
-    // ^^ Comment: I think that JPA takes care of that!
+    /**
+     * Adds a Person to the database
+     * @param p The java object of person
+     * @return The same object, after being persisted in the database
+     */
     public Person addPerson(Person p) {
          EntityManager em = emf.createEntityManager();
         
@@ -174,6 +274,11 @@ public class Facade {
         return p;
     }
 
+    /**
+     * Adds a Company to the database
+     * @param c The java object of Company
+     * @return The same object, after being persisted in the database
+     */
     public Company addCompany(Company c) {
         EntityManager em = emf.createEntityManager();
         
@@ -192,7 +297,12 @@ public class Facade {
         return c;
     }
 
-    public void addHobby(Hobby h) {
+     /**
+     * Adds a Hobby to the database
+     * @param h The java object of Hobby
+     * @return The same object, after being persisted in the database
+     */
+    public Hobby addHobby(Hobby h) {
         
         EntityManager em = emf.createEntityManager();
        
@@ -207,22 +317,17 @@ public class Facade {
         {
             em.close();
         }
-
-    }
-
-    public void addInfoEntity(InfoEntity ie) {
-        /*
-        Does this method make any sence? Why add only a info Entity??
-        */
+        return h;
 
     }
 
     /**
      * Adds the phone number to the Info Entity
-     * @param ie We assume that the InfoEntity is already in the database?
+     * @param ie Asumeing that the IE is already in the database
      * @param phone phonenumber to be added
+     * @return The InfoEntity Object that now contains the new Phone object
      */
-    public void addPhone(InfoEntity ie, Phone phone) {
+    public InfoEntity addPhone(InfoEntity ie, Phone phone) {
         EntityManager em = emf.createEntityManager();
        
         try
@@ -242,12 +347,15 @@ public class Facade {
         {
             em.close();
         }
-
-        
-
+        return ie;
     }
 
-    public void addAddress(Address adr) {
+     /**
+     * Adds a Address to the database
+     * @param adr The java object of Address
+     * @return The same object, after being persisted in the database
+     */
+    public Address addAddress(Address adr) {
         
         EntityManager em = emf.createEntityManager();
        
@@ -261,9 +369,15 @@ public class Facade {
         {
             em.close();
         }
+        return adr;
 
     }
 
+    /**
+     * Adds a cityInfo to the database
+     * @param cityInfo The java object of cityInfo
+     * @return The same object, after being persisted in the database
+     */
     public CityInfoNew addCityInfo(CityInfoNew cityInfo) {
          EntityManager em = emf.createEntityManager();
        
@@ -281,6 +395,43 @@ public class Facade {
             em.close();
         }
         return cityInfo;
+    }
+
+    public List<Company> getCompanies() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public Address getAdressByCompany(Company c) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public CityInfoNew getCityInfoByCompany(Company c) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    /**
+     * Returns the phone numbers for that company as an String[]
+     * @param c The company 
+     * @return
+     */
+    public String[] getPhonesByCompany(Company c) {
+        Collection<Phone> phoneListObjects = c.getPhoneCollection();
+        List<String> phoneNumbers = new ArrayList<>();
+        for (Phone obj : phoneListObjects) {
+            phoneNumbers.add(obj.getNumer());
+        }
+        String[] array = phoneNumbers.toArray(new String[0]);
+        return array;
+    }
+
+    /**
+     * Retunrs the Company by id
+     * @param id The id for the given company
+     * @return The company Obejct
+     */
+    public Company getCompanyById(Integer id) {
+        EntityManager em = getEntityManager();
+        return em.find(Company.class, id);
     }
 
 }

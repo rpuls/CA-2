@@ -6,6 +6,7 @@
 package facade;
 
 import enitity.Address;
+import enitity.CityInfoNew;
 import enitity.Company;
 import enitity.Hobby;
 import enitity.Person;
@@ -67,6 +68,20 @@ public class FacadeTest {
     }
 
     @Test
+    public void testGetZipCodes(){
+        List<CityInfoNew> cityList = facade.getZipCodes();
+        assertEquals(4,cityList.size());
+    }
+   
+    @Test
+    public void testGetPersonsByCity(){
+        List<Person> pList = (List<Person>) facade.getPersonsByCity("Vedbæk");
+        
+        assertEquals(1,pList.size());
+        
+}
+    
+    @Test
     @Ignore
     public void testGetPersonsByHobby() {
         int expectedCount = 0; // Should change when I know whats in the database
@@ -92,6 +107,15 @@ public class FacadeTest {
         Company found = facade.addCompany(c);
         assertTrue(found.getId() > 0);
         assertTrue("Failed Found:  " + found.getAdress().getStreet(), d == found.getAdress());
+    }
+    
+    @Test
+    public void testGetPhonesByCompany(){
+        EntityManager em = emf.createEntityManager();
+        Company c = em.find(Company.class, 5); // Gets the first Company We know that has the id of 5!
+        int numberOfPhoneEntitys = c.getPhoneCollection().size(); // returns the number of Phones for that company
+        String[] result = facade.getPhonesByCompany(c);
+        assertTrue(numberOfPhoneEntitys == result.length);
     }
 
     

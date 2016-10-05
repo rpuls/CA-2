@@ -11,6 +11,7 @@ import java.util.Collection;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
@@ -23,6 +24,7 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Address.findById", query = "SELECT a FROM Address a WHERE a.id = :id"),
     @NamedQuery(name = "Address.findByStreet", query = "SELECT a FROM Address a WHERE a.street = :street"),
     @NamedQuery(name = "Address.findByAdditionalInfo", query = "SELECT a FROM Address a WHERE a.additionalInfo = :additionalInfo")})
+@XmlRootElement
 public class Address implements Serializable {
 
     private static final long serialVersionUID = 1L;

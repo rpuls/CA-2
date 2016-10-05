@@ -19,6 +19,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -30,6 +32,7 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Cityinfo.findAll", query = "SELECT c FROM CityInfoNew c"),
     @NamedQuery(name = "Cityinfo.findByZipCode", query = "SELECT c FROM CityInfoNew c WHERE c.zipCode = :zipCode"),
     @NamedQuery(name = "Cityinfo.findByCity", query = "SELECT c FROM CityInfoNew c WHERE c.city = :city")})
+@XmlRootElement
 public class CityInfoNew implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -48,6 +51,15 @@ public class CityInfoNew implements Serializable {
     public CityInfoNew() {
     }
 
+    /**
+     * This is only used for the test since there is already a script to populate the cityInfo
+     * @param zipCode
+     * @param city
+     */
+    public CityInfoNew(String zipCode, String city) {
+        this.zipCode = zipCode;
+        this.city = city;
+    }
 
     public String getZipCode() {
         return zipCode;
@@ -65,6 +77,7 @@ public class CityInfoNew implements Serializable {
         this.city = city;
     }
 
+    @XmlTransient
     public Collection<Address> getAddressCollection() {
         return addressCollection;
     }

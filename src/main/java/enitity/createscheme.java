@@ -6,6 +6,9 @@
 package enitity;
 
 import facade.Facade;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import javax.persistence.Persistence;
 
 /**
@@ -15,11 +18,14 @@ import javax.persistence.Persistence;
 public class createscheme {
     public static void main(String[] args) {
         
-//        Persistence.generateSchema("remote", null);
+        Persistence.generateSchema("remote", null);
         
-        Facade f = new Facade(Persistence.createEntityManagerFactory("remote"));
-        Person p = f.getPerson("123456789");
-        System.out.println("PERSON:" + p.getFirstName());
+//        Facade f = new Facade(Persistence.createEntityManagerFactory("remote"));
+//
+//        Collection<Person> pList = f.getPersonsByCity("København K");
+//        for (Person person : pList) {
+//            System.out.println("Person: " + person.getFirstName());
+//        }
     }
     
 }

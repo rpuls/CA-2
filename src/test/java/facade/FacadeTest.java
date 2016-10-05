@@ -76,9 +76,17 @@ public class FacadeTest {
         expectedList.add(new CityInfoNew("1021","København K"));
         expectedList.add(new CityInfoNew("1215","København K"));
         
-        assertEquals(expectedList.size(),cityList.size());
+        assertEquals(5,cityList.size());
     }
    
+    @Test
+    public void testGetPersonsByCity(){
+        List<Person> pList = (List<Person>) facade.getPersonsByCity("Udbetaling");
+        
+        assertEquals(1,pList.size());
+        
+}
+    
     @Test
     @Ignore
     public void testGetPersonsByHobby() {

@@ -42,6 +42,7 @@ public class FacadeTest {
     
     @BeforeClass
     public static void setUpClass() {
+        Persistence.generateSchema("pu_test", null);
     }
     
     @AfterClass

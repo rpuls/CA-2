@@ -1353,10 +1353,14 @@ INSERT INTO CITYINFO (ZIP, CITY) VALUES ('970', 'Sumba');
 
 
 
-INSERT INTO INFOENTITY (EMAIL,DTYPE) VALUES ('cjs@email.dk','Person');
-INSERT INTO INFOENTITY (EMAIL,DTYPE) VALUES ('w@email.dk','Person');
-INSERT INTO INFOENTITY (EMAIL,DTYPE) VALUES ('dh@email.dk','Person');
-INSERT INTO INFOENTITY (EMAIL,DTYPE) VALUES ('r@email.dk','Person');
+INSERT INTO address (id,Street,CityInfo_id,AdditionalInfo) VALUES (1,'Sofievej','2950','abc');
+INSERT INTO address (id,Street,CityInfo_id,AdditionalInfo) VALUES (2,'Poulsvej','1006','def');
+INSERT INTO address (id,Street,CityInfo_id,AdditionalInfo) VALUES (3,'Norgaardsvej','1021','ghi');
+INSERT INTO address (id,Street,CityInfo_id,AdditionalInfo) VALUES (4,'Strandvej','1215','klm');
+INSERT INTO INFOENTITY (EMAIL,DTYPE, ADRESS_id) VALUES ('cjs@email.dk','Person',1);
+INSERT INTO INFOENTITY (EMAIL,DTYPE, ADRESS_id) VALUES ('w@email.dk','Person',2);
+INSERT INTO INFOENTITY (EMAIL,DTYPE, ADRESS_id) VALUES ('dh@email.dk','Person', 3);
+INSERT INTO INFOENTITY (EMAIL,DTYPE ,ADRESS_id ) VALUES ('r@email.dk','Person', 4);
 INSERT INTO PERSON (ID,FIRSTNAME,LASTNAME) VALUES (1,'cherry','aa');
 INSERT INTO PERSON (ID,FIRSTNAME,LASTNAME) VALUES (2,'daniel','bb');
 INSERT INTO PERSON (ID,FIRSTNAME,LASTNAME) VALUES (3,'rasmus','cc');
@@ -1369,7 +1373,3 @@ INSERT INTO phone (id,numer,description,infoentity_ID) VALUES (1,'123456789','ho
 INSERT INTO phone (id,numer,description,infoentity_ID) VALUES (2,'987654321','office',2);
 INSERT INTO phone (id,numer,description,infoentity_ID) VALUES (3,'012345678','home',3);
 INSERT INTO phone (id,numer,description,infoentity_ID) VALUES (4,'234567890','home',4);
-INSERT INTO address (id,Street,CityInfo_id,AdditionalInfo) VALUES (1,'Sofievej','2950','abc');
-INSERT INTO address (id,Street,CityInfo_id,AdditionalInfo) VALUES (2,'Poulsvej','1006','def');
-INSERT INTO address (id,Street,CityInfo_id,AdditionalInfo) VALUES (3,'Norgaardsvej','1021','ghi');
-INSERT INTO address (id,Street,CityInfo_id,AdditionalInfo) VALUES (4,'Strandvej','1215','klm');

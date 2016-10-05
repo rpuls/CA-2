@@ -109,7 +109,7 @@ public class Facade {
      * @param phone The given phone number
      * @return The person if there is a match.
      */
-    public Person getPerson(String phone) {
+    public Person getPersonByPhone(String phone) {
         EntityManager em = getEntityManager();
         Person p = new Person();
         

@@ -48,17 +48,21 @@ public class CompanyFacadeREST extends AbstractFacade<Company> {
         List<Company> companies = facade.getCompanies();
         List<JsonObject> jList = new ArrayList();
         for (Company c : companies) {
-            Address adr = facade.getAdressByCompany(c);
-            CityInfoNew cti = facade.getCityInfoByCompany(c);
             JsonObject job = new JsonObject();
-            job.addProperty("cvr", c.getCvr());
-            job.addProperty("name", c.getName());
-            job.addProperty("email", c.getEmail());
+            if(c.getCvr()!=null){job.addProperty("cvr", c.getCvr());}
+            if(c.getName()!=null){job.addProperty("name", c.getName());}
+            if(c.getEmail()!=null){job.addProperty("email", c.getEmail());}
             job.addProperty("phones", gson.toJson(facade.getPhonesByCompany(c))); 
-            job.addProperty("street", adr.getStreet());
-            job.addProperty("additionalInfo", adr.getAdditionalInfo());
-            job.addProperty("zipCode", cti.getCity());
-            job.addProperty("city", cti.getCity());
+            if(facade.getAdressByCompany(c)!=null){
+                Address adr = facade.getAdressByCompany(c);
+                if(adr.getStreet()!=null){job.addProperty("street", adr.getStreet());}
+                if(adr.getAdditionalInfo()!=null){job.addProperty("additionalInfo", adr.getAdditionalInfo());}
+            }
+            if(facade.getCityInfoByCompany(c)!=null){
+                CityInfoNew cti = facade.getCityInfoByCompany(c);
+                if(cti.getZipCode()!=null){job.addProperty("zipCode", cti.getZipCode());}
+                if(cti.getCity()!=null){job.addProperty("city", cti.getCity());}
+            }
             jList.add(job);
         }
         return gson.toJson(jList);
@@ -69,18 +73,21 @@ public class CompanyFacadeREST extends AbstractFacade<Company> {
     @Produces(MediaType.APPLICATION_JSON)
     public String getJSONCompanies(@PathParam("id") Integer id) {
         Company c = facade.getCompanyById(id);
+        JsonObject job = new JsonObject();
+        if(c.getCvr()!=null){job.addProperty("cvr", c.getCvr());}
+        if(c.getName()!=null){job.addProperty("name", c.getName());}
+        if(c.getEmail()!=null){job.addProperty("email", c.getEmail());}
+        job.addProperty("phones", gson.toJson(facade.getPhonesByCompany(c))); 
+        if(facade.getAdressByCompany(c)!=null){
             Address adr = facade.getAdressByCompany(c);
+            if(adr.getStreet()!=null){job.addProperty("street", adr.getStreet());}
+            if(adr.getAdditionalInfo()!=null){job.addProperty("additionalInfo", adr.getAdditionalInfo());}
+        }
+        if(facade.getCityInfoByCompany(c)!=null){
             CityInfoNew cti = facade.getCityInfoByCompany(c);
-            JsonObject job = new JsonObject();
-            job.addProperty("cvr", c.getCvr());
-            job.addProperty("name", c.getName());
-            job.addProperty("email", c.getEmail());
-            job.addProperty("phones", gson.toJson(facade.getPhonesByCompany(c))); 
-            job.addProperty("street", adr.getStreet());
-            job.addProperty("additionalInfo", adr.getAdditionalInfo());
-            job.addProperty("zipCode", cti.getCity());
-            job.addProperty("city", cti.getCity());
-        
+            if(cti.getZipCode()!=null){job.addProperty("zipCode", cti.getZipCode());}
+            if(cti.getCity()!=null){job.addProperty("city", cti.getCity());}
+        }
         return gson.toJson(job);
     }
     
@@ -92,9 +99,9 @@ public class CompanyFacadeREST extends AbstractFacade<Company> {
         List<JsonObject> jList = new ArrayList();
         for (Company c : companies) {
             JsonObject job = new JsonObject();
-            job.addProperty("id", c.getId());
-            job.addProperty("name", c.getName());
-            job.addProperty("email", c.getEmail());
+            if(c.getId()!=null){job.addProperty("id", c.getId());}
+            if(c.getName()!=null){job.addProperty("name", c.getName());}
+            if(c.getEmail()!=null){job.addProperty("email", c.getEmail());}
             job.addProperty("phones", gson.toJson(facade.getPhonesByCompany(c))); //MISSING - beware, that we might run in to s stackoverflow here
             jList.add(job);
         }
@@ -107,9 +114,9 @@ public class CompanyFacadeREST extends AbstractFacade<Company> {
     public String getJSONCompaniesContactByCompanies(@PathParam("id") Integer id){
         Company c = facade.getCompanyById(id); 
             JsonObject job = new JsonObject();
-            job.addProperty("id", c.getId());
-            job.addProperty("name", c.getName());
-            job.addProperty("email", c.getEmail());
+            if(c.getId()!=null){job.addProperty("id", c.getId());}
+            if(c.getName()!=null){job.addProperty("name", c.getName());}
+            if(c.getEmail()!=null){job.addProperty("email", c.getEmail());}
             job.addProperty("phones", gson.toJson(facade.getPhonesByCompany(c))); //MISSING - beware, that we might run in to s stackoverflow here
         return gson.toJson(job);
     }

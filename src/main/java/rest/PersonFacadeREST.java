@@ -101,7 +101,6 @@ public class PersonFacadeREST extends AbstractFacade<Person> {
                 if(cti.getZipCode()!=null){job.addProperty("zipCode", cti.getZipCode());}
                 if(cti.getCity()!=null){job.addProperty("city", cti.getCity());}
             }
-        
         return gson.toJson(job);
     }
     
@@ -134,7 +133,34 @@ public class PersonFacadeREST extends AbstractFacade<Person> {
             job.addProperty("phones", gson.toJson(facade.getPhonesByPerson(p))); //MISSING - beware, that we might run in to s stackoverflow here
         return gson.toJson(job);
     }
-
+    
+    //NOT TESTED YET
+    @GET
+    @Path("phone/{number}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getJSONPersonByPhone(@PathParam("number") String number){
+        Person p = facade.getPersonByPhone(number);
+            JsonObject job = new JsonObject();
+            if(p.getFirstName()!=null){job.addProperty("firstName", p.getFirstName());}
+            if(p.getLastName()!=null){job.addProperty("lastName", p.getLastName());}
+            if(p.getEmail()!=null){job.addProperty("email", p.getEmail());}
+            job.addProperty("phones", gson.toJson(facade.getPhonesByPerson(p)));
+            if(facade.getAdressByPerson(p)!=null){
+                Address adr = facade.getAdressByPerson(p);
+                if(adr.getStreet()!=null){job.addProperty("street", adr.getStreet());}
+                if(adr.getAdditionalInfo()!=null){job.addProperty("additionalInfo", adr.getAdditionalInfo());}
+            }
+            if(facade.getCityInfoByPerson(p)!=null){
+                CityInfoNew cti = facade.getCityInfoByPerson(p);
+                if(cti.getZipCode()!=null){job.addProperty("zipCode", cti.getZipCode());}
+                if(cti.getCity()!=null){job.addProperty("city", cti.getCity());}
+            }
+        return gson.toJson(job);
+    }
+    
+    
+    
+    
     @POST
     @Override
     @Consumes({MediaType.APPLICATION_JSON})

@@ -28,7 +28,7 @@ import javax.ws.rs.core.MediaType;
 @Path("enitity.address")
 public class AddressFacadeREST extends AbstractFacade<Address> {
 
-    @PersistenceContext(unitName = "blablabla")
+    @PersistenceContext(unitName = "remote")
     private EntityManager em;
 
     public AddressFacadeREST() {

@@ -33,6 +33,8 @@ public class ApplicationConfig extends Application {
         resources.add(rest.AddressFacadeREST.class);
         resources.add(rest.CityInfoNewFacadeREST.class);
         resources.add(rest.CompanyFacadeREST.class);
+        resources.add(rest.HobbyFacadeREST.class);
+        resources.add(rest.InfoEntityFacadeREST.class);
         resources.add(rest.PersonFacadeREST.class);
     }
     

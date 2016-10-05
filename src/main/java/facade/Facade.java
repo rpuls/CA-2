@@ -13,6 +13,7 @@ import enitity.InfoEntity;
 import enitity.Person;
 import enitity.Phone;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -154,14 +155,41 @@ public class Facade {
 
     //ADD we might consider if we want to give a ie. person object, or if we will
     //just give the required parameters to create a new person object
+    // ^^ Comment: I think that JPA takes care of that!
     public Person addPerson(Person p) {
-        throw new UnsupportedOperationException("Not supported yet.");
+         EntityManager em = emf.createEntityManager();
+        
+        
+        try{
+        em.getTransaction().begin();
+        em.persist(p);
+        em.getTransaction().commit();
+        }
+        catch(Exception e){
+            System.out.println("Error" + e);
+        }
+        finally{
+            em.close();
+        }
+        return p;
     }
 
-    public void addCompany(Company c) {
+    public Company addCompany(Company c) {
+        EntityManager em = emf.createEntityManager();
         
         
-
+        try{
+        em.getTransaction().begin();
+        em.persist(c);
+        em.getTransaction().commit();
+        }
+        catch(Exception e){
+            System.out.println("Error" + e);
+        }
+        finally{
+            em.close();
+        }
+        return c;
     }
 
     public void addHobby(Hobby h) {
@@ -183,10 +211,39 @@ public class Facade {
     }
 
     public void addInfoEntity(InfoEntity ie) {
+        /*
+        Does this method make any sence? Why add only a info Entity??
+        */
 
     }
 
-    public void addPhone(InfoEntity ie, String phone) {
+    /**
+     * Adds the phone number to the Info Entity
+     * @param ie We assume that the InfoEntity is already in the database?
+     * @param phone phonenumber to be added
+     */
+    public void addPhone(InfoEntity ie, Phone phone) {
+        EntityManager em = emf.createEntityManager();
+       
+        try
+        {
+            em.getTransaction().begin();
+            phone.setInfoentity(ie);
+            em.persist(phone);
+            Collection<Phone> phonesFromIE = ie.getPhoneCollection(); // have to set it in both directions.
+            phonesFromIE.add(phone);
+            ie.setPhoneCollection(phonesFromIE);
+            em.getTransaction().commit();
+        }
+        catch(Exception e){
+            System.out.println("Error: " + e);
+        }
+        finally
+        {
+            em.close();
+        }
+
+        
 
     }
 
@@ -207,8 +264,23 @@ public class Facade {
 
     }
 
-    public void addCityInfo() {
-
+    public CityInfoNew addCityInfo(CityInfoNew cityInfo) {
+         EntityManager em = emf.createEntityManager();
+       
+        try
+        {
+            em.getTransaction().begin();
+            em.persist(cityInfo);
+            em.getTransaction().commit();
+        }
+        catch(Exception e){
+            System.out.println("Error: " +e);
+        }
+        finally
+        {
+            em.close();
+        }
+        return cityInfo;
     }
 
 }

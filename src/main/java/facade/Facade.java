@@ -82,7 +82,7 @@ public class Facade {
      * @return The Adresse for that person
      */
     public Address getAdressByPerson(Person p) {
-        return new Address();
+        return p.getAdress();
     }
 
     /**
@@ -401,8 +401,14 @@ public class Facade {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+     * Returns an Adresse object for a Company.
+     * The Company Objects must allready be in the database
+     * @param c The Company object that must be an existing one
+     * @return The Adresse.
+     */
     public Address getAdressByCompany(Company c) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       return c.getAdress();
     }
 
     public CityInfoNew getCityInfoByCompany(Company c) {

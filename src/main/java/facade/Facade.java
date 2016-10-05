@@ -94,7 +94,7 @@ public class Facade {
      * @return The CityInfo Object for that person
      */
     public CityInfoNew getCityInfoByPerson(Person p) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return p.getAdress().getCityinfo();
     }
 
     /**
@@ -201,7 +201,9 @@ public class Facade {
      * @return The count of persons with that hobby
      */
     public int getCountOfPeopleByHobby(Hobby hob) {
-        return 0;
+       Collection<Person> personCollection = hob.getPersonCollection();
+       int count = personCollection.size();
+       return count;
     }
 
     public List<CityInfoNew> getZipCodes() {
@@ -224,7 +226,10 @@ public class Facade {
      * @return A Collection of companies
      */
     public Collection<Company> getCompaniesByEmpAmount(int number) {
-        return new ArrayList<Company>();
+        EntityManager em = getEntityManager();
+        Query q = em.createQuery("Select c from Company c where c.NumEmployees  = :emp", Company.class);
+        Collection<Company> collection = q.getResultList();
+        return collection;
     }
 
     /**

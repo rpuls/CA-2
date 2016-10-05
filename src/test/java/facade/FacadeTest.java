@@ -5,6 +5,7 @@
  */
 package facade;
 
+import com.mysql.jdbc.Connection;
 import enitity.Address;
 import enitity.CityInfoNew;
 import enitity.Company;
@@ -85,7 +86,7 @@ public class FacadeTest {
     public void testgetCompanies(){
         List<Company> cList = (List<Company>) facade.getCompanies();
         
-        assertEquals(3,cList.size());
+        assertEquals(2,cList.size());
         
 }
     
@@ -94,8 +95,8 @@ public class FacadeTest {
         Company c = facade.getCompanyById(5);
         CityInfoNew ci = facade.getCityInfoByCompany(c);
         
-        assertEquals("København K",ci.getCity());
-        assertEquals("1215",ci.getZipCode());
+        assertEquals(c.getAdress().getCityinfo().getCity(),ci.getCity());
+        assertEquals(c.getAdress().getCityinfo().getZipCode(),ci.getZipCode());
     }
     
     @Test
@@ -111,6 +112,14 @@ public class FacadeTest {
         Person p = new Person("Daniel", "Hollmann", "danielhollmann@hotmail.com", null);
         Person found = facade.addPerson(p);
         assertTrue(found.getId() > 0);
+        
+        // Tear Down
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+        Person personToBeRemoved = em.find(Person.class, found.getId());
+        em.remove(personToBeRemoved);
+        em.getTransaction().commit();
+        em.close();
     }
     
     @Test
@@ -122,6 +131,13 @@ public class FacadeTest {
         Company found = facade.addCompany(c);
         assertTrue(found.getId() > 0);
         assertTrue("Failed Found:  " + found.getAdress().getStreet(), d == found.getAdress());
+        
+        // Tear Down
+        em.getTransaction().begin();
+        Company com = em.find(Company.class, found.getId());
+        em.remove(com);
+        em.getTransaction().commit();
+        em.close();
     }
     
     @Test

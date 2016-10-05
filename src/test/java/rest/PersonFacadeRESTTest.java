@@ -6,6 +6,8 @@
 package rest;
 
 import enitity.Person;
+import io.restassured.RestAssured;
+import io.restassured.parsing.Parser;
 import java.util.List;
 import javax.ejb.embeddable.EJBContainer;
 import org.junit.After;
@@ -27,6 +29,10 @@ public class PersonFacadeRESTTest {
     
     @BeforeClass
     public static void setUpClass() {
+        RestAssured.baseURI = "http://localhost";
+        RestAssured.port = 8080;
+        RestAssured.basePath = "/Test1";
+        RestAssured.defaultParser = Parser.JSON;
     }
     
     @AfterClass
@@ -46,15 +52,8 @@ public class PersonFacadeRESTTest {
      */
     @Test
     @Ignore
-    public void testEdit_GenericType() throws Exception {
-        System.out.println("edit");
-        Person entity = null;
-        EJBContainer container = javax.ejb.embeddable.EJBContainer.createEJBContainer();
-        PersonFacadeREST instance = (PersonFacadeREST)container.getContext().lookup("java:global/classes/PersonFacadeREST");
-        instance.edit(entity);
-        container.close();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testEdit() throws Exception {
+        
     }
 
     /**
@@ -62,15 +61,8 @@ public class PersonFacadeRESTTest {
      */
     @Test
     @Ignore
-    public void testRemove_GenericType() throws Exception {
-        System.out.println("remove");
-        Person entity = null;
-        EJBContainer container = javax.ejb.embeddable.EJBContainer.createEJBContainer();
-        PersonFacadeREST instance = (PersonFacadeREST)container.getContext().lookup("java:global/classes/PersonFacadeREST");
-        instance.remove(entity);
-        container.close();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testRemove() throws Exception {
+        
     }
 
     /**
@@ -78,17 +70,8 @@ public class PersonFacadeRESTTest {
      */
     @Test
     @Ignore
-    public void testFind_Object() throws Exception {
-        System.out.println("find");
-        Object id = null;
-        EJBContainer container = javax.ejb.embeddable.EJBContainer.createEJBContainer();
-        PersonFacadeREST instance = (PersonFacadeREST)container.getContext().lookup("java:global/classes/PersonFacadeREST");
-        Person expResult = null;
-        Person result = instance.find(id);
-        assertEquals(expResult, result);
-        container.close();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testFind() throws Exception {
+        
     }
 
     /**
@@ -96,17 +79,8 @@ public class PersonFacadeRESTTest {
      */
     @Test
     @Ignore
-    public void testFindRange_intArr() throws Exception {
-        System.out.println("findRange");
-        int[] range = null;
-        EJBContainer container = javax.ejb.embeddable.EJBContainer.createEJBContainer();
-        PersonFacadeREST instance = (PersonFacadeREST)container.getContext().lookup("java:global/classes/PersonFacadeREST");
-        List<Person> expResult = null;
-        List<Person> result = instance.findRange(range);
-        assertEquals(expResult, result);
-        container.close();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testFindRange() throws Exception {
+        
     }
 
     /**
@@ -115,15 +89,7 @@ public class PersonFacadeRESTTest {
     @Test
     @Ignore
     public void testCount() throws Exception {
-        System.out.println("count");
-        EJBContainer container = javax.ejb.embeddable.EJBContainer.createEJBContainer();
-        PersonFacadeREST instance = (PersonFacadeREST)container.getContext().lookup("java:global/classes/PersonFacadeREST");
-        int expResult = 0;
-        int result = instance.count();
-        assertEquals(expResult, result);
-        container.close();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+       
     }
 
     /**
@@ -132,15 +98,7 @@ public class PersonFacadeRESTTest {
     @Test
     @Ignore
     public void testFindAll() throws Exception {
-        System.out.println("findAll");
-        EJBContainer container = javax.ejb.embeddable.EJBContainer.createEJBContainer();
-        PersonFacadeREST instance = (PersonFacadeREST)container.getContext().lookup("java:global/classes/PersonFacadeREST");
-        List<Person> expResult = null;
-        List<Person> result = instance.findAll();
-        assertEquals(expResult, result);
-        container.close();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
     }
 
     /**
@@ -149,15 +107,7 @@ public class PersonFacadeRESTTest {
     @Test
     @Ignore
     public void testGetJSONPersons() throws Exception {
-        System.out.println("getJSONPersons");
-        EJBContainer container = javax.ejb.embeddable.EJBContainer.createEJBContainer();
-        PersonFacadeREST instance = (PersonFacadeREST)container.getContext().lookup("java:global/classes/PersonFacadeREST");
-        String expResult = "";
-        String result = instance.getJSONPersons();
-        assertEquals(expResult, result);
-        container.close();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
     }
 
     /**
@@ -166,16 +116,7 @@ public class PersonFacadeRESTTest {
     @Test
     @Ignore
     public void testGetJSONPerson() throws Exception {
-        System.out.println("getJSONPerson");
-        Integer id = null;
-        EJBContainer container = javax.ejb.embeddable.EJBContainer.createEJBContainer();
-        PersonFacadeREST instance = (PersonFacadeREST)container.getContext().lookup("java:global/classes/PersonFacadeREST");
-        String expResult = "";
-        String result = instance.getJSONPerson(id);
-        assertEquals(expResult, result);
-        container.close();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
     }
 
     /**
@@ -184,15 +125,7 @@ public class PersonFacadeRESTTest {
     @Test
     @Ignore
     public void testGetJSONPersonContact() throws Exception {
-        System.out.println("getJSONPersonContact");
-        EJBContainer container = javax.ejb.embeddable.EJBContainer.createEJBContainer();
-        PersonFacadeREST instance = (PersonFacadeREST)container.getContext().lookup("java:global/classes/PersonFacadeREST");
-        String expResult = "";
-        String result = instance.getJSONPersonContact();
-        assertEquals(expResult, result);
-        container.close();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
     }
 
     /**
@@ -201,16 +134,7 @@ public class PersonFacadeRESTTest {
     @Test
     @Ignore
     public void testGetJSONPersonContactByPerson() throws Exception {
-        System.out.println("getJSONPersonContactByPerson");
-        Integer id = null;
-        EJBContainer container = javax.ejb.embeddable.EJBContainer.createEJBContainer();
-        PersonFacadeREST instance = (PersonFacadeREST)container.getContext().lookup("java:global/classes/PersonFacadeREST");
-        String expResult = "";
-        String result = instance.getJSONPersonContactByPerson(id);
-        assertEquals(expResult, result);
-        container.close();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
     }
 
     /**
@@ -219,16 +143,7 @@ public class PersonFacadeRESTTest {
     @Test
     @Ignore
     public void testGetJSONPersonByPhone() throws Exception {
-        System.out.println("getJSONPersonByPhone");
-        String number = "";
-        EJBContainer container = javax.ejb.embeddable.EJBContainer.createEJBContainer();
-        PersonFacadeREST instance = (PersonFacadeREST)container.getContext().lookup("java:global/classes/PersonFacadeREST");
-        String expResult = "";
-        String result = instance.getJSONPersonByPhone(number);
-        assertEquals(expResult, result);
-        container.close();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+       
     }
 
     /**
@@ -237,14 +152,7 @@ public class PersonFacadeRESTTest {
     @Test
     @Ignore
     public void testCreate() throws Exception {
-        System.out.println("create");
-        Person entity = null;
-        EJBContainer container = javax.ejb.embeddable.EJBContainer.createEJBContainer();
-        PersonFacadeREST instance = (PersonFacadeREST)container.getContext().lookup("java:global/classes/PersonFacadeREST");
-        instance.create(entity);
-        container.close();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
     }
 
     /**
@@ -253,15 +161,7 @@ public class PersonFacadeRESTTest {
     @Test
     @Ignore
     public void testEdit_Integer_Person() throws Exception {
-        System.out.println("edit");
-        Integer id = null;
-        Person entity = null;
-        EJBContainer container = javax.ejb.embeddable.EJBContainer.createEJBContainer();
-        PersonFacadeREST instance = (PersonFacadeREST)container.getContext().lookup("java:global/classes/PersonFacadeREST");
-        instance.edit(id, entity);
-        container.close();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
     }
 
     /**
@@ -270,14 +170,7 @@ public class PersonFacadeRESTTest {
     @Test
     @Ignore
     public void testRemove_Integer() throws Exception {
-        System.out.println("remove");
-        Integer id = null;
-        EJBContainer container = javax.ejb.embeddable.EJBContainer.createEJBContainer();
-        PersonFacadeREST instance = (PersonFacadeREST)container.getContext().lookup("java:global/classes/PersonFacadeREST");
-        instance.remove(id);
-        container.close();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
     }
 
     /**
@@ -286,16 +179,7 @@ public class PersonFacadeRESTTest {
     @Test
     @Ignore
     public void testFind_Integer() throws Exception {
-        System.out.println("find");
-        Integer id = null;
-        EJBContainer container = javax.ejb.embeddable.EJBContainer.createEJBContainer();
-        PersonFacadeREST instance = (PersonFacadeREST)container.getContext().lookup("java:global/classes/PersonFacadeREST");
-        Person expResult = null;
-        Person result = instance.find(id);
-        assertEquals(expResult, result);
-        container.close();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
     }
 
     /**
@@ -304,17 +188,7 @@ public class PersonFacadeRESTTest {
     @Test
     @Ignore
     public void testFindRange_Integer_Integer() throws Exception {
-        System.out.println("findRange");
-        Integer from = null;
-        Integer to = null;
-        EJBContainer container = javax.ejb.embeddable.EJBContainer.createEJBContainer();
-        PersonFacadeREST instance = (PersonFacadeREST)container.getContext().lookup("java:global/classes/PersonFacadeREST");
-        List<Person> expResult = null;
-        List<Person> result = instance.findRange(from, to);
-        assertEquals(expResult, result);
-        container.close();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+       
     }
 
     /**
@@ -323,15 +197,7 @@ public class PersonFacadeRESTTest {
     @Test
     @Ignore
     public void testCountREST() throws Exception {
-        System.out.println("countREST");
-        EJBContainer container = javax.ejb.embeddable.EJBContainer.createEJBContainer();
-        PersonFacadeREST instance = (PersonFacadeREST)container.getContext().lookup("java:global/classes/PersonFacadeREST");
-        String expResult = "";
-        String result = instance.countREST();
-        assertEquals(expResult, result);
-        container.close();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
     }
     
 }

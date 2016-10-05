@@ -70,18 +70,12 @@ public class FacadeTest {
     @Test
     public void testGetZipCodes(){
         List<CityInfoNew> cityList = facade.getZipCodes();
-        List<CityInfoNew> expectedList = new ArrayList();
-        expectedList.add(new CityInfoNew("2950","Vedbæk"));
-        expectedList.add(new CityInfoNew("1006","København K"));
-        expectedList.add(new CityInfoNew("1021","København K"));
-        expectedList.add(new CityInfoNew("1215","København K"));
-        
-        assertEquals(5,cityList.size());
+        assertEquals(4,cityList.size());
     }
    
     @Test
     public void testGetPersonsByCity(){
-        List<Person> pList = (List<Person>) facade.getPersonsByCity("Udbetaling");
+        List<Person> pList = (List<Person>) facade.getPersonsByCity("Vedbæk");
         
         assertEquals(1,pList.size());
         

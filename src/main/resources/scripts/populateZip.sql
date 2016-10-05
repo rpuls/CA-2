@@ -1358,9 +1358,9 @@ INSERT INTO address (id,Street,CityInfo_id,AdditionalInfo) VALUES (2,'Poulsvej',
 INSERT INTO address (id,Street,CityInfo_id,AdditionalInfo) VALUES (3,'Norgaardsvej','1021','ghi');
 INSERT INTO address (id,Street,CityInfo_id,AdditionalInfo) VALUES (4,'Strandvej','1215','klm');
 INSERT INTO INFOENTITY (EMAIL,DTYPE, ADRESS_id) VALUES ('cjs@email.dk','Person',1);
-INSERT INTO INFOENTITY (EMAIL,DTYPE) VALUES ('w@email.dk','Person');
-INSERT INTO INFOENTITY (EMAIL,DTYPE) VALUES ('dh@email.dk','Person');
-INSERT INTO INFOENTITY (EMAIL,DTYPE) VALUES ('r@email.dk','Person');
+INSERT INTO INFOENTITY (EMAIL,DTYPE, ADRESS_id) VALUES ('w@email.dk','Person',2);
+INSERT INTO INFOENTITY (EMAIL,DTYPE, ADRESS_id) VALUES ('dh@email.dk','Person', 3);
+INSERT INTO INFOENTITY (EMAIL,DTYPE ,ADRESS_id ) VALUES ('r@email.dk','Person', 4);
 INSERT INTO PERSON (ID,FIRSTNAME,LASTNAME) VALUES (1,'cherry','aa');
 INSERT INTO PERSON (ID,FIRSTNAME,LASTNAME) VALUES (2,'daniel','bb');
 INSERT INTO PERSON (ID,FIRSTNAME,LASTNAME) VALUES (3,'rasmus','cc');

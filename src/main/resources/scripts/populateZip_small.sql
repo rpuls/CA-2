@@ -2,19 +2,21 @@ INSERT INTO CITYINFO (ZIP, CITY) VALUES ('2950', 'Vedbæk');
 INSERT INTO CITYINFO (ZIP, CITY) VALUES ('1006', 'København K');
 INSERT INTO CITYINFO (ZIP, CITY) VALUES ('1021', 'København K');
 INSERT INTO CITYINFO (ZIP, CITY) VALUES ('1215', 'København K');	
-INSERT INTO CITYINFO (ZIP, CITY) VALUES ('0894', 'Udbetaling');	
 
-INSERT INTO INFOENTITY (EMAIL,DTYPE) VALUES ('cjs@email.dk','Person');
-INSERT INTO INFOENTITY (EMAIL,DTYPE) VALUES ('w@email.dk','Person');
-INSERT INTO INFOENTITY (EMAIL,DTYPE) VALUES ('dh@email.dk','Person');
-INSERT INTO INFOENTITY (EMAIL,DTYPE) VALUES ('r@email.dk','Person');
-INSERT INTO INFOENTITY (EMAIL,DTYPE) VALUES ('cr@email.dk','Person');
+INSERT INTO address (id,Street,CityInfo_id,AdditionalInfo) VALUES (1,'Sofievej','2950','abc');
+INSERT INTO address (id,Street,CityInfo_id,AdditionalInfo) VALUES (2,'Poulsvej','1006','def');
+INSERT INTO address (id,Street,CityInfo_id,AdditionalInfo) VALUES (3,'Norgaardsvej','1021','ghi');
+INSERT INTO address (id,Street,CityInfo_id,AdditionalInfo) VALUES (4,'Strandvej','1215','klm');
+
+INSERT INTO INFOENTITY (EMAIL,DTYPE, ADRESS_id) VALUES ('cjs@email.dk','Person',1);
+INSERT INTO INFOENTITY (EMAIL,DTYPE, ADRESS_id) VALUES ('w@email.dk','Person',2);
+INSERT INTO INFOENTITY (EMAIL,DTYPE, ADRESS_id) VALUES ('dh@email.dk','Person', 3);
+INSERT INTO INFOENTITY (EMAIL,DTYPE ,ADRESS_id ) VALUES ('r@email.dk','Person', 4);
 
 INSERT INTO PERSON (ID,FIRSTNAME,LASTNAME) VALUES (1,'cherry','aa');
 INSERT INTO PERSON (ID,FIRSTNAME,LASTNAME) VALUES (2,'daniel','bb');
 INSERT INTO PERSON (ID,FIRSTNAME,LASTNAME) VALUES (3,'rasmus','cc');
 INSERT INTO PERSON (ID,FIRSTNAME,LASTNAME) VALUES (4,'waqas','ddd');
-INSERT INTO PERSON (ID,FIRSTNAME,LASTNAME) VALUES (5,'waqas','ddd');
 
 INSERT INTO COMPANY (ID,NAME,DESCRIPTION,CVR,NUMEMPLOYEES,MARKETVALUE) VALUES (1,'Company A','a company','1234','2','123');
 INSERT INTO COMPANY (ID,NAME,DESCRIPTION,CVR,NUMEMPLOYEES,MARKETVALUE) VALUES (2,'Company B','a firm','4567','2','456');
@@ -24,9 +26,3 @@ INSERT INTO phone (id,numer,description,infoentity_ID) VALUES (1,'123456789','ho
 INSERT INTO phone (id,numer,description,infoentity_ID) VALUES (2,'987654321','office',2);
 INSERT INTO phone (id,numer,description,infoentity_ID) VALUES (3,'012345678','home',3);
 INSERT INTO phone (id,numer,description,infoentity_ID) VALUES (4,'234567890','home',4);
-INSERT INTO phone (id,numer,description,infoentity_ID) VALUES (5,'56465','home',5);
-INSERT INTO address (id,Street,CityInfo_id,AdditionalInfo) VALUES (1,'Sofievej','2950','abc');
-INSERT INTO address (id,Street,CityInfo_id,AdditionalInfo) VALUES (2,'Poulsvej','1006','def');
-INSERT INTO address (id,Street,CityInfo_id,AdditionalInfo) VALUES (3,'Norgaardsvej','1021','ghi');
-INSERT INTO address (id,Street,CityInfo_id,AdditionalInfo) VALUES (4,'Strandvej','1215','klm');
-INSERT INTO address (id,Street,CityInfo_id,AdditionalInfo) VALUES (5,'Strandvej','0894','klm');

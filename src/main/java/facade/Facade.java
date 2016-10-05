@@ -405,17 +405,13 @@ public class Facade {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public CityInfoNew getCityInfoByCompany(Company c) {
-        EntityManager em = getEntityManager();
-        
-        try{
-            Query query1 = em.createQuery("SELECT c from Company co, CityInfoNew c WHERE co.adress.cityInfoNew.zipCode =:zip");
-            query1.setParameter("zip", c.getAdress().getCityinfo().getZipCode());
-            CityInfoNew ci = (CityInfoNew) query1.getSingleResult();
-            return ci;
-        }finally{
-            em.close();
-        }
+    /**
+     * Gets the city by the given company
+     * @param c given company
+     * @return cityInfoNew
+     */
+    public CityInfoNew getCityInfoByCompany(Company c) {    
+        return c.getAdress().getCityinfo();
     }
 
     /**

@@ -82,6 +82,15 @@ public class FacadeTest {
 }
     
     @Test
+    public void testGetCityInfoByCompany(){
+        Company c = facade.getCompanyById(5);
+        CityInfoNew ci = facade.getCityInfoByCompany(c);
+        
+        assertEquals("København K",ci.getCity());
+        assertEquals("1215",ci.getZipCode());
+    }
+    
+    @Test
     @Ignore
     public void testGetPersonsByHobby() {
         int expectedCount = 0; // Should change when I know whats in the database

@@ -146,7 +146,21 @@ public class Facade {
      * @return The found company
      */
     public Company getCompanyByCvr(String cvr) {
-     throw new UnsupportedOperationException();
+        EntityManager em = getEntityManager();
+        
+        try{
+            Query q = em.createQuery("SELECT c from Company c where c.cvr = :cvrnum", Company.class);
+            q.setParameter("cvrnum", cvr);
+            Company company = (Company) q.getSingleResult();
+            return company;
+        }
+        catch(Exception e){
+            System.out.println("Error: " +e );
+        }
+        finally{
+            em.close();
+        }
+        return null;
     }
 
     /**
@@ -222,6 +236,7 @@ public class Facade {
         EntityManager em = getEntityManager();
         try {
             Query q = em.createQuery("Select c from Company c where c.NumEmployees  = :emp", Company.class);
+            q.setParameter("emp", number);
             Collection<Company> collection = q.getResultList();
             return collection;
         } catch (Exception e) {
@@ -391,12 +406,29 @@ public class Facade {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public Object getPhonesByCompany(Company c) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    /**
+     * Returns the phone numbers for that company as an String[]
+     * @param c The company 
+     * @return
+     */
+    public String[] getPhonesByCompany(Company c) {
+        Collection<Phone> phoneListObjects = c.getPhoneCollection();
+        List<String> phoneNumbers = new ArrayList<>();
+        for (Phone obj : phoneListObjects) {
+            phoneNumbers.add(obj.getNumer());
+        }
+        String[] array = phoneNumbers.toArray(new String[0]);
+        return array;
     }
 
+    /**
+     * Retunrs the Company by id
+     * @param id The id for the given company
+     * @return The company Obejct
+     */
     public Company getCompanyById(Integer id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        EntityManager em = getEntityManager();
+        return em.find(Company.class, id);
     }
 
 }

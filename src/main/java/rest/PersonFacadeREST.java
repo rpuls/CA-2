@@ -61,17 +61,21 @@ public class PersonFacadeREST extends AbstractFacade<Person> {
         List<Person> persons = facade.getPersons();
         List<JsonObject> jList = new ArrayList();
         for (Person p : persons) {
-            Address adr = facade.getAdressByPerson(p);
-            CityInfoNew cti = facade.getCityInfoByPerson(p);
             JsonObject job = new JsonObject();
-            job.addProperty("firstName", p.getFirstName());
-            job.addProperty("lastName", p.getLastName());
-            job.addProperty("email", p.getEmail());
-            job.addProperty("phones", gson.toJson(facade.getPhonesByPerson(p))); //MISSING - beware, that we might run in to s stackoverflow here
-            job.addProperty("street", adr.getStreet());
-            job.addProperty("additionalInfo", adr.getAdditionalInfo());
-            job.addProperty("zipCode", cti.getCity());
-            job.addProperty("city", cti.getCity());
+            if(p.getFirstName()!=null){job.addProperty("firstName", p.getFirstName());}
+            if(p.getLastName()!=null){job.addProperty("lastName", p.getLastName());}
+            if(p.getEmail()!=null){job.addProperty("email", p.getEmail());}
+            job.addProperty("phones", gson.toJson(facade.getPhonesByPerson(p)));
+            if(facade.getAdressByPerson(p)!=null){
+                Address adr = facade.getAdressByPerson(p);
+                if(adr.getStreet()!=null){job.addProperty("street", adr.getStreet());}
+                if(adr.getAdditionalInfo()!=null){job.addProperty("additionalInfo", adr.getAdditionalInfo());}
+            }
+            if(facade.getCityInfoByPerson(p)!=null){
+                CityInfoNew cti = facade.getCityInfoByPerson(p);
+                if(cti.getZipCode()!=null){job.addProperty("zipCode", cti.getZipCode());}
+                if(cti.getCity()!=null){job.addProperty("city", cti.getCity());}
+            }
             jList.add(job);
         }
         return gson.toJson(jList);
@@ -82,17 +86,21 @@ public class PersonFacadeREST extends AbstractFacade<Person> {
     @Produces(MediaType.APPLICATION_JSON)
     public String getJSONPerson(@PathParam("id") Integer id) {
         Person p = facade.getPersonById(id);
-            Address adr = facade.getAdressByPerson(p);
-            CityInfoNew cti = facade.getCityInfoByPerson(p);
             JsonObject job = new JsonObject();
-            job.addProperty("firstName", p.getFirstName());
-            job.addProperty("lastName", p.getLastName());
-            job.addProperty("email", p.getEmail());
-            job.addProperty("phones", gson.toJson(facade.getPhonesByPerson(p))); //MISSING - beware, that we might run in to s stackoverflow here
-            job.addProperty("street", adr.getStreet());
-            job.addProperty("additionalInfo", adr.getAdditionalInfo());
-            job.addProperty("zipCode", cti.getCity());
-            job.addProperty("city", cti.getCity());
+            if(p.getFirstName()!=null){job.addProperty("firstName", p.getFirstName());}
+            if(p.getLastName()!=null){job.addProperty("lastName", p.getLastName());}
+            if(p.getEmail()!=null){job.addProperty("email", p.getEmail());}
+            job.addProperty("phones", gson.toJson(facade.getPhonesByPerson(p)));
+            if(facade.getAdressByPerson(p)!=null){
+                Address adr = facade.getAdressByPerson(p);
+                if(adr.getStreet()!=null){job.addProperty("street", adr.getStreet());}
+                if(adr.getAdditionalInfo()!=null){job.addProperty("additionalInfo", adr.getAdditionalInfo());}
+            }
+            if(facade.getCityInfoByPerson(p)!=null){
+                CityInfoNew cti = facade.getCityInfoByPerson(p);
+                if(cti.getZipCode()!=null){job.addProperty("zipCode", cti.getZipCode());}
+                if(cti.getCity()!=null){job.addProperty("city", cti.getCity());}
+            }
         
         return gson.toJson(job);
     }
@@ -105,9 +113,9 @@ public class PersonFacadeREST extends AbstractFacade<Person> {
         List<JsonObject> jList = new ArrayList();
         for (Person p : persons) {
             JsonObject job = new JsonObject();
-            job.addProperty("id", p.getId());
-            job.addProperty("name", p.getFirstName() + " " +  p.getLastName());
-            job.addProperty("email", p.getEmail());
+            if(p.getId()!=null){job.addProperty("id", p.getId());}
+            if(p.getFirstName()!=null && p.getFirstName()!=null){job.addProperty("name", p.getFirstName() + " " +  p.getLastName());}
+            if(p.getEmail()!=null){job.addProperty("email", p.getEmail());}
             job.addProperty("phones", gson.toJson(facade.getPhonesByPerson(p))); //MISSING - beware, that we might run in to s stackoverflow here
             jList.add(job);
         }
@@ -120,9 +128,9 @@ public class PersonFacadeREST extends AbstractFacade<Person> {
     public String getJSONPersonContactByPerson(@PathParam("id") Integer id){
         Person p = facade.getPersonById(id); 
             JsonObject job = new JsonObject();
-            job.addProperty("id", p.getId());
-            job.addProperty("name", p.getFirstName() + " " +  p.getLastName());
-            job.addProperty("email", p.getEmail());
+            if(p.getId()!=null){job.addProperty("id", p.getId());}
+            if(p.getFirstName()!=null && p.getFirstName()!=null){job.addProperty("name", p.getFirstName() + " " +  p.getLastName());}
+            if(p.getEmail()!=null){job.addProperty("email", p.getEmail());}
             job.addProperty("phones", gson.toJson(facade.getPhonesByPerson(p))); //MISSING - beware, that we might run in to s stackoverflow here
         return gson.toJson(job);
     }

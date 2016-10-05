@@ -5,6 +5,7 @@
  */
 package facade;
 
+import com.sun.javafx.scene.control.skin.VirtualFlow;
 import enitity.Address;
 import enitity.CityInfoNew;
 import enitity.Company;
@@ -67,13 +68,21 @@ public class Facade {
     }
 
     /**
-     * Returns the phonecollection for one person.
+     * Returns a String[] of phone numbers for one person.
      * Be sure that the person is already fully found in the database
      * @param p - Given that the person is already a persisted one
-     * @return The phonecollection for that person
+     * @return The phoneNumbers[] for that person
      */
-    public Collection<Phone> getPhonesByPerson(Person p) {
-        return p.getPhoneCollection();
+    public String[] getPhonesByPerson(Person p) {
+        List<String> na = new ArrayList<>();
+        String[] numbers;
+        int i=0;
+        for(Phone ph : p.getPhoneCollection()){
+            na.add(ph.getNumer());
+            i++;
+        }
+        numbers = na.toArray(new String[i]);
+        return numbers;
     }
 
     /**
@@ -100,7 +109,7 @@ public class Facade {
      * @param phone The given phone number
      * @return The person if there is a match.
      */
-    public Person getPerson(String phone) {
+    public Person getPersonByPhone(String phone) {
         EntityManager em = getEntityManager();
         Person p = new Person();
         

@@ -5,10 +5,14 @@
  */
 package rest;
 
-import enitity.CityInfoNew;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import enitity.InfoEntity;
+import facade.Facade;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -25,54 +29,66 @@ import javax.ws.rs.core.MediaType;
  * @author rasmus
  */
 @Stateless
-@Path("enitity.cityinfonew")
-public class CityInfoNewFacadeREST extends AbstractFacade<CityInfoNew> {
+@Path("infoentity")
+public class InfoEntityFacadeREST extends AbstractFacade<InfoEntity> {
+    
+    static Facade facade = new Facade(Persistence.createEntityManagerFactory("remote"));
+    static Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
     @PersistenceContext(unitName = "remote")
     private EntityManager em;
 
-    public CityInfoNewFacadeREST() {
-        super(CityInfoNew.class);
+    public InfoEntityFacadeREST() {
+        super(InfoEntity.class);
     }
 
     @POST
     @Override
-    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public void create(CityInfoNew entity) {
+    @Consumes({MediaType.APPLICATION_JSON})
+    public void create(InfoEntity entity) {
         super.create(entity);
     }
 
+    @POST
+    @Consumes({MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_JSON})
+    public String addCompany(String content){
+        InfoEntity ei = gson.fromJson(content, InfoEntity.class);
+        InfoEntity newInfoEntity = facade.addInfoEntity(content);
+        return gson.toJson(newInfoEntity);
+    }
+    
     @PUT
     @Path("{id}")
-    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public void edit(@PathParam("id") String id, CityInfoNew entity) {
+    @Consumes({MediaType.APPLICATION_JSON})
+    public void edit(@PathParam("id") Integer id, InfoEntity entity) {
         super.edit(entity);
     }
 
     @DELETE
     @Path("{id}")
-    public void remove(@PathParam("id") String id) {
+    public void remove(@PathParam("id") Integer id) {
         super.remove(super.find(id));
     }
 
     @GET
     @Path("{id}")
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public CityInfoNew find(@PathParam("id") String id) {
+    @Produces({MediaType.APPLICATION_JSON})
+    public InfoEntity find(@PathParam("id") Integer id) {
         return super.find(id);
     }
 
     @GET
     @Override
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<CityInfoNew> findAll() {
+    @Produces({MediaType.APPLICATION_JSON})
+    public List<InfoEntity> findAll() {
         return super.findAll();
     }
 
     @GET
     @Path("{from}/{to}")
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<CityInfoNew> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
+    @Produces({MediaType.APPLICATION_JSON})
+    public List<InfoEntity> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
         return super.findRange(new int[]{from, to});
     }
 

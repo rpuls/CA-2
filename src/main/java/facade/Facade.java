@@ -5,7 +5,6 @@
  */
 package facade;
 
-import com.sun.javafx.scene.control.skin.VirtualFlow;
 import enitity.Address;
 import enitity.CityInfoNew;
 import enitity.Company;
@@ -467,6 +466,10 @@ public class Facade {
     public Company getCompanyById(Integer id) {
         EntityManager em = getEntityManager();
         return em.find(Company.class, id);
+    }
+
+    public InfoEntity addInfoEntity(String content) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

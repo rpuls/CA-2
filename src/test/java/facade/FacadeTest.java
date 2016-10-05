@@ -6,6 +6,7 @@
 package facade;
 
 import enitity.Address;
+import enitity.CityInfoNew;
 import enitity.Company;
 import enitity.Hobby;
 import enitity.Person;
@@ -66,6 +67,18 @@ public class FacadeTest {
         assertTrue(phonenumber.equalsIgnoreCase(foundPhonenumber));
     }
 
+    @Test
+    public void testGetZipCodes(){
+        List<CityInfoNew> cityList = facade.getZipCodes();
+        List<CityInfoNew> expectedList = new ArrayList();
+        expectedList.add(new CityInfoNew("2950","Vedbæk"));
+        expectedList.add(new CityInfoNew("1006","København K"));
+        expectedList.add(new CityInfoNew("1021","København K"));
+        expectedList.add(new CityInfoNew("1215","København K"));
+        
+        assertEquals(expectedList.size(),cityList.size());
+    }
+   
     @Test
     @Ignore
     public void testGetPersonsByHobby() {

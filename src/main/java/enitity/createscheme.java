@@ -6,6 +6,8 @@
 package enitity;
 
 import facade.Facade;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Persistence;
 
 /**
@@ -18,8 +20,14 @@ public class createscheme {
 //        Persistence.generateSchema("remote", null);
         
         Facade f = new Facade(Persistence.createEntityManagerFactory("remote"));
-        Person p = f.getPerson("123456789");
-        System.out.println("PERSON:" + p.getFirstName());
+//        Person p = f.getPerson("123456789");
+//        System.out.println("PERSON:" + p.getFirstName());
+
+//        List<CityInfoNew> zips = new ArrayList();
+//        zips = f.getZipCodes();
+//        for (CityInfoNew city : zips) {
+//            System.out.println("ZIP:" + city.getZipCode() + " CITY: " + city.getCity());
+//        }
     }
     
 }

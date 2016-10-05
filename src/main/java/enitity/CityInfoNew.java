@@ -48,6 +48,15 @@ public class CityInfoNew implements Serializable {
     public CityInfoNew() {
     }
 
+    /**
+     * This is only used for the test since there is already a script to populate the cityInfo
+     * @param zipCode
+     * @param city
+     */
+    public CityInfoNew(String zipCode, String city) {
+        this.zipCode = zipCode;
+        this.city = city;
+    }
 
     public String getZipCode() {
         return zipCode;

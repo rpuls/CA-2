@@ -18,6 +18,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -146,7 +147,16 @@ public class Facade {
     }
 
     public List<CityInfoNew> getZipCodes() {
-        return new ArrayList<CityInfoNew>();
+        List<CityInfoNew> zipCodes = new ArrayList();
+        EntityManager em = getEntityManager();
+        
+        try{
+            TypedQuery<CityInfoNew> query = em.createNamedQuery("Cityinfo.findAll",CityInfoNew.class);
+            zipCodes = query.getResultList();
+        }finally{
+            em.close();
+        }
+        return zipCodes;
     }
 
     public List<Company> getCompaniesByEmpAmount(int number) {

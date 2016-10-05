@@ -7,6 +7,7 @@ package rest;
 
 import enitity.Person;
 import io.restassured.RestAssured;
+import static io.restassured.RestAssured.given;
 import io.restassured.parsing.Parser;
 import java.util.List;
 import javax.ejb.embeddable.EJBContainer;
@@ -47,6 +48,11 @@ public class PersonFacadeRESTTest {
     public void tearDown() {
     }
 
+      @Test
+    public void serverIsRunningV2() {
+        given().when().get("http://localhost:8080/Test1/").then().statusCode(200);
+    }
+    
     /**
      * Test of edit method, of class PersonFacadeREST.
      */

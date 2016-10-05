@@ -20,11 +20,11 @@ public class createscheme {
         
         Persistence.generateSchema("remote", null);
         
-        Facade f = new Facade(Persistence.createEntityManagerFactory("remote"));
-        List<Company> cList = f.getCompanies();
-        for (Company company : cList) {
-            System.out.println("Company:" + company.getName());
-        }
+//        Facade f = new Facade(Persistence.createEntityManagerFactory("remote"));
+//        List<Company> cList = f.getCompanies();
+//        for (Company company : cList) {
+//            System.out.println("Company:" + company.getName());
+//        }
     }
     
 }

@@ -43,11 +43,9 @@ public class Facade {
      */
     public List<Person> getPersons() {
         EntityManager em = emf.createEntityManager();
-        List<Person> persons = null;
+       
         try {
-            em.getTransaction().begin();
-            persons = em.createQuery("Select p from Person p").getResultList();
-            em.getTransaction().commit();
+            List<Person> persons = em.createQuery("Select p from Person p").getResultList();
             return persons;
         } finally {
             em.close();
@@ -157,7 +155,21 @@ public class Facade {
      * @return The found company
      */
     public Company getCompanyByCvr(String cvr) {
-     throw new UnsupportedOperationException();
+        EntityManager em = getEntityManager();
+        
+        try{
+            Query q = em.createQuery("SELECT c from Company c where c.cvr = :cvrnum", Company.class);
+            q.setParameter("cvrnum", cvr);
+            Company company = (Company) q.getSingleResult();
+            return company;
+        }
+        catch(Exception e){
+            System.out.println("Error: " +e );
+        }
+        finally{
+            em.close();
+        }
+        return null;
     }
 
     /**
@@ -182,25 +194,23 @@ public class Facade {
 
     /**
      * Returns a Collection of persons that lives in city
-     * @param City A string with a City name, NOT A OBJECT OF CITY INFO!
+     * @param city A string with a City name, NOT A OBJECT OF CITY INFO!
      * @return The Collections for persons that lives in that city
      */
-    public Collection<Person> getPersonsByCity(String City) {
+    public Collection<Person> getPersonsByCity(String city) {
         EntityManager em = getEntityManager();
-        try {
-            Query query;
-            if (Character.isDigit(City.charAt(0))) {
-                query = em.createQuery("SELECT p,c from Person p, CityInfo c  WHERE c.ZIP= :zip");
-                query.setParameter("zip", City);
-            } else {
-                query = em.createQuery("SELECT p,c from Person p, CityInfo c  WHERE c.CITY= :city");
-                query.setParameter("city", City);
-            }
-            List<Person> persons = query.getResultList();
-            return persons;
-        } finally {
+        
+        try{
+            Query query1 = em.createQuery("SELECT p FROM Person p WHERE p.adress.cityInfoNew.city =:city");
+            query1.setParameter("city", city);
+            Collection<Person> pList = (List<Person>) query1.getResultList();
+            return pList;
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }finally{
             em.close();
         }
+        return null;
     }
 
     /**
@@ -236,9 +246,18 @@ public class Facade {
      */
     public Collection<Company> getCompaniesByEmpAmount(int number) {
         EntityManager em = getEntityManager();
-        Query q = em.createQuery("Select c from Company c where c.NumEmployees  = :emp", Company.class);
-        Collection<Company> collection = q.getResultList();
-        return collection;
+        try {
+            Query q = em.createQuery("Select c from Company c where c.NumEmployees  = :emp", Company.class);
+            q.setParameter("emp", number);
+            Collection<Company> collection = q.getResultList();
+            return collection;
+        } catch (Exception e) {
+            System.out.println("Error" + e);
+        }
+        finally{
+            em.close();
+        }
+        return null;
     }
 
     /**
@@ -391,20 +410,37 @@ public class Facade {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public Address getAdressByCompanies(Company c) {
+    public Address getAdressByCompany(Company c) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public CityInfoNew getCityInfoByCompanies(Company c) {
+    public CityInfoNew getCityInfoByCompany(Company c) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public Object getPhonesByCompanies(Company c) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    /**
+     * Returns the phone numbers for that company as an String[]
+     * @param c The company 
+     * @return
+     */
+    public String[] getPhonesByCompany(Company c) {
+        Collection<Phone> phoneListObjects = c.getPhoneCollection();
+        List<String> phoneNumbers = new ArrayList<>();
+        for (Phone obj : phoneListObjects) {
+            phoneNumbers.add(obj.getNumer());
+        }
+        String[] array = phoneNumbers.toArray(new String[0]);
+        return array;
     }
 
-    public Company getCompaniesById(Integer id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    /**
+     * Retunrs the Company by id
+     * @param id The id for the given company
+     * @return The company Obejct
+     */
+    public Company getCompanyById(Integer id) {
+        EntityManager em = getEntityManager();
+        return em.find(Company.class, id);
     }
 
 }

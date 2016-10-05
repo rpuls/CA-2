@@ -70,15 +70,17 @@ public class FacadeTest {
     @Test
     public void testGetZipCodes(){
         List<CityInfoNew> cityList = facade.getZipCodes();
-        List<CityInfoNew> expectedList = new ArrayList();
-        expectedList.add(new CityInfoNew("2950","Vedbæk"));
-        expectedList.add(new CityInfoNew("1006","København K"));
-        expectedList.add(new CityInfoNew("1021","København K"));
-        expectedList.add(new CityInfoNew("1215","København K"));
-        
-        assertEquals(expectedList.size(),cityList.size());
+        assertEquals(4,cityList.size());
     }
    
+    @Test
+    public void testGetPersonsByCity(){
+        List<Person> pList = (List<Person>) facade.getPersonsByCity("Vedbæk");
+        
+        assertEquals(1,pList.size());
+        
+}
+    
     @Test
     @Ignore
     public void testGetPersonsByHobby() {
@@ -105,6 +107,15 @@ public class FacadeTest {
         Company found = facade.addCompany(c);
         assertTrue(found.getId() > 0);
         assertTrue("Failed Found:  " + found.getAdress().getStreet(), d == found.getAdress());
+    }
+    
+    @Test
+    public void testGetPhonesByCompany(){
+        EntityManager em = emf.createEntityManager();
+        Company c = em.find(Company.class, 5); // Gets the first Company We know that has the id of 5!
+        int numberOfPhoneEntitys = c.getPhoneCollection().size(); // returns the number of Phones for that company
+        String[] result = facade.getPhonesByCompany(c);
+        assertTrue(numberOfPhoneEntitys == result.length);
     }
 
     

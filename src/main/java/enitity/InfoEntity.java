@@ -35,13 +35,13 @@ public class InfoEntity implements Serializable {
     private Integer id;
     private String email;
     
-    @ElementCollection
-    @OneToMany
-    private List<Person> persons = new ArrayList();
-    
-    @ElementCollection
-    @OneToMany
-    private List<Company> companies = new ArrayList();
+//    @ElementCollection
+//    @OneToMany
+//    private List<Person> persons = new ArrayList();
+//    
+//    @ElementCollection
+//    @OneToMany
+//    private List<Company> companies = new ArrayList();
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "infoentity")
     private Collection<enitity.Phone> phoneCollection;
@@ -81,9 +81,9 @@ public class InfoEntity implements Serializable {
         this.adress = adress;
     }
 
-    public List<Person> getPersons() {
-        return persons;
-    }
+//    public List<Person> getPersons() {
+//        return persons;
+//    }
     
     
     

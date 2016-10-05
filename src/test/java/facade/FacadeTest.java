@@ -82,7 +82,23 @@ public class FacadeTest {
 }
     
     @Test
-    @Ignore
+    public void testgetCompanies(){
+        List<Company> cList = (List<Company>) facade.getCompanies();
+        
+        assertEquals(3,cList.size());
+        
+}
+    
+    @Test
+    public void testGetCityInfoByCompany(){
+        Company c = facade.getCompanyById(5);
+        CityInfoNew ci = facade.getCityInfoByCompany(c);
+        
+        assertEquals("København K",ci.getCity());
+        assertEquals("1215",ci.getZipCode());
+    }
+    
+    @Test
     public void testGetPersonsByHobby() {
         int expectedCount = 0; // Should change when I know whats in the database
         Hobby hobby = new Hobby("Basket", "Fun"); // this should change when I know whats in the database!!!
@@ -91,7 +107,6 @@ public class FacadeTest {
     }
 
     @Test
-    @Ignore
     public void testAddPerson() {
         Person p = new Person("Daniel", "Hollmann", "danielhollmann@hotmail.com", null);
         Person found = facade.addPerson(p);

@@ -91,7 +91,7 @@ public class Facade {
      * @return The Adresse for that person
      */
     public Address getAdressByPerson(Person p) {
-        return new Address();
+        return p.getAdress();
     }
 
     /**
@@ -406,16 +406,42 @@ public class Facade {
         return cityInfo;
     }
 
+    /**
+     * Gets the list of Companies
+     * @return listOfCompanies
+     */
     public List<Company> getCompanies() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        EntityManager em = getEntityManager();
+        try {
+            Query q = em.createQuery("Select c from Company c");
+            List<Company> collection = q.getResultList();
+            return collection;
+        } catch (Exception e) {
+            System.out.println("Error" + e);
+        }
+        finally{
+            em.close();
+        }
+        return null;
     }
 
+    /**
+     * Returns an Adresse object for a Company.
+     * The Company Objects must allready be in the database
+     * @param c The Company object that must be an existing one
+     * @return The Adresse.
+     */
     public Address getAdressByCompany(Company c) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       return c.getAdress();
     }
 
-    public CityInfoNew getCityInfoByCompany(Company c) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    /**
+     * Gets the city by the given company
+     * @param c given company
+     * @return cityInfoNew
+     */
+    public CityInfoNew getCityInfoByCompany(Company c) {    
+        return c.getAdress().getCityinfo();
     }
 
     /**

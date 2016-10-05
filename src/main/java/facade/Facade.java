@@ -227,9 +227,17 @@ public class Facade {
      */
     public Collection<Company> getCompaniesByEmpAmount(int number) {
         EntityManager em = getEntityManager();
-        Query q = em.createQuery("Select c from Company c where c.NumEmployees  = :emp", Company.class);
-        Collection<Company> collection = q.getResultList();
-        return collection;
+        try {
+            Query q = em.createQuery("Select c from Company c where c.NumEmployees  = :emp", Company.class);
+            Collection<Company> collection = q.getResultList();
+            return collection;
+        } catch (Exception e) {
+            System.out.println("Error" + e);
+        }
+        finally{
+            em.close();
+        }
+        return null;
     }
 
     /**

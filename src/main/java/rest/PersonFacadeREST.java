@@ -74,7 +74,6 @@ public class PersonFacadeREST {
         }
         return gson.toJson(jList);
     }
-    
 
     
     @GET

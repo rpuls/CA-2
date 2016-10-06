@@ -469,7 +469,11 @@ public class Facade {
      * @return cityInfoNew
      */
     public CityInfoNew getCityInfoByCompany(Company c) {
-        return c.getAdress().getCityinfo();
+        if (c.getAdress() == null) {
+            return null;
+        } else {
+            return c.getAdress().getCityinfo();
+        }
     }
 
     /**

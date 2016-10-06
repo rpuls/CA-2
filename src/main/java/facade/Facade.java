@@ -149,6 +149,7 @@ public class Facade {
 
     /**
      * Returns the Company that mathces the phone number.
+     *
      * @param phone The phonenumber to search for.
      * @return The company, that is found.
      */
@@ -163,13 +164,11 @@ public class Facade {
             em.getTransaction().begin();
             c = em.find(Company.class, phone); //it should have an access in the phone through the Company
             em.getTransaction().commit();
-        return c;
-        } 
-        catch(Exception e){
+            return c;
+        } catch (Exception e) {
             System.out.println(e);
             throw e;
-        }
-        finally {
+        } finally {
             em.close();
         }
 
@@ -177,6 +176,7 @@ public class Facade {
 
     /**
      * Returns the Company based on the given cvr
+     *
      * @param cvr The cvr to search for
      * @return The found company
      */
@@ -211,12 +211,10 @@ public class Facade {
             query.setParameter("hobby", hob.getName());
             List<Person> persons = query.getResultList();
             return persons;
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             System.out.println(e);
             throw e;
-        }
-        finally {
+        } finally {
             em.close();
         }
 
@@ -224,6 +222,7 @@ public class Facade {
 
     /**
      * Returns a Collection of persons that lives in city
+     *
      * @param city A string with a City name, NOT A OBJECT OF CITY INFO!
      * @return The Collections for persons that lives in that city
      */
@@ -261,14 +260,12 @@ public class Facade {
 
         try {
             TypedQuery<CityInfoNew> query = em.createNamedQuery("Cityinfo.findAll", CityInfoNew.class);
-             List<CityInfoNew> zipCodes = query.getResultList();
-        return zipCodes;
-        }
-        catch (Exception e){
+            List<CityInfoNew> zipCodes = query.getResultList();
+            return zipCodes;
+        } catch (Exception e) {
             System.out.println(e);
             throw e;
-        }
-        finally {
+        } finally {
             em.close();
         }
     }
@@ -307,7 +304,7 @@ public class Facade {
             em.getTransaction().begin();
             em.persist(p);
             em.getTransaction().commit();
-        return p;
+            return p;
         } catch (Exception e) {
             System.out.println("Error" + e);
             throw e;
@@ -329,7 +326,7 @@ public class Facade {
             em.getTransaction().begin();
             em.persist(c);
             em.getTransaction().commit();
-        return c;
+            return c;
         } catch (Exception e) {
             System.out.println("Error" + e);
             throw e;
@@ -403,13 +400,11 @@ public class Facade {
             em.getTransaction().begin();
             em.persist(adr);
             em.getTransaction().commit();
-        return adr;
-        }
-        catch(Exception e){
+            return adr;
+        } catch (Exception e) {
             System.out.println(e);
             throw e;
-        }
-        finally {
+        } finally {
             em.close();
         }
 
@@ -428,7 +423,7 @@ public class Facade {
             em.getTransaction().begin();
             em.persist(cityInfo);
             em.getTransaction().commit();
-        return cityInfo;
+            return cityInfo;
         } catch (Exception e) {
             System.out.println("Error: " + e);
             throw e;
@@ -474,7 +469,11 @@ public class Facade {
      * @return cityInfoNew
      */
     public CityInfoNew getCityInfoByCompany(Company c) {
-        return c.getAdress().getCityinfo();
+        if (c.getAdress() == null) {
+            return null;
+        } else {
+            return c.getAdress().getCityinfo();
+        }
     }
 
     /**
@@ -495,6 +494,7 @@ public class Facade {
 
     /**
      * Retunrs the Company by id
+     *
      * @param id The id for the given company
      * @return The company Obejct
      */

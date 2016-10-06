@@ -38,21 +38,26 @@ public class Facade {
 
     /**
      * Returns the list of all the Persons
+     *
      * @return Returns the list of all the Persons
      */
     public List<Person> getPersons() {
         EntityManager em = emf.createEntityManager();
-       
+
         try {
             List<Person> persons = em.createQuery("Select p from Person p").getResultList();
             return persons;
+        } catch (Exception e) {
+            System.out.println(e);
+            throw e;
         } finally {
             em.close();
         }
     }
 
     /**
-     * Returns one person 
+     * Returns one person
+     *
      * @param id Id of the person
      * @return A Java object of Person
      */
@@ -61,31 +66,42 @@ public class Facade {
 
         try {
             return em.find(Person.class, id);
+
+        } catch (Exception e) {
+            System.out.println(e);
+            throw e;
         } finally {
             em.close();
         }
     }
 
     /**
-     * Returns a String[] of phone numbers for one person.
-     * Be sure that the person is already fully found in the database
+     * Returns a String[] of phone numbers for one person. Be sure that the
+     * person is already fully found in the database
+     *
      * @param p - Given that the person is already a persisted one
      * @return The phoneNumbers[] for that person
      */
     public String[] getPhonesByPerson(Person p) {
-        List<String> na = new ArrayList<>();
-        String[] numbers;
-        int i=0;
-        for(Phone ph : p.getPhoneCollection()){
-            na.add(ph.getNumer());
-            i++;
+        try {
+            List<String> na = new ArrayList<>();
+            String[] numbers;
+            int i = 0;
+            for (Phone ph : p.getPhoneCollection()) {
+                na.add(ph.getNumer());
+                i++;
+            }
+            numbers = na.toArray(new String[i]);
+            return numbers;
+        } catch (Exception e) {
+            System.out.println(e);
+            throw e;
         }
-        numbers = na.toArray(new String[i]);
-        return numbers;
     }
 
     /**
      * Returns the Adresse for a person
+     *
      * @param p Given that the person is already a persisted one
      * @return The Adresse for that person
      */
@@ -94,8 +110,9 @@ public class Facade {
     }
 
     /**
-     * Returns the CityInfo for a person. The Person must already be found in the
-     * database before calling this method
+     * Returns the CityInfo for a person. The Person must already be found in
+     * the database before calling this method
+     *
      * @param p Given that the person is already a persisted one
      * @return The CityInfo Object for that person
      */
@@ -105,24 +122,29 @@ public class Facade {
 
     /**
      * Get a specfic person based on the phone number
+     *
      * @param phone The given phone number
      * @return The person if there is a match.
      */
     public Person getPersonByPhone(String phone) {
         EntityManager em = getEntityManager();
         Person p = new Person();
-        
-        try{
+
+        try {
             Query query1 = em.createQuery("SELECT p from Phone p WHERE p.numer =:contact");
             query1.setParameter("contact", phone);
             Phone num = (Phone) query1.getSingleResult();
             InfoEntity en = num.getInfoentity();
             p = em.find(Person.class, en.getId());
-        }finally{
+            return p;
+
+        } catch (Exception e) {
+            System.out.println(e);
+            throw e;
+        } finally {
             em.close();
         }
 
-        return p;
     }
 
     /**
@@ -141,13 +163,18 @@ public class Facade {
             em.getTransaction().begin();
             c = em.find(Company.class, phone); //it should have an access in the phone through the Company
             em.getTransaction().commit();
-        } finally {
+        return c;
+        } 
+        catch(Exception e){
+            System.out.println(e);
+            throw e;
+        }
+        finally {
             em.close();
         }
 
-        return c;
     }
-    
+
     /**
      * Returns the Company based on the given cvr
      * @param cvr The cvr to search for
@@ -155,25 +182,24 @@ public class Facade {
      */
     public Company getCompanyByCvr(String cvr) {
         EntityManager em = getEntityManager();
-        
-        try{
+
+        try {
             Query q = em.createQuery("SELECT c from Company c where c.cvr = :cvrnum", Company.class);
             q.setParameter("cvrnum", cvr);
             Company company = (Company) q.getSingleResult();
             return company;
-        }
-        catch(Exception e){
-            System.out.println("Error: " +e );
-        }
-        finally{
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+            throw e;
+        } finally {
             em.close();
         }
-        return null;
     }
 
     /**
-     * Returns a collection of Persons given by a 
-     * Specific Hobby. The Hobby has to be in the database
+     * Returns a collection of Persons given by a Specific Hobby. The Hobby has
+     * to be in the database
+     *
      * @param hob An Already persisted hobby
      * @return A Collections for Persons.
      */
@@ -185,7 +211,12 @@ public class Facade {
             query.setParameter("hobby", hob.getName());
             List<Person> persons = query.getResultList();
             return persons;
-        } finally {
+        }
+        catch(Exception e){
+            System.out.println(e);
+            throw e;
+        }
+        finally {
             em.close();
         }
 
@@ -198,48 +229,53 @@ public class Facade {
      */
     public Collection<Person> getPersonsByCity(String city) {
         EntityManager em = getEntityManager();
-        
-        try{
+
+        try {
             Query query1 = em.createQuery("SELECT p FROM Person p WHERE p.adress.cityInfoNew.city =:city");
             query1.setParameter("city", city);
             Collection<Person> pList = (List<Person>) query1.getResultList();
             return pList;
-        }catch(Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
-        }finally{
+            throw e;
+        } finally {
             em.close();
         }
-        return null;
     }
 
     /**
-     * Returns the amount of persons with that hoobie
-     * Given that the hobby is already in the database
+     * Returns the amount of persons with that hoobie Given that the hobby is
+     * already in the database
+     *
      * @param hob Hobby that is already a persisted one!
      * @return The count of persons with that hobby
      */
     public int getCountOfPeopleByHobby(Hobby hob) {
-       Collection<Person> personCollection = hob.getPersonCollection();
-       int count = personCollection.size();
-       return count;
+        Collection<Person> personCollection = hob.getPersonCollection();
+        int count = personCollection.size();
+        return count;
     }
 
     public List<CityInfoNew> getZipCodes() {
-        List<CityInfoNew> zipCodes = new ArrayList();
         EntityManager em = getEntityManager();
-        
-        try{
-            TypedQuery<CityInfoNew> query = em.createNamedQuery("Cityinfo.findAll",CityInfoNew.class);
-            zipCodes = query.getResultList();
-        }finally{
+
+        try {
+            TypedQuery<CityInfoNew> query = em.createNamedQuery("Cityinfo.findAll", CityInfoNew.class);
+             List<CityInfoNew> zipCodes = query.getResultList();
+        return zipCodes;
+        }
+        catch (Exception e){
+            System.out.println(e);
+            throw e;
+        }
+        finally {
             em.close();
         }
-        return zipCodes;
     }
 
     /**
-     * Returns a Collection of Companies with a given number of
-     * employees
+     * Returns a Collection of Companies with a given number of employees
+     *
      * @param number The number of employees
      * @return A Collection of companies
      */
@@ -252,94 +288,91 @@ public class Facade {
             return collection;
         } catch (Exception e) {
             System.out.println("Error" + e);
-        }
-        finally{
+            throw e;
+        } finally {
             em.close();
         }
-        return null;
     }
 
     /**
      * Adds a Person to the database
+     *
      * @param p The java object of person
      * @return The same object, after being persisted in the database
      */
     public Person addPerson(Person p) {
-         EntityManager em = emf.createEntityManager();
-        
-        
-        try{
-        em.getTransaction().begin();
-        em.persist(p);
-        em.getTransaction().commit();
-        }
-        catch(Exception e){
+        EntityManager em = emf.createEntityManager();
+
+        try {
+            em.getTransaction().begin();
+            em.persist(p);
+            em.getTransaction().commit();
+        return p;
+        } catch (Exception e) {
             System.out.println("Error" + e);
-        }
-        finally{
+            throw e;
+        } finally {
             em.close();
         }
-        return p;
     }
 
     /**
      * Adds a Company to the database
+     *
      * @param c The java object of Company
      * @return The same object, after being persisted in the database
      */
     public Company addCompany(Company c) {
         EntityManager em = emf.createEntityManager();
-        
-        
-        try{
-        em.getTransaction().begin();
-        em.persist(c);
-        em.getTransaction().commit();
-        }
-        catch(Exception e){
+
+        try {
+            em.getTransaction().begin();
+            em.persist(c);
+            em.getTransaction().commit();
+        return c;
+        } catch (Exception e) {
             System.out.println("Error" + e);
-        }
-        finally{
+            throw e;
+        } finally {
             em.close();
         }
-        return c;
     }
 
-     /**
+    /**
      * Adds a Hobby to the database
+     *
      * @param h The java object of Hobby
      * @return The same object, after being persisted in the database
      */
     public Hobby addHobby(Hobby h) {
-        
+
         EntityManager em = emf.createEntityManager();
-       
-        try
-        {
+
+        try {
             em.getTransaction().begin();
             em.persist(h);
             em.getTransaction().commit();
-            //return h;
-        }
-        finally
-        {
+            return h;
+        } catch (Exception e) {
+            System.out.println(e);
+            throw e;
+        } finally {
             em.close();
         }
-        return h;
 
     }
 
     /**
      * Adds the phone number to the Info Entity
+     *
      * @param ie Asumeing that the IE is already in the database
      * @param phone phonenumber to be added
      * @return The InfoEntity Object that now contains the new Phone object
      */
     public InfoEntity addPhone(InfoEntity ie, Phone phone) {
         EntityManager em = emf.createEntityManager();
-       
-        try
-        {
+
+        try {
             em.getTransaction().begin();
             phone.setInfoentity(ie);
             em.persist(phone);
@@ -347,66 +380,66 @@ public class Facade {
             phonesFromIE.add(phone);
             ie.setPhoneCollection(phonesFromIE);
             em.getTransaction().commit();
-        }
-        catch(Exception e){
-            System.out.println("Error: " + e);
-        }
-        finally
-        {
+        } catch (Exception e) {
+            System.out.println(e);
+            throw e;
+        } finally {
             em.close();
         }
         return ie;
     }
 
-     /**
+    /**
      * Adds a Address to the database
+     *
      * @param adr The java object of Address
      * @return The same object, after being persisted in the database
      */
     public Address addAddress(Address adr) {
-        
+
         EntityManager em = emf.createEntityManager();
-       
-        try
-        {
+
+        try {
             em.getTransaction().begin();
             em.persist(adr);
             em.getTransaction().commit();
+        return adr;
         }
-        finally
-        {
+        catch(Exception e){
+            System.out.println(e);
+            throw e;
+        }
+        finally {
             em.close();
         }
-        return adr;
 
     }
 
     /**
      * Adds a cityInfo to the database
+     *
      * @param cityInfo The java object of cityInfo
      * @return The same object, after being persisted in the database
      */
     public CityInfoNew addCityInfo(CityInfoNew cityInfo) {
-         EntityManager em = emf.createEntityManager();
-       
-        try
-        {
+        EntityManager em = emf.createEntityManager();
+
+        try {
             em.getTransaction().begin();
             em.persist(cityInfo);
             em.getTransaction().commit();
-        }
-        catch(Exception e){
-            System.out.println("Error: " +e);
-        }
-        finally
-        {
+        return cityInfo;
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+            throw e;
+        } finally {
             em.close();
         }
-        return cityInfo;
     }
 
     /**
      * Gets the list of Companies
+     *
      * @return listOfCompanies
      */
     public List<Company> getCompanies() {
@@ -417,35 +450,37 @@ public class Facade {
             return collection;
         } catch (Exception e) {
             System.out.println("Error" + e);
-        }
-        finally{
+            throw e;
+        } finally {
             em.close();
         }
-        return null;
     }
 
     /**
-     * Returns an Adresse object for a Company.
-     * The Company Objects must allready be in the database
+     * Returns an Adresse object for a Company. The Company Objects must
+     * allready be in the database
+     *
      * @param c The Company object that must be an existing one
      * @return The Adresse.
      */
     public Address getAdressByCompany(Company c) {
-       return c.getAdress();
+        return c.getAdress();
     }
 
     /**
      * Gets the city by the given company
+     *
      * @param c given company
      * @return cityInfoNew
      */
-    public CityInfoNew getCityInfoByCompany(Company c) {    
+    public CityInfoNew getCityInfoByCompany(Company c) {
         return c.getAdress().getCityinfo();
     }
 
     /**
      * Returns the phone numbers for that company as an String[]
-     * @param c The company 
+     *
+     * @param c The company
      * @return
      */
     public String[] getPhonesByCompany(Company c) {
@@ -466,10 +501,6 @@ public class Facade {
     public Company getCompanyById(Integer id) {
         EntityManager em = getEntityManager();
         return em.find(Company.class, id);
-    }
-
-    public InfoEntity addInfoEntity(String content) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

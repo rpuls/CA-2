@@ -503,4 +503,20 @@ public class Facade {
         return em.find(Company.class, id);
     }
 
+    public List<Hobby> getHobbies() {
+ EntityManager em = getEntityManager();
+        try {
+            Query q = em.createQuery("Select h from Hobby h");
+            List<Hobby> collection = q.getResultList();
+            return collection;
+        } catch (Exception e) {
+            System.out.println("Error" + e);
+            throw e;
+        } finally {
+            em.close();
+        }
+       
+
+    }
+
 }

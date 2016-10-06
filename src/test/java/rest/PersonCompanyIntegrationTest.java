@@ -233,5 +233,23 @@ public class PersonCompanyIntegrationTest {
         .statusCode(200);
     }
     
+    @Test
+    public void testInvalidIdEntryGetPerson(){
+        given().
+                pathParam("id", 500)
+                .when()
+                .get("/api/person/complete/{id}")
+                .then()
+                .statusCode(500);
+    }
+    
+    @Test
+    public void testInvalidPath(){
+        given()
+                .when()
+                .get("/api/kgæeldskfæwkfhews")
+                .then()
+                .statusCode(404);
+    }
     
 }

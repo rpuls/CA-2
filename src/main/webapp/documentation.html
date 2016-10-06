@@ -26,13 +26,40 @@
             </div>
         </div>
         <div class="container">
-            <button id="restBtn">REST-API documentatoin </button>
+            <button id="restBtn">REST-API documentation </button>
             <button id="testBtn">Test documentation</button>
             <button id="inheritBtn">Inheritance strategy</button>
             <button id="whoBtn">Team credits</button>
 
             <div id="restDoc">
-                <p>List of REST-API services:</p>
+                <br>
+                <h4><b><i>A COMPLETE DESCRIPTION OF THE REST API, ERROR RESPONSES AND JSON FORMAT.</i></b></h4>
+                <br>
+                <p> In this CA project, we are exposed in RESTful programming wherein clients possess
+                    the information to identify, modify or delete a web resource and passed to the service 
+                    through HTTP request. We used REST API in making this project for handling information 
+                    about people and companies. All information necessary to service the request is contained 
+                    in the URL, query parameters, body or headers. And this was given in our CA project description. 
+                    As an implementation, it was developed with JAX-RS that provides support in creating web services 
+                    based on REST architectural pattern. It generates the abstract class ApplicationConfig for us that
+                    serves as the base application URI, named as “api”. Then, we created some other classes that will
+                    be hosted at the URI path provided in the project such as “/person” and “/company” with some 
+                    corresponding methods that will process the HTTP requests whether it is for GET or POST and be
+                    identified as JSON Objects.
+                    </p>
+                    <br>
+                    <p>
+                        We’ve made error handling by simply returning error messages in a JSON format. 
+                        We used GeneralExceptionMapper class to provide error response in JSON format 
+                        so every time it encounters an exception, it will return the corresponding error message. 
+                        REST API uses JSON, which is basically a universal connector for data on the internet and 
+                        most programming languages have an easy way to convert into their standard data structures
+                        such as the used of gson that’s why, it is mostly used media type format in our program. 
+                    </p>
+	<br>
+
+        <p><i>List of REST-API services:</i></p>
+                <br>
                 <ul>
                     <li>Person Service <a href="">HER SKAL VÆRE LINK TIL JAVADOC FOR PERSON REST</a>
                         <ul>
@@ -46,7 +73,7 @@
                             <li>addPerson - api/person [post content]</li>
                         </ul>
                     </li>
-                    <li>Company Service <a href="">HER SKAL VÆRE LINK TIL JAVADOC FOR COMANY REST</a>
+                    <li>Company Service <a href="">HER SKAL VÆRE LINK TIL JAVADOC FOR COMPANY REST</a>
                         <ul>
                             <li>getJSONCompaniess - api/company/complete</li>
                             <li>getJSONCompanies - api/company/complete/{id}</li>

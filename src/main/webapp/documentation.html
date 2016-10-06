@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Documentation</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    </head>
+    <body>
+        <div class="container">
+            <div id="head">
+                <ul>
+                    <li>
+                        <a href="https://github.com/rpuls/CA-2">Github Repository</a>
+                    </li>
+                    <li>
+                        <a href="https://waffle.io/rpuls/CA-2">waffle.io</a>
+                    </li>
+                    <li>
+                        <a href="">The complete javadoc</a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+        <div class="container">
+            <button id="restBtn">REST-API documentatoin </button>
+            <button id="testBtn">Test documentation</button>
+            <button id="inheritBtn">Inheritance strategy</button>
+            <button id="whoBtn">Team credits</button>
+
+            <div id="restDoc">
+                <p>List of REST-API services:</p>
+                <ul>
+                    <li>Person Service <a href="">HER SKAL VÆRE LINK TIL JAVADOC FOR PERSON REST</a>
+                        <ul>
+                            <li>getJSONPersons - api/person/complete</li>
+                            <li>getJSONPerson - api/person/complete/{id}</li>
+                            <li>getJSONPersonContact - api/person/contactinfo</li>
+                            <li>getJSONPersonContactByPerson - api/person/contactinfo/{id}</li>
+                            <li>getJSONPersonByPhone - api/person/phone/{number}</li>
+                            <li>getJSONPersonContactByPerson - api/person/hobby/{hob}</li>
+                            <li>getJSONPersonContactByPerson - api/person/city/{city}</li>
+                            <li>addPerson - api/person [post content]</li>
+                        </ul>
+                    </li>
+                    <li>Company Service <a href="">HER SKAL VÆRE LINK TIL JAVADOC FOR COMANY REST</a>
+                        <ul>
+                            <li>getJSONCompaniess - api/company/complete</li>
+                            <li>getJSONCompanies - api/company/complete/{id}</li>
+                            <li>getJSONCompaniesContact - api/company/contactinfo</li>
+                            <li>getJSONCompaniesContactByCompanies - api/company/contactinfo/{id}</li>
+                            <li>getJSONCompanyByPhone - api/company/phone/{number}</li>
+                            <li>getJSONCompanyByCvr - api/company/cvr/{number}</li>
+                            <li>getJSONCompaniesByEmpNumber - api/company/employees/{number}</li>
+                            <li>addCompany - api/company [post content]</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <div id="testDoc">test test test</div>
+
+            <div id="inheritDoc">inheritance</div>
+
+            <div id="whoDoc">crediiiiits</div>
+        </div>
+        <script>
+            $("#restDoc").hide();
+            $("#testDoc").hide();
+            $("#inheritDoc").hide();
+            $("#whoDoc").hide();
+
+            $("#restBtn").on("click", function () {
+                $("#restDoc").show();
+                $("#testDoc").hide();
+                $("#inheritDoc").hide();
+                $("#whoDoc").hide();
+            });
+
+            $("#testBtn").on("click", function () {
+                $("#restDoc").hide();
+                $("#testDoc").show();
+                $("#inheritDoc").hide();
+                $("#whoDoc").hide();
+            });
+
+            $("#inheritBtn").on("click", function () {
+                $("#restDoc").hide();
+                $("#testDoc").hide();
+                $("#inheritDoc").show();
+                $("#whoDoc").hide();
+            });
+
+            $("#whoBtn").on("click", function () {
+                $("#restDoc").hide();
+                $("#testDoc").hide();
+                $("#inheritDoc").hide();
+                $("#whoDoc").show();
+            });
+
+        </script>
+    </body>
+</html>

@@ -139,7 +139,7 @@ public class PersonCompanyIntegrationTest {
         Company[] companies = 
                 given().
                 when().get("/api/company/complete").as(Company[].class);
-        assertEquals(2,companies.length);
+        assertEquals(6,companies.length); //size should be updated before running the test
     }
 
     /**
@@ -165,7 +165,7 @@ public class PersonCompanyIntegrationTest {
         Company[] companies = 
                 given().
                 when().get("/api/company/contactinfo").as(Company[].class);        
-        assertEquals(3,companies.length);
+        assertEquals(6,companies.length);//size should be updated before running the test
     }
 
     /**
@@ -192,6 +192,7 @@ public class PersonCompanyIntegrationTest {
     
     
     @Test
+    @Ignore //as it will add a lot of hobbies everytime we try to test the file
     public void testAddHobby(){
         Map<String,String> hobby = new HashMap<>();
         hobby.put("name", "badminton");
@@ -213,6 +214,23 @@ public class PersonCompanyIntegrationTest {
 //        em.getTransaction().commit();
 //        em.close();
         
+    }
+    
+    @Test
+    @Ignore //as it will add a lot of hobbies everytime we try to test the file
+    public void testAddCompany(){
+        Map<String,String> com = new HashMap<>();
+        com.put("cvr", "1102");
+        com.put("name", "pwc");
+        com.put("description", "pwc");
+        com.put("employees", "5000");
+        com.put("marketValue", "154565");
+        
+        given()
+        .contentType("application/json")
+        .body(com)
+        .when().post("/api/company").then()
+        .statusCode(200);
     }
     
     

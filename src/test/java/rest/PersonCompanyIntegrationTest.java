@@ -183,8 +183,8 @@ public class PersonCompanyIntegrationTest {
         //Trying to test the phone list as well but it encounters a gsonSyntaxException
         
 //        Phone[] phones = 
-//                given().pathParam("id", 1)
-//                .when().get("/api/person/contactinfo/{id}").as(Phone[].class);
+//                given().pathParam("id", 5)
+//                .when().get("/api/company/contactinfo/{id}").as(Phone[].class);
 //        
 //        assertEquals(1,phones.length);       
     }

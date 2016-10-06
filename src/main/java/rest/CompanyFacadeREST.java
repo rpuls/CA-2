@@ -42,6 +42,12 @@ public class CompanyFacadeREST  {
 
     }
     
+    /**
+     * Gets a List of Company objects from the facade
+     * sets properties: cvr, name, email, phones, street, 
+     * additionalInfo, zipCode, city - if they are not null
+     * @return json String
+     */
     @GET
     @Path("complete")
     @Produces(MediaType.APPLICATION_JSON)
@@ -69,6 +75,13 @@ public class CompanyFacadeREST  {
         return gson.toJson(jList);
     }
     
+    /**
+     * Gets one Company object from the facade by the given id
+     * sets properties: cvr, name, email, phones, street, 
+     * additionalInfo, zipCode, city - if they are not null
+     * @param id
+     * @return json String
+     */
     @GET
     @Path("complete/{id}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -92,6 +105,11 @@ public class CompanyFacadeREST  {
         return gson.toJson(job);
     }
     
+    /**
+     * Gets a List of Company objects from the facade.
+     * set properties: id, name, email, phones - if they are not null
+     * @return json String
+     */
     @GET
     @Path("contactinfo")
     @Produces(MediaType.APPLICATION_JSON)
@@ -109,6 +127,12 @@ public class CompanyFacadeREST  {
         return gson.toJson(jList);
     }
     
+    /**
+     * Gets one Company object from the facade by the given id.
+     * set properties: id, name, email, phones - if they are not null
+     * @param id
+     * @return json String
+     */
     @GET
     @Path("contactinfo/{id}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -122,6 +146,13 @@ public class CompanyFacadeREST  {
         return gson.toJson(job);
     }
     
+    /**
+     * Gets one Company object from the facede by the given phone number
+     * sets properties: cvr, name, email, phones, street, 
+     * additionalInfo, zipCode, city - if they are not null
+     * @param number
+     * @return json String
+     */
     @GET
     @Path("phone/{number}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -145,6 +176,13 @@ public class CompanyFacadeREST  {
         return gson.toJson(job);
     }
     
+    /**
+     * Gets one Company object from the facede by the given cvr number
+     * sets properties: cvr, name, email, phones, street, 
+     * additionalInfo, zipCode, city - if they are not null
+     * @param number
+     * @return json String
+     */
     @GET
     @Path("cvr/{number}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -168,6 +206,14 @@ public class CompanyFacadeREST  {
         return gson.toJson(job);
     }
     
+    /**
+     * Gets a collection Company objects from the facade by the 
+     * given employee (amount) number.
+     * sets properties: cvr, name, email, phones, street, 
+     * additionalInfo, zipCode, city - if they are not null
+     * @param number
+     * @return json String
+     */
     @GET
     @Path("employees/{number}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -185,6 +231,13 @@ public class CompanyFacadeREST  {
         return gson.toJson(jList);
     }
     
+    /**
+     * Takes a json string and creates a Company object c from the content
+     * creates a newPerson object from the facade that takes in c
+     * newPerson now has an id and is returned.
+     * @param content
+     * @return json String
+     */
     @POST
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})

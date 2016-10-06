@@ -63,12 +63,29 @@
 
             <div id="testDoc">
                 <div>
-                    <p>jUnit testing</p>
+                    <div>
+                        <p>jUnit testing</p><a href="https://github.com/rpuls/CA-2/blob/master/src/test/java/facade/FacadeTest.java">Code</a>
+                    </div>
                     <img src="res/junittests.PNG" alt=""/>
                 </div>
                 <div>
                     <p>rest assured testing</p>
                     <img src="res/restassured.PNG" alt=""/>
+                </div>
+
+                <div>
+                    <div>
+                        <p>Manual testing with postman</p>
+                        To manually test our api we are using postman on a given path.
+                        All paths can be seen under the RAST-API! In this example we test
+                        the service that will let us create a company and persist it to the
+                        database, we simply hand write a json string with properties matching
+                        the company entity class. we want to recieve the status code 200, and then we will
+                        check the database to se if the company tuple was created. We can also just go to
+                        http://localhost:8080/CA-2/api/company/complete/11 which should give ud back
+                        a matching json object. (11 is the new generated id see the image) Example:
+                    </div>
+                    <img src="res/postmantest.PNG" alt=""/>
                 </div>
             </div>
 
@@ -76,6 +93,14 @@
                 <div>
                     <p>UML</p>
                     <img src="res/inheritance.png" alt=""/>
+                    <div class="text">
+                        Both Person.java & Company.java extends InfoEntity.Java, and has therefore no "personal" id
+                        attribute. In this case we do not use single table strategy for two reasons. We try no normalize the
+                        database and avoid having too many null values. Reason two, is that we dont want the hobby table to be
+                        either joined to the InfoEntity table, and we dont want companies to be able to have a hobby.
+                        In the entity class InfoEntity.java we provide the class with the "@Inheritance(strategy = InheritanceType.JOINED)"
+                        annotation.
+                    </div>
                 </div>
             </div>
 

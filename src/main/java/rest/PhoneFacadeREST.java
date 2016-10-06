@@ -1,6 +1,6 @@
 package rest;
 
-import enitity.Address;
+import enitity.Phone;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -20,13 +20,14 @@ import javax.ws.rs.core.MediaType;
  * @author rasmus
  */
 @Stateless
-@Path("address")
-public class AddressFacadeREST {
+@Path("phone")
+public class PhoneFacadeREST {
 
     @PersistenceContext(unitName = "remote")
     private EntityManager em;
 
-    public AddressFacadeREST() {
+    public PhoneFacadeREST() {
     }
 
+   
 }

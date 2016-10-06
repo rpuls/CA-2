@@ -18,6 +18,8 @@ import org.junit.Ignore;
 import org.junit.Test;
 import static com.jayway.restassured.RestAssured.given;
 import enitity.Person;
+import enitity.Phone;
+import static org.junit.Assert.assertEquals;
 
 
 /**
@@ -35,8 +37,6 @@ public class PersonServiceIntegrationTest {
         RestAssured.port = 8080;
         RestAssured.basePath = "/CA-2/";
         RestAssured.defaultParser = Parser.JSON;
-
-        Persistence.generateSchema("pu_test", null);
     }
 
     @AfterClass
@@ -54,29 +54,18 @@ public class PersonServiceIntegrationTest {
     @Test
     public void serverIsRunning() {
         given().when().get("http://localhost:8080/CA-2/").then().statusCode(200);
-//        given().
-//                when().get().
-//                then().
-//                statusCode(200);
     }
 
     /**
      * Test of getJSONPersons method, of class PersonFacadeREST.
      */
     @Test
-    @Ignore
     public void testGetJSONPersons() {
-//        given().
-//                when()
-//                .get("/api/person/complete")
-//                .then()
-//                .statusCode(200);
-
-    Person[] persons = given().when().get("/api/person/complete").as(Person[].class);
-    
-        for (Person person : persons) {
-            System.out.println("Person: " + person.getFirstName());
-        }
+        Person[] persons = 
+                given().
+                when().get("/api/person/complete").as(Person[].class);
+        
+        assertEquals(4,persons.length);
 
     }
 
@@ -100,17 +89,34 @@ public class PersonServiceIntegrationTest {
      * Test of getJSONPersonContact method, of class PersonFacadeREST.
      */
     @Test
-    @Ignore
-    public void testGetJSONPersonContact() throws Exception {
-
+    public void testGetJSONPersonContact(){
+        Person[] persons = 
+                given().
+                when().get("/api/person/contactinfo").as(Person[].class);
+        
+        assertEquals(4,persons.length);
     }
 
     /**
      * Test of getJSONPersonContactByPerson method, of class PersonFacadeREST.
      */
     @Test
-    @Ignore
-    public void testGetJSONPersonContactByPerson() throws Exception {
-
+    public void testGetJSONPersonContactByPerson(){
+        given().
+                pathParam("id", 1)
+                .when()
+                .get("/api/person/contactinfo/{id}")
+                .then()
+                .statusCode(200)
+                .body("email", equalTo("cjs@email.dk"));
+        
+        //Trying to test the phone list as well but it encounters a gsonSyntaxException
+        
+//        Phone[] phones = 
+//                given().pathParam("id", 1)
+//                .when().get("/api/person/contactinfo/{id}").as(Phone[].class);
+//        
+//        assertEquals(1,phones.length);
+        
     }
 }

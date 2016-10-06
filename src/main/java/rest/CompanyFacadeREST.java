@@ -8,6 +8,7 @@ import enitity.CityInfoNew;
 import enitity.Company;
 import facade.Facade;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -119,6 +120,69 @@ public class CompanyFacadeREST  {
             if(c.getEmail()!=null){job.addProperty("email", c.getEmail());}
             job.addProperty("phones", gson.toJson(facade.getPhonesByCompany(c))); //MISSING - beware, that we might run in to s stackoverflow here
         return gson.toJson(job);
+    }
+    
+    @GET
+    @Path("phone/{number}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getJSONCompanyByPhone(@PathParam("number") String number){
+        Company c = facade.getCompanyByPhone(number);
+        JsonObject job = new JsonObject();
+        if(c.getCvr()!=null){job.addProperty("cvr", c.getCvr());}
+        if(c.getName()!=null){job.addProperty("name", c.getName());}
+        if(c.getEmail()!=null){job.addProperty("email", c.getEmail());}
+        job.addProperty("phones", gson.toJson(facade.getPhonesByCompany(c))); 
+        if(facade.getAdressByCompany(c)!=null){
+            Address adr = facade.getAdressByCompany(c);
+            if(adr.getStreet()!=null){job.addProperty("street", adr.getStreet());}
+            if(adr.getAdditionalInfo()!=null){job.addProperty("additionalInfo", adr.getAdditionalInfo());}
+        }
+        if(facade.getCityInfoByCompany(c)!=null){
+            CityInfoNew cti = facade.getCityInfoByCompany(c);
+            if(cti.getZipCode()!=null){job.addProperty("zipCode", cti.getZipCode());}
+            if(cti.getCity()!=null){job.addProperty("city", cti.getCity());}
+        }
+        return gson.toJson(job);
+    }
+    
+    @GET
+    @Path("cvr/{number}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getJSONCompanyByCvr(@PathParam("number") String number){
+        Company c = facade.getCompanyByCvr(number);
+        JsonObject job = new JsonObject();
+        if(c.getCvr()!=null){job.addProperty("cvr", c.getCvr());}
+        if(c.getName()!=null){job.addProperty("name", c.getName());}
+        if(c.getEmail()!=null){job.addProperty("email", c.getEmail());}
+        job.addProperty("phones", gson.toJson(facade.getPhonesByCompany(c))); 
+        if(facade.getAdressByCompany(c)!=null){
+            Address adr = facade.getAdressByCompany(c);
+            if(adr.getStreet()!=null){job.addProperty("street", adr.getStreet());}
+            if(adr.getAdditionalInfo()!=null){job.addProperty("additionalInfo", adr.getAdditionalInfo());}
+        }
+        if(facade.getCityInfoByCompany(c)!=null){
+            CityInfoNew cti = facade.getCityInfoByCompany(c);
+            if(cti.getZipCode()!=null){job.addProperty("zipCode", cti.getZipCode());}
+            if(cti.getCity()!=null){job.addProperty("city", cti.getCity());}
+        }
+        return gson.toJson(job);
+    }
+    
+    @GET
+    @Path("employees/{number}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getJSONCompaniesByEmpNumber(@PathParam("number") int number){
+        Collection<Company> companies = facade.getCompaniesByEmpAmount(number);
+        List<JsonObject> jList = new ArrayList();
+        for (Company c : companies) {
+            JsonObject job = new JsonObject();
+            if(c.getId()!=null){job.addProperty("id", c.getId());}
+            if(c.getName()!=null){job.addProperty("name", c.getName());}
+            if(c.getEmail()!=null){job.addProperty("email", c.getEmail());}
+            job.addProperty("phones", gson.toJson(facade.getPhonesByCompany(c))); //MISSING - beware, that we might run in to s stackoverflow here
+            jList.add(job);
+        }
+        return gson.toJson(jList);
     }
     
     @POST

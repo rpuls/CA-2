@@ -30,14 +30,15 @@ public class HobbyFacadeREST {
 
     public HobbyFacadeREST() {
     }
-    
+
     @POST
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
-    public String addCompany(String content){
+    public String addHobby(String content){
         Hobby h = gson.fromJson(content, Hobby.class);
         Hobby newHobby = facade.addHobby(h);
         return gson.toJson(newHobby);
     }
 
+    
 }

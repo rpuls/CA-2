@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Documentation</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    </head>
+    <body>
+        <div class="container">
+            <div id="head">
+                <ul>
+                    <li>
+                        <a href="https://github.com/rpuls/CA-2">Github Repository</a>
+                    </li>
+                    <li>
+                        <a href="https://waffle.io/rpuls/CA-2">waffle.io</a>
+                    </li>
+                    <li>
+                        <a href="">The complete javadoc</a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+        <div class="container">
+            <button id="restBtn">REST-API documentation </button>
+            <button id="testBtn">Test documentation</button>
+            <button id="inheritBtn">Inheritance strategy</button>
+            <button id="whoBtn">Team credits</button>
+
+            <div id="restDoc">
+                <br>
+                <h4><b><i>A COMPLETE DESCRIPTION OF THE REST API, ERROR RESPONSES AND JSON FORMAT.</i></b></h4>
+                <br>
+                <p> In this CA project, we are exposed in RESTful programming wherein clients possess
+                    the information to identify, modify or delete a web resource and passed to the service 
+                    through HTTP request. We used REST API in making this project for handling information 
+                    about people and companies. All information necessary to service the request is contained 
+                    in the URL, query parameters, body or headers. And this was given in our CA project description. 
+                    As an implementation, it was developed with JAX-RS that provides support in creating web services 
+                    based on REST architectural pattern. It generates the abstract class ApplicationConfig for us that
+                    serves as the base application URI, named as “api”. Then, we created some other classes that will
+                    be hosted at the URI path provided in the project such as “/person” and “/company” with some 
+                    corresponding methods that will process the HTTP requests whether it is for GET or POST and be
+                    identified as JSON Objects.
+                    </p>
+                    <br>
+                    <p>
+                        We’ve made error handling by simply returning error messages in a JSON format. 
+                        We used GeneralExceptionMapper class to provide error response in JSON format 
+                        so every time it encounters an exception, it will return the corresponding error message. 
+                        REST API uses JSON, which is basically a universal connector for data on the internet and 
+                        most programming languages have an easy way to convert into their standard data structures
+                        such as the used of gson that’s why, it is mostly used media type format in our program. 
+                    </p>
+	<br>
+
+        <p><i>List of REST-API services:</i></p>
+                <br>
+                <ul>
+                    <li>Person Service <a href="">HER SKAL VÆRE LINK TIL JAVADOC FOR PERSON REST</a>
+                        <ul>
+                            <li>getJSONPersons - api/person/complete</li>
+                            <li>getJSONPerson - api/person/complete/{id}</li>
+                            <li>getJSONPersonContact - api/person/contactinfo</li>
+                            <li>getJSONPersonContactByPerson - api/person/contactinfo/{id}</li>
+                            <li>getJSONPersonByPhone - api/person/phone/{number}</li>
+                            <li>getJSONPersonContactByPerson - api/person/hobby/{hob}</li>
+                            <li>getJSONPersonContactByPerson - api/person/city/{city}</li>
+                            <li>addPerson - api/person [post content]</li>
+                        </ul>
+                    </li>
+                    <li>Company Service <a href="">HER SKAL VÆRE LINK TIL JAVADOC FOR COMPANY REST</a>
+                        <ul>
+                            <li>getJSONCompaniess - api/company/complete</li>
+                            <li>getJSONCompanies - api/company/complete/{id}</li>
+                            <li>getJSONCompaniesContact - api/company/contactinfo</li>
+                            <li>getJSONCompaniesContactByCompanies - api/company/contactinfo/{id}</li>
+                            <li>getJSONCompanyByPhone - api/company/phone/{number}</li>
+                            <li>getJSONCompanyByCvr - api/company/cvr/{number}</li>
+                            <li>getJSONCompaniesByEmpNumber - api/company/employees/{number}</li>
+                            <li>addCompany - api/company [post content]</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <div id="testDoc">
+                <h4><b><i>Plain Unit Test - Database Facade</i></b></h4>
+                <br>
+                <p> We developed test cases in our Façade class as it communicates with our database through an entity manager.
+                    We made unit testing in the methods that will probably have some errors that will surely affects the 
+                    functionality of the program such as the get, add and look by methods. 
+                    </p>
+                    <br>
+                <div>
+                    <div>
+                        <p>jUnit testing</p><a href="https://github.com/rpuls/CA-2/blob/master/src/test/java/facade/FacadeTest.java">Code</a>
+                    </div>
+                    <img src="res/junittests.PNG" alt=""/>
+                </div>
+                    
+                    <h4><b><i>Testing the REST API</i></b></h4>
+                <br>
+                <p> 
+                    We have implemented REST-Assured framework from Jayway to execute automatically REST web 
+                    services tests.  It can easily validate and specify parameters, headers, cookies and body 
+                    from response. First, it has to add the dependency required and the setup before class such
+                    as the baseURI, port, basePath and defaultParser for JSON. We made some tests for the GET
+                    methods from the PersonFacadeREST service class and CompanyFacadeREST service class that
+                    will verify the status code which is expected to be 200-OK and some values from the returned
+                    JSON properties. We also added some tests for the error handling by checking the status code
+                    whenever an invalid ID or path was given. Lastly, we have some tests for the POST
+                    methods which is a little bit tricky. We are aware that the test runs successfully but chose
+                    to just put an ignore annotation because we don’t want to insert a lot of same data in the 
+                    database every time it does the automation tests. 
+                    </p>
+                    <br>
+                    
+                <div>
+                    <p>rest assured testing</p>
+                    <img src="res/restassured.PNG" alt=""/>
+                </div>
+
+                <div>
+                    <div>
+                        <h4><b><i>Manual Testing with Postman</i></b></h4>
+                        <br>
+                        To manually test our api we are using postman on a given path.
+                        All paths can be seen under the RAST-API! In this example we test
+                        the service that will let us create a company and persist it to the
+                        database, we simply hand write a json string with properties matching
+                        the company entity class. we want to recieve the status code 200, and then we will
+                        check the database to se if the company tuple was created. We can also just go to
+                        http://localhost:8080/CA-2/api/company/complete/11 which should give ud back
+                        a matching json object. (11 is the new generated id see the image) Example:
+                    </div>
+                    <img src="res/postmantest.PNG" alt=""/>
+                </div>
+            </div>
+
+            <div id="inheritDoc">
+                <div>
+                    <p>UML</p>
+                    <img src="res/inheritance.png" alt=""/>
+                    <div class="text">
+                        Both Person.java & Company.java extends InfoEntity.Java, and has therefore no "personal" id
+                        attribute. In this case we do not use single table strategy for two reasons. We try no normalize the
+                        database and avoid having too many null values. Reason two, is that we dont want the hobby table to be
+                        either joined to the InfoEntity table, and we dont want companies to be able to have a hobby.
+                        In the entity class InfoEntity.java we provide the class with the "@Inheritance(strategy = InheritanceType.JOINED)"
+                        annotation.
+                    </div>
+                </div>
+            </div>
+
+
+            <div id="whoDoc">crediiiiits</div>
+        </div>
+        <script>
+            $("#restDoc").hide();
+            $("#testDoc").hide();
+            $("#inheritDoc").hide();
+            $("#whoDoc").hide();
+
+            $("#restBtn").on("click", function () {
+                $("#restDoc").show();
+                $("#testDoc").hide();
+                $("#inheritDoc").hide();
+                $("#whoDoc").hide();
+            });
+
+            $("#testBtn").on("click", function () {
+                $("#restDoc").hide();
+                $("#testDoc").show();
+                $("#inheritDoc").hide();
+                $("#whoDoc").hide();
+            });
+
+            $("#inheritBtn").on("click", function () {
+                $("#restDoc").hide();
+                $("#testDoc").hide();
+                $("#inheritDoc").show();
+                $("#whoDoc").hide();
+            });
+
+            $("#whoBtn").on("click", function () {
+                $("#restDoc").hide();
+                $("#testDoc").hide();
+                $("#inheritDoc").hide();
+                $("#whoDoc").show();
+            });
+
+        </script>
+    </body>
+</html>

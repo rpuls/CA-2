@@ -47,7 +47,12 @@ public class PersonFacadeREST {
 
     }
     
-
+    /**
+     * gets a List of Person objects from the facade.
+     * sets json properties: firstName, lastName, email, street,
+     * additionalInfo, zipCode, city - if they are not null.
+     * @return Json String
+     */
     @GET
     @Path("complete")
     @Produces(MediaType.APPLICATION_JSON)
@@ -75,7 +80,14 @@ public class PersonFacadeREST {
         return gson.toJson(jList);
     }
 
-    
+
+    /**
+     gets one Person object from the facade by given id.
+     * sets json properties: firstName, lastName, email, street,
+     * additionalInfo, zipCode, city - if they are not null.
+     * @param id
+     * @return Json String
+     */
     @GET
     @Path("complete/{id}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -99,6 +111,11 @@ public class PersonFacadeREST {
         return gson.toJson(job);
     }
     
+    /**
+     * gets a List of Person objects from the facade.
+     * sets json properties: id, name, email, phones - if they are not null.
+     * @return Json String
+     */
     @GET
     @Path("contactinfo")
     @Produces(MediaType.APPLICATION_JSON)
@@ -116,6 +133,12 @@ public class PersonFacadeREST {
         return gson.toJson(jList);
     }
     
+    /**
+     * gets one Person object from the facade, by the given id.
+     * sets json properties: id, name, email, phones - if they are not null.
+     * @param id
+     * @return
+     */
     @GET
     @Path("contactinfo/{id}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -129,6 +152,13 @@ public class PersonFacadeREST {
         return gson.toJson(job);
     }
     
+    /**
+     * Gets one Person object from the facade by the given phone number
+     * sets json properties: firstName, lastName, email, street,
+     * additionalInfo, zipCode, city - if they are not null.
+     * @param number
+     * @return json String
+     */
     @GET
     @Path("phone/{number}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -152,6 +182,13 @@ public class PersonFacadeREST {
         return gson.toJson(job);
     }
     
+    /**
+     * Gets a Collection of Person objects from the facade
+     * by the given hobby.
+     * sets properties: id, name, email, phones - if they are not null.
+     * @param hob
+     * @return json String
+     */
     @GET
     @Path("hobby/{hob}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -169,6 +206,12 @@ public class PersonFacadeREST {
         return gson.toJson(jList);
     }
     
+    /**
+     * Gets a Collection of Person objects from the facade by the given String city
+     * sets properties: id, name, email, phones- if they are not null
+     * @param city
+     * @return json String
+     */
     @GET
     @Path("city/{city}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -186,6 +229,13 @@ public class PersonFacadeREST {
         return gson.toJson(jList);
     }
     
+    /**
+     * Takes a json string and creates a Person object p from the content
+     * creates a newPerson object from the facade that takes in p
+     * newPerson now has an id and is returned.
+     * @param content
+     * @return json String
+     */
     @POST
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})

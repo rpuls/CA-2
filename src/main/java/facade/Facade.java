@@ -296,13 +296,13 @@ public class Facade {
      */
     public Person addPerson(Person p) {
         EntityManager em = getEntityManager();
-        
+
         // Mapping of the Hobbies and persons
-        if(p.getHobbyCollection() != null){
+        if (p.getHobbyCollection() != null) {
             Collection<Hobby> hobbies = p.getHobbyCollection();
             Collection<Hobby> hobbiesWithAll = new ArrayList<>();
             for (Hobby hobby : hobbies) {
-                if(hobby.getId() != null){
+                if (hobby.getId() != null) {
                     Hobby hobbie = em.find(Hobby.class, hobby.getId());
                     Collection<Person> hobbiePerson = hobbie.getPersonCollection();
                     hobbiePerson.add(p);
@@ -312,7 +312,7 @@ public class Facade {
             }
             p.setHobbyCollection(hobbiesWithAll);
         }
-        
+
         // Mapping the Phone Collection
         if (p.getPhoneCollection() != null) {
 
@@ -322,7 +322,6 @@ public class Facade {
             }
             p.setPhoneCollection(phones);
         }
-        
 
         try {
             em.getTransaction().begin();
@@ -571,5 +570,20 @@ public class Facade {
 
     public Company getCompanyByCity(String name) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public Person deletePerson(int id) {
+
+        EntityManager em = emf.createEntityManager();
+
+        try {
+            em.getTransaction().begin();
+            Person p = em.find(Person.class, id);
+            em.remove(p);
+            em.getTransaction().commit();
+            return p;
+        } finally {
+            em.close();
+        }
     }
 }

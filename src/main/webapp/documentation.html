@@ -89,12 +89,37 @@
             </div>
 
             <div id="testDoc">
+                <h4><b><i>Plain Unit Test - Database Facade</i></b></h4>
+                <br>
+                <p> We developed test cases in our Façade class as it communicates with our database through an entity manager.
+                    We made unit testing in the methods that will probably have some errors that will surely affects the 
+                    functionality of the program such as the get, add and look by methods. 
+                    </p>
+                    <br>
                 <div>
                     <div>
                         <p>jUnit testing</p><a href="https://github.com/rpuls/CA-2/blob/master/src/test/java/facade/FacadeTest.java">Code</a>
                     </div>
                     <img src="res/junittests.PNG" alt=""/>
                 </div>
+                    
+                    <h4><b><i>Testing the REST API</i></b></h4>
+                <br>
+                <p> 
+                    We have implemented REST-Assured framework from Jayway to execute automatically REST web 
+                    services tests.  It can easily validate and specify parameters, headers, cookies and body 
+                    from response. First, it has to add the dependency required and the setup before class such
+                    as the baseURI, port, basePath and defaultParser for JSON. We made some tests for the GET
+                    methods from the PersonFacadeREST service class and CompanyFacadeREST service class that
+                    will verify the status code which is expected to be 200-OK and some values from the returned
+                    JSON properties. We also added some tests for the error handling by checking the status code
+                    whenever an invalid ID or path was given. Lastly, we have some tests for the POST
+                    methods which is a little bit tricky. We are aware that the test runs successfully but chose
+                    to just put an ignore annotation because we don’t want to insert a lot of same data in the 
+                    database every time it does the automation tests. 
+                    </p>
+                    <br>
+                    
                 <div>
                     <p>rest assured testing</p>
                     <img src="res/restassured.PNG" alt=""/>
@@ -102,7 +127,8 @@
 
                 <div>
                     <div>
-                        <p>Manual testing with postman</p>
+                        <h4><b><i>Manual Testing with Postman</i></b></h4>
+                        <br>
                         To manually test our api we are using postman on a given path.
                         All paths can be seen under the RAST-API! In this example we test
                         the service that will let us create a company and persist it to the

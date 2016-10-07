@@ -6,6 +6,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+        <link href="style.css" rel="stylesheet" type="text/css"/>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     </head>
     <body>
@@ -93,7 +94,8 @@
                 <br>
                 <p> We developed test cases in our Façade class as it communicates with our database through an entity manager.
                     We made unit testing in the methods that will probably have some errors that will surely affects the 
-                    functionality of the program such as the get, add and look by methods. 
+                    functionality of the program such as the get, add and look by methods. We also used a new persistence unit connected to
+                    a database which is just meant for testing, called "pu_test".
                     </p>
                     <br>
                 <div>
@@ -130,12 +132,12 @@
                         <h4><b><i>Manual Testing with Postman</i></b></h4>
                         <br>
                         To manually test our api we are using postman on a given path.
-                        All paths can be seen under the RAST-API! In this example we test
+                        All paths can be seen under the REST-API! In this example we test
                         the service that will let us create a company and persist it to the
                         database, we simply hand write a json string with properties matching
-                        the company entity class. we want to recieve the status code 200, and then we will
-                        check the database to se if the company tuple was created. We can also just go to
-                        http://localhost:8080/CA-2/api/company/complete/11 which should give ud back
+                        the company entity class. we want to receive the status code 200, and then we will
+                        check the database to see if the company tuple was created. We can also just go to
+                        http://localhost:8080/CA-2/api/company/complete/11 which should give back
                         a matching json object. (11 is the new generated id see the image) Example:
                     </div>
                     <img src="res/postmantest.PNG" alt=""/>
@@ -144,13 +146,14 @@
 
             <div id="inheritDoc">
                 <div>
+                    <h4><b><i>The strategy chosen to implement inheritance</i></b></h4>
                     <p>UML</p>
                     <img src="res/inheritance.png" alt=""/>
                     <div class="text">
                         Both Person.java & Company.java extends InfoEntity.Java, and has therefore no "personal" id
                         attribute. In this case we do not use single table strategy for two reasons. We try no normalize the
                         database and avoid having too many null values. Reason two, is that we dont want the hobby table to be
-                        either joined to the InfoEntity table, and we dont want companies to be able to have a hobby.
+                        either joined to the InfoEntity table, and we don't want companies to be able to have a hobby.
                         In the entity class InfoEntity.java we provide the class with the "@Inheritance(strategy = InheritanceType.JOINED)"
                         annotation.
                     </div>
@@ -158,7 +161,94 @@
             </div>
 
 
-            <div id="whoDoc">crediiiiits</div>
+            <div id="whoDoc">
+                <h4 align="center"><b><i>TASK ASSIGNMENTS</i></b></h4>
+                 <table>
+            <th>DAY</th>
+            <th>Task</th>
+            <th>Contributors</th>
+            <tr>
+                <td>01</td>
+                <td>Remote Database Setup</td>
+                <td>Daniel, Cherry, Waqas</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>Design Entity Classes</td>
+                <td>Rasmus</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>Facade Class</td>
+                <td>Daniel,Cherry</td>
+            </tr>
+            <tr></tr>
+            
+            <tr>
+                <td>02</td>
+                <td>Script-populating Companies and Persons</td>
+                <td>Cherry</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>JUnit Tests</td>
+                <td>Cherry, Daniel</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>Exception Error Handling</td>
+                <td>Waqas</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>REST API Web Services</td>
+                <td>Rasmus</td>
+            </tr>
+            
+            <tr></tr>
+            <tr>
+                <td>03</td>
+                <td>Rest-Assured Test</td>
+                <td>Cherry</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>Front End - Post Form for Person</td>
+                <td>Waqas</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>Front End - Post Form for Company</td>
+                <td>Daniel</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>Front End - Search</td>
+                <td>Rasmus</td>
+            </tr>
+            <tr></tr>
+            <tr>
+                <td>04</td>
+                <td>Documentation</td>
+                <td>Cherry, Rasmus</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>Finalize web page</td>
+                <td>All</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>Deploy final version in digital ocean</td>
+                <td>All</td>
+            </tr>
+            
+        </table>
+                
+        <h4><b><i>Suggestions:</i></b></h4>
+        
+        
+            </div>
         </div>
         <script>
             $("#restDoc").hide();

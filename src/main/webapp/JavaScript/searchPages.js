@@ -20,18 +20,28 @@ $('#rCity').on("click", function() {
    $("#searchField").attr("placeholder", "Enter city name. ie. Randers");
    $('#rZip').prop('checked', false);
    $('#rPhone').prop('checked', false);
+   $('#rCvr').prop('checked', false);
 });
 
 $('#rZip').on("click", function() {
    $("#searchField").attr("placeholder", "Enter zip code. ie. 2200"); 
    $('#rCity').prop('checked', false);
    $('#rPhone').prop('checked', false);
+   $('#rCvr').prop('checked', false);
 });
 
 $('#rPhone').on("click", function() {
    $("#searchField").attr("placeholder", "Enter phone number. ie. 44557799");
    $('#rCity').prop('checked', false);
    $('#rZip').prop('checked', false);
+   $('#rCvr').prop('checked', false);
+});
+
+$('#rCvr').on("click", function() {
+   $("#searchField").attr("placeholder", "Enter CVR number. ie. 12312399");
+   $('#rCity').prop('checked', false);
+   $('#rZip').prop('checked', false);
+   $('#rPhone').prop('checked', false);
 });
 
 

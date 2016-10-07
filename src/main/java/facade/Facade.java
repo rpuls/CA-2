@@ -42,7 +42,7 @@ public class Facade {
      * @return Returns the list of all the Persons
      */
     public List<Person> getPersons() {
-        EntityManager em = emf.createEntityManager();
+        EntityManager em = getEntityManager();
 
         try {
             List<Person> persons = em.createQuery("Select p from Person p").getResultList();
@@ -62,7 +62,7 @@ public class Facade {
      * @return A Java object of Person
      */
     public Person getPersonById(int id) {
-        EntityManager em = emf.createEntityManager();
+        EntityManager em = getEntityManager();
 
         try {
             return em.find(Person.class, id);
@@ -295,7 +295,34 @@ public class Facade {
      * @return The same object, after being persisted in the database
      */
     public Person addPerson(Person p) {
-        EntityManager em = emf.createEntityManager();
+        EntityManager em = getEntityManager();
+        
+        // Mapping of the Hobbies and persons
+        if(p.getHobbyCollection() != null){
+            Collection<Hobby> hobbies = p.getHobbyCollection();
+            Collection<Hobby> hobbiesWithAll = new ArrayList<>();
+            for (Hobby hobby : hobbies) {
+                if(hobby.getId() != null){
+                    Hobby hobbie = em.find(Hobby.class, hobby.getId());
+                    Collection<Person> hobbiePerson = hobbie.getPersonCollection();
+                    hobbiePerson.add(p);
+                    hobbie.setPersonCollection(hobbiePerson);
+                    hobbiesWithAll.add(hobbie);
+                }
+            }
+            p.setHobbyCollection(hobbiesWithAll);
+        }
+        
+        // Mapping the Phone Collection
+        if (p.getPhoneCollection() != null) {
+
+            Collection<Phone> phones = p.getPhoneCollection();
+            for (Phone phone : phones) {
+                phone.setInfoentity(p);
+            }
+            p.setPhoneCollection(phones);
+        }
+        
 
         try {
             em.getTransaction().begin();
@@ -317,7 +344,7 @@ public class Facade {
      * @return The same object, after being persisted in the database
      */
     public Company addCompany(Company c) {
-        EntityManager em = emf.createEntityManager();
+        EntityManager em = getEntityManager();
 
         if (c.getPhoneCollection() != null) {
 
@@ -349,7 +376,7 @@ public class Facade {
      */
     public Hobby addHobby(Hobby h) {
 
-        EntityManager em = emf.createEntityManager();
+        EntityManager em = getEntityManager();
 
         try {
             em.getTransaction().begin();
@@ -373,7 +400,7 @@ public class Facade {
      * @return The InfoEntity Object that now contains the new Phone object
      */
     public InfoEntity addPhone(InfoEntity ie, Phone phone) {
-        EntityManager em = emf.createEntityManager();
+        EntityManager em = getEntityManager();
 
         try {
             em.getTransaction().begin();
@@ -400,7 +427,7 @@ public class Facade {
      */
     public Address addAddress(Address adr) {
 
-        EntityManager em = emf.createEntityManager();
+        EntityManager em = getEntityManager();
 
         try {
             em.getTransaction().begin();
@@ -423,7 +450,7 @@ public class Facade {
      * @return The same object, after being persisted in the database
      */
     public CityInfoNew addCityInfo(CityInfoNew cityInfo) {
-        EntityManager em = emf.createEntityManager();
+        EntityManager em = getEntityManager();
 
         try {
             em.getTransaction().begin();

@@ -34,6 +34,7 @@ public class FacadeTest {
     
     private static EntityManagerFactory emf;
     private static Facade facade;
+    private static EntityManager em;
     
     public FacadeTest() {
         emf = Persistence.createEntityManagerFactory("pu_test");
@@ -42,7 +43,6 @@ public class FacadeTest {
     
     @BeforeClass
     public static void setUpClass() {
-        Persistence.generateSchema("pu_test", null);
     }
     
     @AfterClass
@@ -51,10 +51,21 @@ public class FacadeTest {
     
     @Before
     public void setUp() {
+        em = emf.createEntityManager();
+        
+    // Starts the transaction before every test
+        em.getTransaction().begin();
     }
     
-    @After
+    @After 
     public void tearDown() {
+        if (em != null)
+    {
+        //This will not work since it creates a new entity manager and closes it from the facade
+        // Rolls back the transaction after every test
+        em.getTransaction().rollback();
+        em.close();
+    }
     }
 
     @Test
@@ -114,18 +125,10 @@ public class FacadeTest {
         Person found = facade.addPerson(p);
         assertTrue(found.getId() > 0);
         
-        // Tear Down
-        EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
-        Person personToBeRemoved = em.find(Person.class, found.getId());
-        em.remove(personToBeRemoved);
-        em.getTransaction().commit();
-        em.close();
     }
     
     @Test
     public void testCompanyAndAdresseAdd() {
-            EntityManager em = emf.createEntityManager();
             Address d = em.find(Address.class, 1);
             Company c = new Company("Novo", "4040", "novo@gmail.com", "high", 520);
             c.setAdress(d);
@@ -133,17 +136,10 @@ public class FacadeTest {
             assertTrue(found.getId() > 0);
             assertTrue("Failed Found:  " + found.getAdress().getStreet(), d == found.getAdress());
 
-            // Tear Down
-            em.getTransaction().begin();
-            Company com = em.find(Company.class, found.getId());
-            em.remove(com);
-            em.getTransaction().commit();
-            em.close();
         }
     
     @Test
     public void testGetPhonesByCompany(){
-        EntityManager em = emf.createEntityManager();
         Company c = em.find(Company.class, 5); // Gets the first Company We know that has the id of 5!
         int numberOfPhoneEntitys = c.getPhoneCollection().size(); // returns the number of Phones for that company
         String[] result = facade.getPhonesByCompany(c);

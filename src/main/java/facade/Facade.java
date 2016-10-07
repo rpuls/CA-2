@@ -42,7 +42,7 @@ public class Facade {
      * @return Returns the list of all the Persons
      */
     public List<Person> getPersons() {
-        EntityManager em = emf.createEntityManager();
+        EntityManager em = getEntityManager();
 
         try {
             List<Person> persons = em.createQuery("Select p from Person p").getResultList();
@@ -62,7 +62,7 @@ public class Facade {
      * @return A Java object of Person
      */
     public Person getPersonById(int id) {
-        EntityManager em = emf.createEntityManager();
+        EntityManager em = getEntityManager();
 
         try {
             return em.find(Person.class, id);
@@ -298,7 +298,7 @@ public class Facade {
      * @return The same object, after being persisted in the database
      */
     public Person addPerson(Person p) {
-        EntityManager em = emf.createEntityManager();
+        EntityManager em = getEntityManager();
 
         try {
             em.getTransaction().begin();
@@ -320,7 +320,7 @@ public class Facade {
      * @return The same object, after being persisted in the database
      */
     public Company addCompany(Company c) {
-        EntityManager em = emf.createEntityManager();
+        EntityManager em = getEntityManager();
 
         if (c.getPhoneCollection() != null) {
 
@@ -352,7 +352,7 @@ public class Facade {
      */
     public Hobby addHobby(Hobby h) {
 
-        EntityManager em = emf.createEntityManager();
+        EntityManager em = getEntityManager();
 
         try {
             em.getTransaction().begin();
@@ -376,7 +376,7 @@ public class Facade {
      * @return The InfoEntity Object that now contains the new Phone object
      */
     public InfoEntity addPhone(InfoEntity ie, Phone phone) {
-        EntityManager em = emf.createEntityManager();
+        EntityManager em = getEntityManager();
 
         try {
             em.getTransaction().begin();
@@ -403,7 +403,7 @@ public class Facade {
      */
     public Address addAddress(Address adr) {
 
-        EntityManager em = emf.createEntityManager();
+        EntityManager em = getEntityManager();
 
         try {
             em.getTransaction().begin();
@@ -426,7 +426,7 @@ public class Facade {
      * @return The same object, after being persisted in the database
      */
     public CityInfoNew addCityInfo(CityInfoNew cityInfo) {
-        EntityManager em = emf.createEntityManager();
+        EntityManager em = getEntityManager();
 
         try {
             em.getTransaction().begin();

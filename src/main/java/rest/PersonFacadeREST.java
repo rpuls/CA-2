@@ -21,6 +21,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -244,6 +245,19 @@ public class PersonFacadeREST {
         Person newPerson = facade.addPerson(p);
         String jsonString = generateJsonString(newPerson);
         return jsonString;
+    }
+    
+    @DELETE
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("{id}")
+    public String deletePerson(@PathParam("id") int id)
+    {
+        System.out.println("deletePerson");
+        
+        Person p = facade.deletePerson(id);
+        
+        return new Gson().toJson(p);
     }
 
     private String generateJsonString(Person p) {

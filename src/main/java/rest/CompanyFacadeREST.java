@@ -213,8 +213,11 @@ public class CompanyFacadeREST {
     @Path("zip/{number}")
     @Produces(MediaType.APPLICATION_JSON)
     public String getJSONCompanyByZip(@PathParam("number") String number){
-        Company c = facade.getCompanyByZip(number);
+        Collection<Company> com = facade.getCompanyByZip(number);
+        Collection<JsonObject> listofCompanys = new ArrayList<>();
+        for (Company c : com) {
         JsonObject job = new JsonObject();
+            
         if(c.getCvr()!=null){job.addProperty("cvr", c.getCvr());}
         if(c.getName()!=null){job.addProperty("name", c.getName());}
         if(c.getEmail()!=null){job.addProperty("email", c.getEmail());}
@@ -229,14 +232,18 @@ public class CompanyFacadeREST {
             if(cti.getZipCode()!=null){job.addProperty("zipCode", cti.getZipCode());}
             if(cti.getCity()!=null){job.addProperty("city", cti.getCity());}
             }
-        return gson.toJson(job);
+        listofCompanys.add(job);
+        }
+        return gson.toJson(listofCompanys);
     }
     
     @GET
     @Path("city/{name}")
     @Produces(MediaType.APPLICATION_JSON)
     public String getJSONCompanyByCity(@PathParam("name") String name){
-        Company c = facade.getCompanyByCity(name);
+        Collection<Company> com = facade.getCompanyByCity(name);
+        Collection<JsonObject> listofCompanys = new ArrayList<>();
+        for (Company c : com) {
         JsonObject job = new JsonObject();
         if(c.getCvr()!=null){job.addProperty("cvr", c.getCvr());}
         if(c.getName()!=null){job.addProperty("name", c.getName());}
@@ -252,7 +259,9 @@ public class CompanyFacadeREST {
             if(cti.getZipCode()!=null){job.addProperty("zipCode", cti.getZipCode());}
             if(cti.getCity()!=null){job.addProperty("city", cti.getCity());}
             }
-        return gson.toJson(job);
+        listofCompanys.add(job);
+        }
+        return gson.toJson(listofCompanys);
     }
     
     /**

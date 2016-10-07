@@ -19,15 +19,15 @@
     <body>
         <div class="container">
             <div class="row">
-                            <form role="form">
-                <div class="col-lg-6 centered-form ">
+                <form role="form">
+                    <div class="col-lg-6 centered-form ">
 
 
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h3 class="panel-title text-center">Add new Person</h3>
-                        </div>
-                        <div class="panel-body">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title text-center">Add new Person</h3>
+                            </div>
+                            <div class="panel-body">
                                 <div class="form-group">
                                     <input type="text" name="first_name" id="firstName" class="form-control input-sm" placeholder="First Name">
                                 </div>
@@ -39,62 +39,63 @@
                                 <div class="form-group">
                                     <input type="email" name="email" id="email" class="form-control input-sm" placeholder="Email Address">
                                 </div>
+                             
 
                                 <div class="form-group">
-                                    Select Hobby<select class="form-control" multiple id="hobbylist" class="form-control" >
+                                    Select Hobby<select class="form-control" multiple id="hobbylist" >
                                     </select>
                                 </div>
 
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div id="AdresseandPhone" class="col-lg-6 centered-form panel panel-default">
-                    <div class="panel-heading">
-                            <h3 class="panel-title text-center">Phone and Adresse</h3>
-                        </div>
-                    <div class="form-group">
-                        <label for="name">Street Address</label>
-                        <input name="street" required type="text" class="form-control" id="CompanyStreetAddress" placeholder="Enter Street Addresse">
-                    </div>
-                    <div class="form-group">
-                        <label for="name">Additional Info</label>
-                        <input name="additionalInfo" required type="text" class="form-control" id="CompanyStreetAdditional" placeholder="Enter Additional Info">
-                    </div>
-                    <div class="form-group">
-                        <label for="name">Zip Code</label>
-                        <input name="ZIP" required type="text" class="form-control" id="CompanyZip" placeholder="Enter ZipCode">
-                    </div>
-                    <div class="form-group">
-                        <label for="name">City</label>
-                        <input name="CITY" required disabled="true" type="text" class="form-control" id="CompanyCity">
-                    </div>
-                    <div id="phoneContainer">
-                        <div class="phonediv">
-                            
-                        <div class="form-group">
-                            <label for="name">PhoneNumber: </label>
-                            <input name="numer" id="PhoneNumber" required type="text" class="form-control" placeholder="Enter a Phone number">
+                    <div id="AdresseandPhone" class="col-lg-6 centered-form panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title text-center">Phone and Adress</h3>
                         </div>
                         <div class="form-group">
-                            <label for="name">Phone Description: </label>
-                            <input name=description" id="PhoneDescription" required type="text" class="form-control" placeholder="Enter Marked Value">
+                            <label for="name">Street Address</label>
+                            <input name="street" required type="text" class="form-control" id="CompanyStreetAddress" placeholder="Enter Street Addresse">
                         </div>
+                        <div class="form-group">
+                            <label for="name">Additional Info</label>
+                            <input name="additionalInfo" required type="text" class="form-control" id="CompanyStreetAdditional" placeholder="Enter Additional Info">
                         </div>
-                    </div>
-                    
-                    <input id="newPhoneForComapany" type="button" value="New Phone Entity" />
-                    
-                    
-                </div>
+                        <div class="form-group">
+                            <label for="name">Zip Code</label>
+                            <input name="ZIP" required type="text" class="form-control" id="CompanyZip" placeholder="Enter ZipCode">
+                        </div>
+                        <div class="form-group">
+                            <label for="name">City</label>
+                            <input name="CITY" required disabled="true" type="text" class="form-control" id="CompanyCity">
+                        </div>
+                        <div id="phoneContainer">
+                            <div class="phonediv">
 
-                                <input id="pAdd" type="button" value="Register" class="btn btn-info btn-block">
-            </form>
+                                <div class="form-group">
+                                    <label for="name">PhoneNumber: </label>
+                                    <input name="numer" id="PhoneNumber" required type="text" class="form-control" placeholder="Enter a Phone number">
+                                </div>
+                                <div class="form-group">
+                                    <label for="name">Phone Description: </label>
+                                    <input name=description" id="PhoneDescription" required type="text" class="form-control" placeholder="Enter Marked Value">
+                                </div>
+                            </div>
+                        </div>
+
+                        <input id="newPhoneForComapany" type="button" value="New Phone Entity" />
+
+
+                    </div>
+
+                    <input id="pAdd" type="button" value="Register" class="btn btn-info btn-block">
+                </form>
             </div>
             <div id="resultDiv">
-                
-                
+
+
             </div>
-            
+
         </div>
     </body>
 </html>

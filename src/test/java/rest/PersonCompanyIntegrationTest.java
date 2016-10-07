@@ -40,10 +40,14 @@ import static org.junit.Assert.assertEquals;
 public class PersonCompanyIntegrationTest {
 
     private static EntityManagerFactory emf;
+    private static EntityManager em;
+    private static Facade facade;
     
     public PersonCompanyIntegrationTest() {
         
         emf = Persistence.createEntityManagerFactory("remote");
+        facade = new Facade(emf);
+        em = emf.createEntityManager();
     }
 
     @BeforeClass
@@ -61,10 +65,18 @@ public class PersonCompanyIntegrationTest {
 
     @Before
     public void setUp() {
+        em = emf.createEntityManager();
+        
+    // Starts the transaction before every test
+        em.getTransaction().begin();
     }
 
     @After
     public void tearDown() {
+        if (em != null)
+    {
+        em.close();
+    }
     }
 
     @Test
@@ -77,10 +89,12 @@ public class PersonCompanyIntegrationTest {
      */
     @Test
     public void testGetJSONPersons() {
+        List<Person> list = facade.getPersons();
+        int expSize = list.size();
         Person[] persons = 
                 given().
                 when().get("/api/person/complete").as(Person[].class);
-        assertEquals(4,persons.length);
+        assertEquals(expSize,persons.length);
 
     }
 
@@ -104,10 +118,12 @@ public class PersonCompanyIntegrationTest {
      */
     @Test
     public void testGetJSONPersonContact(){
+        List<Person> list = facade.getPersons();
+        int expSize = list.size();
         Person[] persons = 
                 given().
                 when().get("/api/person/contactinfo").as(Person[].class);
-        assertEquals(4,persons.length);
+        assertEquals(expSize,persons.length);
     }
 
     /**
@@ -138,10 +154,12 @@ public class PersonCompanyIntegrationTest {
      */
     @Test
     public void testGetJSONCompanies() {
+        List<Company> list = facade.getCompanies();
+        int expSize = list.size();
         Company[] companies = 
                 given().
                 when().get("/api/company/complete").as(Company[].class);
-        assertEquals(6,companies.length); //size should be updated before running the test
+        assertEquals(expSize,companies.length); //size should be updated before running the test
     }
 
     /**
@@ -164,10 +182,12 @@ public class PersonCompanyIntegrationTest {
      */
     @Test
     public void testGetJSONCompanyContact(){
+        List<Company> list = facade.getCompanies();
+        int expSize = list.size();
         Company[] companies = 
                 given().
                 when().get("/api/company/contactinfo").as(Company[].class);        
-        assertEquals(6,companies.length);//size should be updated before running the test
+        assertEquals(expSize,companies.length);//size should be updated before running the test
     }
 
     /**
@@ -183,18 +203,13 @@ public class PersonCompanyIntegrationTest {
                 .statusCode(200)
                 .body("email", equalTo("CompanyA@gmail.dk"));        
         //Trying to test the phone list as well but it encounters a gsonSyntaxException
-        
-//        Phone[] phones = 
-//                given().pathParam("id", 5)
-//                .when().get("/api/company/contactinfo/{id}").as(Phone[].class);
-//        
-//        assertEquals(1,phones.length);       
+          
     }
     
     
     
     @Test
-    @Ignore //as it will add a lot of hobbies everytime we try to test the file
+    @Ignore
     public void testAddHobby(){
         Map<String,String> hobby = new HashMap<>();
         hobby.put("name", "badminton");
@@ -205,24 +220,14 @@ public class PersonCompanyIntegrationTest {
         .body(hobby)
         .when().post("/api/hobby").then()
         .statusCode(200)
-//        .body("id", equalTo(6)) //It is not good to test the id since it increments everytime we added new even though that id was removed
+        .body("id", equalTo(facade.getHobbies().size())) 
         .body("name", equalTo("badminton"));
         
-        // Tear Down
-        Facade f = new Facade(emf);
-        EntityManager em = emf.createEntityManager();
-        List<Hobby> hobbies = f.getHobbies();
-        for (Hobby hobby1 : hobbies) {
-            if(hobby1.getName().equals("badminton")){
-                em.remove(hobby1);
-            }
-        }
-        em.close();
         
     }
     
     @Test
-    @Ignore //as it will add a lot of hobbies everytime we try to test the file
+    @Ignore
     public void testAddCompany(){
         Map<String,String> com = new HashMap<>();
         com.put("cvr", "1102");
@@ -235,7 +240,10 @@ public class PersonCompanyIntegrationTest {
         .contentType("application/json")
         .body(com)
         .when().post("/api/company").then()
-        .statusCode(200);
+        .statusCode(200)
+        .body("id", equalTo(facade.getCompanies().size())) 
+        .body("name", equalTo("pwc"));
+        
     }
     
     @Test

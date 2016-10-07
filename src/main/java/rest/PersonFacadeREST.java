@@ -242,7 +242,17 @@ public class PersonFacadeREST {
     public String addPerson(String content){
         Person p = gson.fromJson(content, Person.class);
         Person newPerson = facade.addPerson(p);
-        return gson.toJson(newPerson);
+        String jsonString = generateJsonString(newPerson);
+        return jsonString;
+    }
+
+    private String generateJsonString(Person p) {
+        JsonObject job = new JsonObject();
+            if(p.getId()!=null){job.addProperty("id", p.getId());}
+            if(p.getFirstName()!=null && p.getFirstName()!=null){job.addProperty("name", p.getFirstName() + " " +  p.getLastName());}
+            if(p.getEmail()!=null){job.addProperty("email", p.getEmail());}
+            job.addProperty("phones", gson.toJson(facade.getPhonesByPerson(p)));
+            return gson.toJson(job);
     }
 }
     

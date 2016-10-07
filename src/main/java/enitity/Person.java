@@ -7,6 +7,7 @@ package enitity;
 
 import java.io.Serializable;
 import java.util.Collection;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,7 +25,7 @@ public class Person extends InfoEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
     String firstName, lastName;
-    @ManyToMany(mappedBy = "personCollection")
+    @ManyToMany(mappedBy = "personCollection", cascade = CascadeType.MERGE)
     private Collection<enitity.Hobby> hobbyCollection;
 
     public Person() {

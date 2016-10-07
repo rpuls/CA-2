@@ -17,7 +17,11 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Request;
+import javax.ws.rs.core.UriInfo;
 import static rest.PersonFacadeREST.gson;
 
 /**
@@ -28,7 +32,7 @@ import static rest.PersonFacadeREST.gson;
 @Path("cityinfonew")
 public class CityInfoNewFacadeREST {
     
-    static Facade facade = new Facade(Persistence.createEntityManagerFactory("remote"));
+    static Facade facade = PersonFacadeREST.facade;
     static Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
     @PersistenceContext(unitName = "remote")
@@ -44,6 +48,14 @@ public class CityInfoNewFacadeREST {
         CityInfoNew ci = gson.fromJson(content, CityInfoNew.class);
         CityInfoNew newCityInfo = facade.addCityInfo(ci);
         return gson.toJson(newCityInfo);
+    }
+    
+    @GET
+    @Produces({MediaType.TEXT_PLAIN})
+    public String getCityFromZipCode(@Context UriInfo info){
+       String zip = info.getQueryParameters().getFirst("zip");
+       String city= facade.getCityByZipCode(zip);
+       return city;
     }
 
 }

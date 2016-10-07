@@ -8,6 +8,7 @@ and open the template in the editor.
 <head>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <script   src="http://code.jquery.com/jquery-3.1.1.js"   integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="   crossorigin="anonymous"></script>
+    <script   src="http://cdn.jsdelivr.net/jquery.validation/1.15.0/jquery.validate.js" ></script>
     <script src="JavaScript/JSforCreateCompany.js" type="text/javascript"></script>
     <title>Create New Company</title>
     <meta charset="UTF-8">
@@ -17,41 +18,49 @@ and open the template in the editor.
 
     <h1>Create a new Company Here!</h1>
     <div class="container">
-        <form>
+        <form id="CompanyForm">
             <div class="row">
                 <div class="col-lg-6" id="CompanyRow">
                     <div class="form-group">
                         <label for="name">Name of Company: </label>
-                        <input type="text" class="form-control" id="CompanyName" placeholder="Enter Name of Company">
+                        <input required type="text" name="name" class="form-control" id="CompanyName" placeholder="Enter Name of Company">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="name">Email </label>
+                        <input required type="text" name="name" class="form-control" id="CompanyEmail" placeholder="Enter Email">
                     </div>
 
                     <div class="form-group">
                         <label for="name">Description </label>
-                        <input type="text" class="form-control" id="CompanyDescription" placeholder="Enter A Description">
+                        <input required name="description" type="text" class="form-control" id="CompanyDescription" placeholder="Enter A Description">
                     </div>
 
                     <div class="form-group">
                         <label for="name">CVR: </label>
-                        <input type="number" class="form-control" id="ComapanyCVR" placeholder="Enter CVR">
+                        <input required name="cvr" type="number" class="form-control" id="ComapanyCVR" placeholder="Enter CVR">
                     </div>
 
                     <div class="form-group">
                         <label for="name">Number of Employees: </label>
-                        <input type="number" class="form-control" id="CompanyEmployees" placeholder="Enter Number of Employees">
+                        <input required name="NumEmployees" type="number" class="form-control" id="CompanyEmployees" placeholder="Enter Number of Employees">
                     </div>
 
                     <div class="form-group">
                         <label for="name">Marked Value: </label>
-                        <input type="number" class="form-control" id="CompanyMarkedValue" placeholder="Enter Marked Value">
+                        <input required name="marketValue" type="text" class="form-control" id="CompanyMarkedValue" placeholder="Enter Marked Value">
                     </div>
-                    <div id="phonediv">
+                    <div id="phoneContainer">
+                        <div class="phonediv">
+                            
                         <div class="form-group">
                             <label for="name">PhoneNumber: </label>
-                            <input type="text" class="form-control"  class="PhoneNumber" placeholder="Enter a Phone number">
+                            <input name="numer" id="PhoneNumber" required type="text" class="form-control" placeholder="Enter a Phone number">
                         </div>
                         <div class="form-group">
                             <label for="name">Phone Description: </label>
-                            <input type="text" class="form-control" class="PhoneDescription" placeholder="Enter Marked Value">
+                            <input name=description" id="PhoneDescription" required type="text" class="form-control" placeholder="Enter Marked Value">
+                        </div>
                         </div>
                     </div>
                     
@@ -64,15 +73,19 @@ and open the template in the editor.
 
                     <div class="form-group">
                         <label for="name">Street Address</label>
-                        <input type="text" class="form-control" id="CompanyStreetAddress" placeholder="Enter Street Addresse">
+                        <input name="street" required type="text" class="form-control" id="CompanyStreetAddress" placeholder="Enter Street Addresse">
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Street Address</label>
+                        <input name="additionalInfo" required type="text" class="form-control" id="CompanyStreetAdditional" placeholder="Enter Additional Info">
                     </div>
                     <div class="form-group">
                         <label for="name">Zip Code</label>
-                        <input type="number" class="form-control" id="CompanyZip" placeholder="Enter ZipCode">
+                        <input name="ZIP" required type="text" class="form-control" id="CompanyZip" placeholder="Enter ZipCode">
                     </div>
                     <div class="form-group">
                         <label for="name">City</label>
-                        <input disabled="true" type="number" class="form-control" id="CompanyCity">
+                        <input name="CITY" required disabled="true" type="text" class="form-control" id="CompanyCity">
                     </div>
 
                 </div>
@@ -82,7 +95,7 @@ and open the template in the editor.
             <br>
             <br>
             <br>
-            <input id="CompanySubmit" type="button" value="Submit" />
+            <input id="CompanySubmit" type="button" value="Submit"  />
         </form>
     </div>
 </body>

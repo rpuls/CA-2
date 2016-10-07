@@ -32,6 +32,7 @@ public class Address implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @Size(max = 45)
     @Column(name = "Street")
@@ -45,7 +46,7 @@ public class Address implements Serializable {
 //    @ManyToOne(optional = false)
 //    private CityInfoNew cityInfo;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "adress")
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "adress")
     private Collection<enitity.InfoEntity> infoEntities;
 
     public Address() {

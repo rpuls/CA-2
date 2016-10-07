@@ -125,21 +125,21 @@ public class FacadeTest {
     
     @Test
     public void testCompanyAndAdresseAdd() {
-        EntityManager em = emf.createEntityManager();
-        Address d = em.find(Address.class, 1);
-        Company c = new Company("Novo", "4040", "novo@gmail.com", "high", 520);
-        c.setAdress(d);
-        Company found = facade.addCompany(c);
-        assertTrue(found.getId() > 0);
-        assertTrue("Failed Found:  " + found.getAdress().getStreet(), d == found.getAdress());
-        
-        // Tear Down
-        em.getTransaction().begin();
-        Company com = em.find(Company.class, found.getId());
-        em.remove(com);
-        em.getTransaction().commit();
-        em.close();
-    }
+            EntityManager em = emf.createEntityManager();
+            Address d = em.find(Address.class, 1);
+            Company c = new Company("Novo", "4040", "novo@gmail.com", "high", 520);
+            c.setAdress(d);
+            Company found = facade.addCompany(c);
+            assertTrue(found.getId() > 0);
+            assertTrue("Failed Found:  " + found.getAdress().getStreet(), d == found.getAdress());
+
+            // Tear Down
+            em.getTransaction().begin();
+            Company com = em.find(Company.class, found.getId());
+            em.remove(com);
+            em.getTransaction().commit();
+            em.close();
+        }
     
     @Test
     public void testGetPhonesByCompany(){

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <style>
+
+            .centered-form {
+                margin-top: 120px;
+                margin-bottom: 120px;
+            }
+        </style>
+        <title>Register a person</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+        <script   src="http://code.jquery.com/jquery-3.1.1.js"></script>
+        <script>
+
+            $(document).ready(function () {
+                refreshHobbies();
+
+                $("#pAdd").click(function ()
+                {
+                    PersonAdd();
+                });
+
+            });
+
+            function refreshHobbies() {
+
+                $.ajax({
+                    url: "api/hobby",
+                    contentType: "application/json",
+                    method: "GET"
+                }).done(function (hobby) {
+                    var items = "";
+                    hobby.forEach(function (hobby) {
+
+                        items += "<option value='" + $(hobby).attr("id") + "'>" + $(hobby).attr("name") + "</options>";
+                    });
+                    $("#hobbylist").append(items);
+                });
+            }
+
+
+
+
+
+            function PersonAdd()
+            {
+                var person = '{ firstName: ' + $("#firstName").val() + ', lastName: ' + $("#lastName").val() + ', phoneNumber: ' + $("#phone").val() + ' }';
+
+                $.ajax({
+                    url: "api/person",
+                    type: "json",
+                    method: "POST",
+                    data: person,
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8"
+
+                }).done(function (data, status) {
+                    console.log(data);
+                    insertNewData(data);
+                }).fail(function (xhr, status, error) {
+                    console.log("Error!!!  Status Code: " + xhr.responseJSON.code + " Message: " + xhr.responseJSON.message);
+                });
+
+            }
+
+        </script>
+    </head>
+    <body>
+        <div class="container">
+            <div class="row centered-form">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title text-center">Add new Person</h3>
+                    </div>
+                    <div class="panel-body">
+                        <form role="form">
+                            <div class="form-group">
+                                <input type="text" name="first_name" id="firstName" class="form-control input-sm" placeholder="First Name">
+                            </div>
+
+                            <div class="form-group">
+                                <input type="text" name="last_name" id="lastName" class="form-control input-sm" placeholder="Last Name">
+                            </div>
+
+                            <div class="form-group">
+                                <input type="email" name="email" id="email" class="form-control input-sm" placeholder="Email Address">
+                            </div>
+                            <div class="form-group">
+                                <input type="tel" name="phone" id="phone" class="form-control input-sm" placeholder="Phone Number">
+                            </div>
+
+                            <div class="form-group">
+                                Select Hobby<select class="form-control" multiple id="hobbylist" class="form-control" >
+
+                                </select>
+                            </div>
+
+                            <input id="pAdd" type="submit" value="Register" class="btn btn-info btn-block">
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </body>
+</html>

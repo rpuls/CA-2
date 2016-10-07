@@ -3,34 +3,33 @@ package errorhandling;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
-public class ErrorMessage {
-
+public class ErrorMessage
+{
     private int code;
     private String message;
     private String description;
     private String stackTrace;
-
-    public ErrorMessage(Throwable ex, int code, boolean debug) {
+    
+    public ErrorMessage(Throwable ex, int code, boolean debug)
+    {
         this.code = code;
         this.message = ex.getMessage();
-
-        if (debug) {
+        
+        if (debug)
+        {
             StringWriter sw = new StringWriter();
             ex.printStackTrace(new PrintWriter(sw));
             this.stackTrace = sw.toString();
         }
     }
 
-    public ErrorMessage(String message, int statusCode) {
-        this.code = statusCode;
-        this.message = message;
-    }
-
-    public void setDescription(String description) {
+    public void setDescription(String description)
+    {
         this.description = description;
     }
 
-    public void setMessage(String message) {
+    public void setMessage(String message)
+    {
         this.message = message;
-    }
+    } 
 }

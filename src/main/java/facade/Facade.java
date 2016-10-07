@@ -565,11 +565,37 @@ public class Facade {
 
     }
 
-    public Company getCompanyByZip(String number) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Collection<Company> getCompanyByZip(String number) {
+        EntityManager em = getEntityManager();
+        
+        try {
+            TypedQuery<Company> q = em.createQuery("SELECT c FROM Company c WHERE c.adress.cityInfoNew.zipCode = :zip", Company.class);
+            q.setParameter("zip", number);
+            Collection<Company> companies = q.getResultList();
+            return companies;
+        } catch (Exception e) {
+            System.out.println("Error");
+            throw e;
+        }
+        finally{
+            em.close();
+        }
     }
 
-    public Company getCompanyByCity(String name) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Collection<Company> getCompanyByCity(String name) {
+        EntityManager em = getEntityManager();
+        
+        try {
+            TypedQuery<Company> q = em.createQuery("SELECT c FROM Company c WHERE c.adress.cityInfoNew.city = :city", Company.class);
+            q.setParameter("city", name);
+            Collection<Company> companies = q.getResultList();
+            return companies;
+        } catch (Exception e) {
+            System.out.println("Error");
+            throw e;
+        }
+        finally{
+            em.close();
+        }
     }
 }

@@ -23,7 +23,9 @@ import static org.junit.Assert.assertEquals;
 import static com.jayway.restassured.RestAssured.given;
 import static com.jayway.restassured.RestAssured.given;
 import enitity.Hobby;
+import facade.Facade;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -207,12 +209,15 @@ public class PersonCompanyIntegrationTest {
         .body("name", equalTo("badminton"));
         
         // Tear Down
-//        EntityManager em = emf.createEntityManager();
-//        em.getTransaction().begin();
-//        Hobby hobbyToBeRemoved = em.find(Hobby.class, 7);//The id should be changed depends on the last id in the Hobby table
-//        em.remove(hobbyToBeRemoved);
-//        em.getTransaction().commit();
-//        em.close();
+        Facade f = new Facade(emf);
+        EntityManager em = emf.createEntityManager();
+        List<Hobby> hobbies = f.getHobbies();
+        for (Hobby hobby1 : hobbies) {
+            if(hobby1.getName().equals("badminton")){
+                em.remove(hobby1);
+            }
+        }
+        em.close();
         
     }
     

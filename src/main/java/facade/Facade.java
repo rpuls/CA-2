@@ -154,9 +154,6 @@ public class Facade {
      * @return The company, that is found.
      */
     public Company getCompanyByPhone(String phone) {
-        //in this method we should search for the given parameter in first the
-        //phone field, if nothing foud we should search in the cvr field and
-        //return null if no company with either matching phone or cvr
         EntityManager em = getEntityManager();
         Company c = new Company();
 
@@ -539,5 +536,13 @@ public class Facade {
             em.close();
         }
 
+    }
+
+    public Company getCompanyByZip(String number) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public Company getCompanyByCity(String name) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

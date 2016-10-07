@@ -299,6 +299,33 @@ public class Facade {
      */
     public Person addPerson(Person p) {
         EntityManager em = getEntityManager();
+        
+        // Mapping of the Hobbies and persons
+        if(p.getHobbyCollection() != null){
+            Collection<Hobby> hobbies = p.getHobbyCollection();
+            Collection<Hobby> hobbiesWithAll = new ArrayList<>();
+            for (Hobby hobby : hobbies) {
+                if(hobby.getId() != null){
+                    Hobby hobbie = em.find(Hobby.class, hobby.getId());
+                    Collection<Person> hobbiePerson = hobbie.getPersonCollection();
+                    hobbiePerson.add(p);
+                    hobbie.setPersonCollection(hobbiePerson);
+                    hobbiesWithAll.add(hobbie);
+                }
+            }
+            p.setHobbyCollection(hobbiesWithAll);
+        }
+        
+        // Mapping the Phone Collection
+        if (p.getPhoneCollection() != null) {
+
+            Collection<Phone> phones = p.getPhoneCollection();
+            for (Phone phone : phones) {
+                phone.setInfoentity(p);
+            }
+            p.setPhoneCollection(phones);
+        }
+        
 
         try {
             em.getTransaction().begin();

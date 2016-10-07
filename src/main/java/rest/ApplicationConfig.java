@@ -24,9 +24,7 @@ public class ApplicationConfig extends Application {
      * If required, comment out calling this method in getClasses().
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
-        resources.add(errorhandling.NotFoundExceptionMapper.class);
-        resources.add(errorhandling.PersonNotFoundExceptionMapper.class);
-        resources.add(errorhandling.RuntimeExceptionMapper.class);
+        resources.add(errorhandling.GeneralExceptionMapper.class);
         resources.add(rest.AddressFacadeREST.class);
         resources.add(rest.CityInfoNewFacadeREST.class);
         resources.add(rest.CompanyFacadeREST.class);

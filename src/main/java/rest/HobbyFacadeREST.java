@@ -55,6 +55,7 @@ public class HobbyFacadeREST {
         List<JsonObject> jObList = new ArrayList();
         for (Hobby h : hobbyList) {
             JsonObject jOb = new JsonObject();
+            if(h.getId() != null){jOb.addProperty("id", h.getId());}
             if(h.getName()!=null){jOb.addProperty("name", h.getName());}
             if(h.getDescription()!=null){jOb.addProperty("description", h.getDescription());}
             jObList.add(jOb);

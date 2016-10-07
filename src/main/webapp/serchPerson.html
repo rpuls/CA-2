@@ -11,19 +11,21 @@
         <div class="container" id="personPage">
             <form action="#">
                 <div>
-                    <input type="text" id="searchField" placeholder="Enter name.."></input>
+                    <input type="text" id="searchField" placeholder="Enter name..">
                     <button id="searchBtn">Search</button>
                 </div>
                 <div id="moreOptions">More options</div>
                 <div id="lessOptions">Less options</div>
                 <div id="options">
                     <input type="radio" name="city" value="city" id="rCity"> City
-                    <input type="radio" name="zip" value="zip" id="rRip"> Zip code
+                    <input type="radio" name="zip" value="zip" id="rZip"> Zip code
                     <input type="radio" name="phone" value="phone" id="rPhone"> Phone number
                     
                 </div>
             </form>
+            <div id="searchResult"></div>
         </div>
         <script src="JavaScript/searchPages.js" type="text/javascript"></script>
+        <script src="JavaScript/searchPerson.js" type="text/javascript"></script>
     </body>
 </html>

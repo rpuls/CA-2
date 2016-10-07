@@ -34,7 +34,7 @@ $(document).ready(function () {
 
                 items += "<option value='" + $(hobby).attr("id") + "'>" + $(hobby).attr("name") + "</options>";
             });
-            $("#hobbylist").append(items);
+            $("#hobbylist").html(items);
         });
     }
 
@@ -134,7 +134,7 @@ $(document).ready(function () {
         htmlString += "<li> name: " + data.name + "</li>";
         htmlString += "</ul>";
         
-        $("#resultDiv").append(htmlString);
+        $("#resultDiv").html(htmlString); // html instead of append
     }
     
     function clearFields(){

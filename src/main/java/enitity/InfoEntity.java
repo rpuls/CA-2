@@ -46,10 +46,10 @@ public class InfoEntity implements Serializable {
 //    @OneToMany
 //    private List<Company> companies = new ArrayList();
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "infoentity")
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "infoentity")
     private Collection<enitity.Phone> phoneCollection;
     
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, cascade = CascadeType.PERSIST)
     private Address adress;
 
     public Integer getId() {

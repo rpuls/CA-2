@@ -321,7 +321,16 @@ public class Facade {
      */
     public Company addCompany(Company c) {
         EntityManager em = emf.createEntityManager();
-
+        
+        if(c.getPhoneCollection() != null){
+            
+        Collection<Phone> phones = c.getPhoneCollection();
+        for (Phone phone : phones) {
+            phone.setInfoentity(c);
+        }
+        c.setPhoneCollection(phones);
+        }
+        
         try {
             em.getTransaction().begin();
             em.persist(c);
@@ -501,6 +510,20 @@ public class Facade {
     public Company getCompanyById(Integer id) {
         EntityManager em = getEntityManager();
         return em.find(Company.class, id);
+    }
+
+    /**
+     * Gives back the City based on the Zip
+     *
+     * @param zip For the Wanted City
+     * @return The City as a String
+     */
+    public String getCityByZipCode(String zip) {
+        EntityManager em = getEntityManager();
+        TypedQuery<CityInfoNew> query = em.createNamedQuery("Cityinfo.findByZipCode", CityInfoNew.class);
+        query.setParameter("zipCode", zip);
+        CityInfoNew found = query.getSingleResult();
+        return found.getCity();
     }
 
 }

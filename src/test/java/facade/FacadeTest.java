@@ -70,7 +70,7 @@ public class FacadeTest {
 
     @Test
     public void testGetPerson() {
-        String phonenumber = "123456789"; // 
+        String phonenumber = "987654321"; // 
         Person p = facade.getPersonByPhone(phonenumber);
         Collection<Phone> l = p.getPhoneCollection();
         String foundPhonenumber="";
@@ -87,11 +87,10 @@ public class FacadeTest {
     }
    
     @Test
-    @Ignore
     public void testGetPersonsByCity(){
-        List<Person> pList = (List<Person>) facade.getPersonsByCity("Vedbæk");
+        List<Person> pList = (List<Person>) facade.getPersonsByCity("København K");
         
-        assertEquals(1,pList.size());
+        assertEquals(3,pList.size());
         
 }
     

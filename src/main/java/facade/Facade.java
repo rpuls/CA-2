@@ -321,16 +321,16 @@ public class Facade {
      */
     public Company addCompany(Company c) {
         EntityManager em = emf.createEntityManager();
-        
-        if(c.getPhoneCollection() != null){
-            
-        Collection<Phone> phones = c.getPhoneCollection();
-        for (Phone phone : phones) {
-            phone.setInfoentity(c);
+
+        if (c.getPhoneCollection() != null) {
+
+            Collection<Phone> phones = c.getPhoneCollection();
+            for (Phone phone : phones) {
+                phone.setInfoentity(c);
+            }
+            c.setPhoneCollection(phones);
         }
-        c.setPhoneCollection(phones);
-        }
-        
+
         try {
             em.getTransaction().begin();
             em.persist(c);
@@ -524,8 +524,10 @@ public class Facade {
         query.setParameter("zipCode", zip);
         CityInfoNew found = query.getSingleResult();
         return found.getCity();
+    }
+
     public List<Hobby> getHobbies() {
- EntityManager em = getEntityManager();
+        EntityManager em = getEntityManager();
         try {
             Query q = em.createQuery("Select h from Hobby h");
             List<Hobby> collection = q.getResultList();
@@ -536,8 +538,6 @@ public class Facade {
         } finally {
             em.close();
         }
-       
 
     }
-
 }

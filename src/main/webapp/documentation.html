@@ -47,19 +47,19 @@
                     be hosted at the URI path provided in the project such as “/person” and “/company” with some 
                     corresponding methods that will process the HTTP requests whether it is for GET or POST and be
                     identified as JSON Objects.
-                    </p>
-                    <br>
-                    <p>
-                        We’ve made error handling by simply returning error messages in a JSON format. 
-                        We used GeneralExceptionMapper class to provide error response in JSON format 
-                        so every time it encounters an exception, it will return the corresponding error message. 
-                        REST API uses JSON, which is basically a universal connector for data on the internet and 
-                        most programming languages have an easy way to convert into their standard data structures
-                        such as the used of gson that’s why, it is mostly used media type format in our program. 
-                    </p>
-	<br>
+                </p>
+                <br>
+                <p>
+                    We’ve made error handling by simply returning error messages in a JSON format. 
+                    We used GeneralExceptionMapper class to provide error response in JSON format 
+                    so every time it encounters an exception, it will return the corresponding error message. 
+                    REST API uses JSON, which is basically a universal connector for data on the internet and 
+                    most programming languages have an easy way to convert into their standard data structures
+                    such as the used of gson that’s why, it is mostly used media type format in our program. 
+                </p>
+                <br>
 
-        <p><i>List of REST-API services:</i></p>
+                <p><i>List of REST-API services:</i></p>
                 <br>
                 <ul>
                     <li>Person Service <a href="javadoc/rest/PersonFacadeREST.html">Go to javadoc for PersonFacadeREST</a>
@@ -82,8 +82,27 @@
                             <li>getJSONCompaniesContactByCompanies - api/company/contactinfo/{id}</li>
                             <li>getJSONCompanyByPhone - api/company/phone/{number}</li>
                             <li>getJSONCompanyByCvr - api/company/cvr/{number}</li>
+                            <li>getJSONCompanyByZip -  api/zip/{number}</li>
+                            <li>getJSONCompanyByCity - api/city/{name}</li>
                             <li>getJSONCompaniesByEmpNumber - api/company/employees/{number}</li>
                             <li>addCompany - api/company [post content]</li>
+                        </ul>
+                    </li>
+                    <li>Hobby Service  <a href="javadoc/rest/HobbyFacadeREST.html">Go to javadoc for HobbyFacadeREST</a>
+                        <ul>
+                            <li>getJSONHobbies - api/hobby</li>
+                            <li>addHobby - api/hobby [post content]</li>
+                        </ul>
+                    </li>
+                    <li>Adress Service  <a href="javadoc/rest/AddressFacadeREST.html">Go to javadoc for AddressFacadeREST</a>
+                        <ul>
+                            <li>addAdress - api/address [post content]</li>
+                        </ul>
+                    </li>
+                    <li>CityInfo Service  <a href="javadoc/rest/CityInfoNewFacadeREST.html">Go to javadoc for CityInfoNewFacadeREST</a>
+                        <ul>
+                            <li>addCityInfo - api/cityinfonew [post content]</li>
+                            <li>getCityFromZipCode - api/cityinfonew</li>
                         </ul>
                     </li>
                 </ul>
@@ -96,16 +115,16 @@
                     We made unit testing in the methods that will probably have some errors that will surely affects the 
                     functionality of the program such as the get, add and look by methods. We also used a new persistence unit connected to
                     a database which is just meant for testing, called "pu_test".
-                    </p>
-                    <br>
+                </p>
+                <br>
                 <div>
                     <div>
                         <h4>jUnit testing</h4><a href="https://github.com/rpuls/CA-2/blob/master/src/test/java/facade/FacadeTest.java">Go to the code</a>
                     </div>
                     <img src="res/junittests.PNG" alt=""/>
                 </div>
-                    
-                    <h4><b><i>Testing the REST API</i></b></h4>
+
+                <h4><b><i>Testing the REST API</i></b></h4>
                 <br>
                 <p> 
                     We have implemented REST-Assured framework from Jayway to execute automatically REST web 
@@ -119,14 +138,14 @@
                     methods which is a little bit tricky. We are aware that the test runs successfully but chose
                     to just put an ignore annotation because we don’t want to insert a lot of same data in the 
                     database every time it does the automation tests. 
-                    </p>
-                    <br>
-                    
+                </p>
+                <br>
+
                 <div>
                     <h4>REST assured testing</h4>
                     <a href="https://github.com/rpuls/CA-2/blob/master/src/test/java/rest/PersonCompanyIntegrationTest.java">Go to the code</a>
                 </div>
-                    <img src="res/restassured.PNG" alt=""/>
+                <img src="res/restassured.PNG" alt=""/>
 
                 <div>
                     <div>
@@ -164,95 +183,95 @@
 
             <div id="whoDoc">
                 <h4 align="center"><b><i>TASK ASSIGNMENTS</i></b></h4>
-                 <table>
-            <th>DAY</th>
-            <th>Task</th>
-            <th>Contributors</th>
-            <tr>
-                <td>01</td>
-                <td>Remote Database Setup</td>
-                <td>Daniel, Cherry, Waqas</td>
-            </tr>
-            <tr>
-                <td></td>
-                <td>Design Entity Classes</td>
-                <td>Rasmus</td>
-            </tr>
-            <tr>
-                <td></td>
-                <td>Facade Class</td>
-                <td>Daniel,Cherry</td>
-            </tr>
-            <tr></tr>
-            
-            <tr>
-                <td>02</td>
-                <td>Script-populating Companies and Persons</td>
-                <td>Cherry</td>
-            </tr>
-            <tr>
-                <td></td>
-                <td>JUnit Tests</td>
-                <td>Cherry, Daniel</td>
-            </tr>
-            <tr>
-                <td></td>
-                <td>Exception Error Handling</td>
-                <td>Waqas</td>
-            </tr>
-            <tr>
-                <td></td>
-                <td>REST API Web Services</td>
-                <td>Rasmus</td>
-            </tr>
-            
-            <tr></tr>
-            <tr>
-                <td>03</td>
-                <td>Rest-Assured Test</td>
-                <td>Cherry</td>
-            </tr>
-            <tr>
-                <td></td>
-                <td>Front End - Post Form for Person</td>
-                <td>Waqas</td>
-            </tr>
-            <tr>
-                <td></td>
-                <td>Front End - Post Form for Company</td>
-                <td>Daniel</td>
-            </tr>
-            <tr>
-                <td></td>
-                <td>Front End - Search</td>
-                <td>Rasmus</td>
-            </tr>
-            <tr></tr>
-            <tr>
-                <td>04</td>
-                <td>Documentation</td>
-                <td>Cherry, Rasmus</td>
-            </tr>
-            <tr>
-                <td></td>
-                <td>Finalize web page</td>
-                <td>All</td>
-            </tr>
-            <tr>
-                <td></td>
-                <td>Deploy final version in digital ocean</td>
-                <td>All</td>
-            </tr>
-            
-        </table>
-                
-        <h4><b><i>Suggestions:</i></b></h4>
-        <p>
-            We have all been here all of the days and worked on different parts of the
-            project. We think that all from the group should have full study points.
-        </p>
-        
-        
+                <table>
+                    <th>DAY</th>
+                    <th>Task</th>
+                    <th>Contributors</th>
+                    <tr>
+                        <td>01</td>
+                        <td>Remote Database Setup</td>
+                        <td>Daniel, Cherry, Waqas</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Design Entity Classes</td>
+                        <td>Rasmus</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Facade Class</td>
+                        <td>Daniel,Cherry</td>
+                    </tr>
+                    <tr></tr>
+
+                    <tr>
+                        <td>02</td>
+                        <td>Script-populating Companies and Persons</td>
+                        <td>Cherry</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>JUnit Tests</td>
+                        <td>Cherry, Daniel</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Exception Error Handling</td>
+                        <td>Waqas</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>REST API Web Services</td>
+                        <td>Rasmus</td>
+                    </tr>
+
+                    <tr></tr>
+                    <tr>
+                        <td>03</td>
+                        <td>Rest-Assured Test</td>
+                        <td>Cherry</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Front End - Post Form for Person</td>
+                        <td>Waqas</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Front End - Post Form for Company</td>
+                        <td>Daniel</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Front End - Search</td>
+                        <td>Rasmus</td>
+                    </tr>
+                    <tr></tr>
+                    <tr>
+                        <td>04</td>
+                        <td>Documentation</td>
+                        <td>Cherry, Rasmus</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Finalize web page</td>
+                        <td>All</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Deploy final version in digital ocean</td>
+                        <td>All</td>
+                    </tr>
+
+                </table>
+
+                <h4><b><i>Suggestions:</i></b></h4>
+                <p>
+                    We have all been here all of the days and worked on different parts of the
+                    project. We think that all from the group should have full study points.
+                </p>
+
+
             </div>
         </div>
         <script>

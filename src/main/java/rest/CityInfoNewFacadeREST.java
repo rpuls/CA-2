@@ -44,7 +44,7 @@ public class CityInfoNewFacadeREST {
     @POST
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
-    public String addPerson(String content){
+    public String addCityInfo(String content){
         CityInfoNew ci = gson.fromJson(content, CityInfoNew.class);
         CityInfoNew newCityInfo = facade.addCityInfo(ci);
         return gson.toJson(newCityInfo);

@@ -39,7 +39,7 @@ public class AddressFacadeREST {
     @POST
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
-    public String addPerson(String content){
+    public String addAdress(String content){
         Address adr = gson.fromJson(content, Address.class);
         Address newAdress = facade.addAddress(adr);
         return gson.toJson(newAdress);

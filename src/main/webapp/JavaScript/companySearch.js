@@ -2,33 +2,67 @@ $(document).ready(function () {
 
     $("#searchBtn").on("click", function () {
         var searchValue = $("#searchField").val();
+        var url = {};
         if ($("#rCvr").is(':checked')) {
-            var url = "api/company/cvr/" + searchValue;
+            url = "api/company/cvr/" + searchValue;
+            byCVR(url);
         } else if ($("#rPhone").is(':checked')) {
-            var url = "api/company/phone/" + searchValue;
+            url = "api/company/phone/" + searchValue;
         } else if ($("#rZip").is(':checked')) {
-            var url = "api/company/zip/" + searchValue;
+            url = "api/company/zip/" + searchValue;
+            byZipOrCity(url);
         } else if ($("#rCity").is(':checked')) {
-            var url = "api/company/city/" + searchValue;
+            url = "api/company/city/" + searchValue;
+            byZipOrCity(url);
         } else {
-            var url = "api/company/complete";
+            url = "api/company/complete";
+            all(url);
         }
 
-        $.ajax({
-            url: url,
-            type: "json",
-            method: "GET"
-        }).done(function (data) {
-            var items = "";
-            if(typeof data !== 'object'){
-            data.forEach(function (company) {
-                    items += "<li>" + company.name + "</li>";
-                });
-            } else {
-                items = "<li>" + data.name + "</li>";
-            }
-            $("#searchResult").html(items);
-        });
     });
+    
+    function byCVR(url){
+        $.ajax({
+                url: url,
+                type: "json",
+                method: "GET"
+            }).done(function (data) {
+                var items = "";
+                for (var company in data) {
+                    items += "<li>" + data[company].valueOf("name") + "</li>";
+                }
+                $("#searchResult").append(items);
 
+            });
+    }
+    
+    function all(url){
+        $.ajax({
+                url: url,
+                type: "json",
+                method: "GET"
+            }).done(function (data) {
+                var items = "";
+                data.forEach(function (company) {
+                   items += "<li>" + company.name + "</li>";
+                });
+                $("#searchResult").append(items);
+
+            });
+    }
+    
+    function byZipOrCity(url){
+        $.ajax({
+                url: url,
+                type: "json",
+                method: "GET"
+            }).done(function (data) {
+                var items = "";
+                data.forEach(function (company) {
+                   items += "<li>" + company.name + "</li>";
+                });
+                $("#searchResult").append(items);
+
+            });
+    }
 });

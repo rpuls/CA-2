@@ -20,10 +20,13 @@ $(document).ready(function () {
             method: "GET"
         }).done(function (data) {
             var items = "";
+            if(typeof data !== 'object'){
             data.forEach(function (company) {
                     items += "<li>" + company.name + "</li>";
                 });
-
+            } else {
+                items = "<li>" + data.name + "</li>";
+            }
             $("#searchResult").html(items);
         });
     });

@@ -7,7 +7,7 @@ $(function () {
         object.description = $("#hobbyDescription").val();
         var jsonobject = JSON.stringify(object);
         var ajaxCall = $.ajax({
-            url: "http://localhost:8080/CA-2/api/hobby",
+            url: "api/hobby",
             contentType: "application/json",
             data: jsonobject,
             method: "POST"

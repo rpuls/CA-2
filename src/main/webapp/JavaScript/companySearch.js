@@ -7,7 +7,7 @@ $(document).ready(function () {
         } else if ($("#rPhone").is(':checked')) {
             var url = "api/company/phone/" + searchValue;
         } else if ($("#rZip").is(':checked')) {
-            var url = "api/company/phone/" + searchValue;
+            var url = "api/company/zip/" + searchValue;
         } else if ($("#rCity").is(':checked')) {
             var url = "api/company/city/" + searchValue;
         } else {
@@ -20,13 +20,9 @@ $(document).ready(function () {
             method: "GET"
         }).done(function (data) {
             var items = "";
-            if(typeof data != 'object'){
             data.forEach(function (company) {
                     items += "<li>" + company.name + "</li>";
                 });
-            } else {
-                items = "<li>" + data.name + "</li>";
-            }
 
             $("#searchResult").html(items);
         });
